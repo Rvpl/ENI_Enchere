@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Définir le pool de connexions vers la base de données GestionAvisBDD (serveur SQLServer) -->
+<Context>
+<Resource
+	name="jdbc/pool_cnx_enienchere"
+	type="javax.sql.DataSource"
+	driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+	
+	url="jdbc:sqlserver://localhost:1433;databasename=ENI_Enchere"
+	username="sa"
+	password="Aqwzsx123@"
+	
+	maxIdle="3"
+	maxTotal="10"
+	maxWaitMillis="10000"
+	
+	removeAbandoned="true"
+	removeAbandonedTimeout="15"
+	/>
+</Context>
