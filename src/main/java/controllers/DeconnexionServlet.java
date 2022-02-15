@@ -32,7 +32,7 @@ public class DeconnexionServlet extends HttpServlet {
 		request.getSession();
 		HttpSession session = request.getSession();
 		session.invalidate();
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/JSP/Accueil.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("home");
 		if (rd != null) {
 			rd.forward(request, response);
 		}
