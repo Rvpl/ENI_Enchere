@@ -30,14 +30,12 @@
 		<div class = "container">
 			<div class="row">
 			<c:forEach var="article" items="${requestScope.articles}" >
-			 	
-			 		<div class="col-2">
+			 	<div class="col-3">
 			 			<p>${article.nomArticle }</p>
 				 		<p>prix : ${article.prixVente }</p>
 				 		<p>Fin de l'enchère : ${article.dateFinEncheres }</p>
 				 		<p>Vendeur : ${article.noUtilisateur  }</p>
-			 		</div>
-			 	
+			 		</div> 	
 		 		</c:forEach>
 		 	</div>
 		</div>
@@ -46,14 +44,17 @@
 	</c:if>
 	
 	<c:if test="${requestScope.articlesBN != null}">
+	<div class="row">
 		<c:forEach var="articleBN" items="${requestScope.articlesBN}" >
-		 	<div>
+		 	<div class="col-3">
 		 		<p>${articleBN.nomArticle }</p>
 		 		<p>prix : ${articleBN.prixVente }</p>
 		 		<p>Fin de l'enchère : ${articleBN.dateFinEncheres }</p>
 		 		<p>Vendeur : ${articleBN.noUtilisateur  }</p>
 		 	</div>
 	 	</c:forEach>
+	</div>
+		
 	</c:if>
 	</div>
  
