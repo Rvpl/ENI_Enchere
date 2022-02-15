@@ -12,7 +12,7 @@
 	    </button>
 	    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 	      <div class="navbar-nav">
-	        <a class="nav-link" href="#">connexion</a>
+	        <a class="nav-link" href="${pageContext.request.contextPath}/connecter">connexion</a>
 	        <a class="nav-link" href="#">/</a>
 	        <a class="nav-link" href="#">inscription</a>
 	      </div>
