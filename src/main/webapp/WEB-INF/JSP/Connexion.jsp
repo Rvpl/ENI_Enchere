@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <%@ include file="/WEB-INF/JSP/Fragments/Head.jspf"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <title>Connexion</title>
 </head>
 <body style="text-align:center">
@@ -17,6 +18,9 @@
 	<input type="password" name="password">
 	<button class="btn btn-warning">Connexion</button>
 </form>
+<c:if test="${requestScope.introuvable == 0 }">
+	<p>Login ou Mot de passe incorrect</p>
+</c:if>
 <button class="btn btn-warning">Créer un compte</button>
 
 <body>

@@ -8,7 +8,6 @@ public class ConnexionJdbcImpl {
 
 	private static final String SELECT_UTIL = "SELECT no_utilisateur,pseudo,nom,prenom FROM utilisateurs WHERE pseudo = ? AND mot_de_passe = ?";
 	
-	
 	public int select(String pseudo,String mdp) {
 		Connection cnx = null;
 		int no = 0;
@@ -26,7 +25,6 @@ public class ConnexionJdbcImpl {
 			if(rs.next()) {
 				no = rs.getInt(1);
 			}
-			
 		}catch(Exception e) {
 			System.out.println("Echec connexion à la BDD");
 		}

@@ -36,7 +36,6 @@ public class Connexion extends HttpServlet {
 		if (rd != null) {
 			rd.forward(request, response);
 		}
-		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
@@ -45,6 +44,7 @@ public class Connexion extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String login = null;
 		String mdp = null;
+		int identifiant = 0;
 		
 		if(request.getParameter("login") != null) {
 			login = request.getParameter("login").trim();
@@ -54,7 +54,7 @@ public class Connexion extends HttpServlet {
 			mdp = request.getParameter("password").trim();
 		}
 		
-		int identifiant = connexionMng.selectUtilisateur(login, mdp);
+		identifiant = connexionMng.selectUtilisateur(login, mdp);
 		if(identifiant != 0) {
 			HttpSession session = request.getSession();
 			session.setAttribute("utilisateur", identifiant);
@@ -63,7 +63,11 @@ public class Connexion extends HttpServlet {
 				rd.forward(request, response);
 			}
 		}else {
-			System.out.println("Utilisateur inconnu");
+			request.setAttribute("introuvable", identifiant);
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/JSP/Connexion.jsp");
+			if (rd != null) {
+				rd.forward(request, response);
+			}
 		}
 	}
 
