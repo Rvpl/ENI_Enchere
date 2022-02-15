@@ -36,7 +36,6 @@ public class InscritpionServlet extends HttpServlet {
 		if (rd != null) {
 			rd.forward(request, response);
 		}
-		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
@@ -57,6 +56,7 @@ public class InscritpionServlet extends HttpServlet {
 		String motDePasse=  null;
 		String administrateur=  null;
 		String confirmationMDP= null;
+		
 		if(request.getParameter("pseudo") != null) {
 			pseudo = request.getParameter("pseudo").trim();
 		}
@@ -102,13 +102,20 @@ public class InscritpionServlet extends HttpServlet {
 			}
 		}
 		
-//		System.out.println(pseudo+" "+nom+" "+prenom+" "+email+" "+telephoneStr+" "+rue+" "+codePostalStr+" "+ville+" "+motDePasse);
-//		if(pseudo.isEmpty()||nom.isEmpty()||prenom.isEmpty()|| email.isEmpty()||telephoneStr.isEmpty()
-//			||rue.isEmpty()||codePostalStr.isEmpty()||confirmationMDP!=motDePasse||ville.isEmpty()||motDePasse.isEmpty() ) {
-//			System.out.println("oups");
-//		}else {
 			Utilisateur user = new Utilisateur(pseudo,nom,prenom,email,tel,rue,cp,ville,motDePasse);
-			inscriptionMng.insert(user);
+			int exist = inscriptionMng.insert(user);
+			if(exist != 0) {
+				request.setAttribute("exist", exist);
+				request.setAttribute("pseudo", pseudo);
+				request.setAttribute("nom", nom);
+				request.setAttribute("prenom", prenom);
+				request.setAttribute("email", email);
+				request.setAttribute("tel", tel);
+				request.setAttribute("rue", rue);
+				request.setAttribute("cp", cp);
+				request.setAttribute("ville", ville);
+				doGet(request, response);
+			}
 		
 	}
 

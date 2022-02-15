@@ -11,7 +11,7 @@ public InscriptionManager() {
 	inscriptionMng= new InscriptionJdbc();
 	}
 
-public void insert(Utilisateur nouvelUtilisateur) {
-	inscriptionMng.insert(nouvelUtilisateur);
+public int insert(Utilisateur nouvelUtilisateur) {
+	return inscriptionMng.insert(nouvelUtilisateur);
 }
 }
