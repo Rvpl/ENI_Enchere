@@ -4,7 +4,7 @@
 <html>
 <%@ include file="/WEB-INF/JSP/Fragments/Head.jspf"%>
 <body>
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 	  <div class="container-fluid">
 	    <a class="navbar-brand" href="#">ENI-Encheres</a>
 	    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
