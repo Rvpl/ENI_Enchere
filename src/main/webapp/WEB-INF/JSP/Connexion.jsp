@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <%@ include file="/WEB-INF/JSP/Fragments/Head.jspf"%>
+<title>Connexion</title>
 </head>
 <body>
 
