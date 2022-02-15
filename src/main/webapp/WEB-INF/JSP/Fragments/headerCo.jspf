@@ -12,7 +12,7 @@
 	        <a class="nav-link" href="#">Enchères</a>
 	       <a class="nav-link" href="#">Vendre un article</a>
 	        <a class="nav-link" href="#">Mon profil</a>
-	        <a class="nav-link" href="#">Déconnexion</a>
+	        <a class="nav-link" href="${pageContext.request.contextPath}/deco">Déconnexion</a>
 	      </div>
 	    </div>
 	  </div>
