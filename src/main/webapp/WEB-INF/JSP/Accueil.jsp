@@ -14,7 +14,7 @@
 	      <div class="navbar-nav">
 	        <a class="nav-link" href="${pageContext.request.contextPath}/connecter">connexion</a>
 	        <a class="nav-link" href="#">/</a>
-	        <a class="nav-link" href="#">inscription</a>
+	        <a class="nav-link" href="${pageContext.request.contextPath}/inscription">inscription</a>
 	      </div>
 	    </div>
 	  </div>
