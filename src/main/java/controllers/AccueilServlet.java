@@ -8,6 +8,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import bll.ArticleManager;
 
 /**
  * Servlet implementation class AccueilServlet
@@ -15,13 +18,14 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/home")
 public class AccueilServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private ArticleManager ArticleMng;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
     public AccueilServlet() {
         super();
-        // TODO Auto-generated constructor stub
+        ArticleMng = new ArticleManager();
     }
 
 	/**
@@ -40,7 +44,16 @@ public class AccueilServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		String filtre = null;
+		if(request.getParameter("filtre")!= null) {
+			filtre = request.getParameter("filtre");
+		}
+		int num_article = ArticleMng.select(filtre);
+		if(num_article != 0) {
+			HttpSession session = request.getSession();
+			session.setAttribute("filtre", num_article);
+		}
+		
 		doGet(request, response);
 	}
 

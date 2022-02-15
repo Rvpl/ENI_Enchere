@@ -20,7 +20,7 @@
 	  </div>
 	</nav>
 	<h2 class="title">Liste des enchères</h2>
-	<form action="${pageContext.request.contextPath}/filtreServlet" class="filters" method="post">
+	<form action="${pageContext.request.contextPath}/home" class="filters" method="post">
 		<label for="name">Filtres : </label>
 		<fieldset>
 			<input type="text" name="filtre" id="filtre" required>	
