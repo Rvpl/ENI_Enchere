@@ -76,7 +76,7 @@
 			</div>
 			</div>
 		</form>
-		<c:if test="${requestScope.exist != 0 }">
+		<c:if test="${requestScope.exist == 1 }">
 			<p>Le pseudo est déjà utilisé, veuillez en choisir un autre</p>
 		</c:if>
 	</div>

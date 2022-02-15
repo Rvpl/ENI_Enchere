@@ -14,7 +14,7 @@ public class ArticleManager {
 		articleMng = new ArticleJdbcImpl();
 	}
 	
-	public int select(String nomArticle) {
+	public List<Articles> select(String nomArticle) {
 		
 		return articleMng.select(nomArticle);
 	}

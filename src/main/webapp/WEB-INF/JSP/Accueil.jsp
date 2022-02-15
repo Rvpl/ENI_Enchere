@@ -4,14 +4,17 @@
 <html>
 <%@ include file="/WEB-INF/JSP/Fragments/Head.jspf"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<body>
 
-	<c:if test="${sessionScope.utilisateur == null }">
+<body>
+<c:if test="${sessionScope.utilisateur == null }">
 		<%@ include file="/WEB-INF/JSP/Fragments/headerDeco.jspf"%>
 	</c:if>
 	<c:if test="${sessionScope.utilisateur != null }">
 		<%@ include file="/WEB-INF/JSP/Fragments/headerCo.jspf"%>
 	</c:if>
+	
+	<div class="container">
+	
 
 	<h2 class="title">Liste des enchères</h2>
 	<form action="${pageContext.request.contextPath}/home" class="filters" method="post">
@@ -22,15 +25,38 @@
 		<input type="submit" value="Rechercher">
 	</form>
 	
-	 <c:forEach var="Articles" items="${requestScope.articles}" >
-	 	<div>
-	 		<p>${Articles.nomArticle }</p>
-	 		<p>prix : ${Articles.prixVente }</p>
-	 		<p>Fin de l'enchère : ${Articles.dateFinEncheres }</p>
-	 		<p>Vendeur : ${Articles.noUtilisateur  }</p>
-	 	</div>
-	 	
-	 </c:forEach>
+	<c:if test="${requestScope.articles != null}">
+		<c:if test="${ requestScope.articlesBN == null}">
+		<div class = "container">
+			<div class="row">
+			<c:forEach var="article" items="${requestScope.articles}" >
+			 	
+			 		<div class="col-2">
+			 			<p>${article.nomArticle }</p>
+				 		<p>prix : ${article.prixVente }</p>
+				 		<p>Fin de l'enchère : ${article.dateFinEncheres }</p>
+				 		<p>Vendeur : ${article.noUtilisateur  }</p>
+			 		</div>
+			 	
+		 		</c:forEach>
+		 	</div>
+		</div>
+		
+		</c:if>	
+	</c:if>
+	
+	<c:if test="${requestScope.articlesBN != null}">
+		<c:forEach var="articleBN" items="${requestScope.articlesBN}" >
+		 	<div>
+		 		<p>${articleBN.nomArticle }</p>
+		 		<p>prix : ${articleBN.prixVente }</p>
+		 		<p>Fin de l'enchère : ${articleBN.dateFinEncheres }</p>
+		 		<p>Vendeur : ${articleBN.noUtilisateur  }</p>
+		 	</div>
+	 	</c:forEach>
+	</c:if>
+	</div>
+ 
 </body>
 <%@ include file="/WEB-INF/JSP/Fragments/Footer.jspf"%>
 
