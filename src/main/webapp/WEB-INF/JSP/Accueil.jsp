@@ -22,7 +22,15 @@
 		<input type="submit" value="Rechercher">
 	</form>
 	
-	 
+	 <c:forEach var="Articles" items="${requestScope.articles}" >
+	 	<div>
+	 		<p>${Articles.nomArticle }</p>
+	 		<p>prix : ${Articles.prixVente }</p>
+	 		<p>Fin de l'enchère : ${Articles.dateFinEncheres }</p>
+	 		<p>Vendeur : ${Articles.noUtilisateur  }</p>
+	 	</div>
+	 	
+	 </c:forEach>
 </body>
 <%@ include file="/WEB-INF/JSP/Fragments/Footer.jspf"%>
 
