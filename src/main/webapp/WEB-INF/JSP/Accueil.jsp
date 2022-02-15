@@ -28,7 +28,7 @@
 		<input type="submit" value="Rechercher">
 	</form>
 	
-	
+	 
 </body>
 <%@ include file="/WEB-INF/JSP/Fragments/Footer.jspf"%>
 
