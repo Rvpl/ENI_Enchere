@@ -9,20 +9,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import bll.ConnecterManager;
+
 /**
  * Servlet implementation class Connexion
  */
 @WebServlet("/connecter")
 public class Connexion extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private ConnecterManager connexionMng;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
     public Connexion() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+        connexionMng = new ConnecterManager();
+       }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -40,8 +42,18 @@ public class Connexion extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		String login = null;
+		String mdp = null;
+		
+		if(request.getParameter("login") != null) {
+			login = request.getParameter("login").trim();
+		}
+		
+		if(request.getParameter("password") != null) {
+			mdp = request.getParameter("password").trim();
+		}
+		
+		connexionMng.selectUtilisateur(login, mdp);
 	}
 
 }
