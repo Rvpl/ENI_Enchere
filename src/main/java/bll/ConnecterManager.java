@@ -11,8 +11,8 @@ public class ConnecterManager {
 		connexionMng = new ConnexionJdbcImpl();
 	}
 	
-	public void selectUtilisateur(String pseudo, String mdp) {
-		connexionMng.select(pseudo, mdp);
+	public int selectUtilisateur(String pseudo, String mdp) {
+		return connexionMng.select(pseudo, mdp);
 	}
 }
 

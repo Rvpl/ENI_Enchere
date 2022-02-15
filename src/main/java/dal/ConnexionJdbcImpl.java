@@ -24,7 +24,7 @@ public class ConnexionJdbcImpl {
 			ResultSet rs = rqt.executeQuery();
 			
 			if(rs.next()) {
-				System.out.println(rs.getInt(1));
+				no = rs.getInt(1);
 			}
 			
 		}catch(Exception e) {
