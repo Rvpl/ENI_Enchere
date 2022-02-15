@@ -1,7 +1,9 @@
 package bll;
 
+import java.util.List;
+
+import bo.Articles;
 import dal.ArticleJdbcImpl;
-import dal.ConnexionJdbcImpl;
 
 public class ArticleManager {
 	
@@ -15,5 +17,9 @@ public class ArticleManager {
 	public int select(String nomArticle) {
 		
 		return articleMng.select(nomArticle);
+	}
+	
+	public List<Articles> getArticles() {
+		return articleMng.getArticles();
 	}
 }

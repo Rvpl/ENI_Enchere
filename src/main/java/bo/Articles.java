@@ -11,11 +11,11 @@ public class Articles {
 	private LocalDate dateFinEncheres;
 	private int miseAPrix;
 	private int prixVente;
-	private Utilisateur noUtilisateur;
+	private int noUtilisateur;
 	
 	
 	public Articles(int noArticle, String nomArticle, String description, LocalDate dateDebutEncheres,
-			LocalDate dateFinEncheres, int miseAPrix, int prixVente, Utilisateur noUtilisateur) {
+			LocalDate dateFinEncheres, int miseAPrix, int prixVente, int noUtilisateur) {
 		super();
 		this.noArticle = noArticle;
 		this.nomArticle = nomArticle;
@@ -25,6 +25,10 @@ public class Articles {
 		this.miseAPrix = miseAPrix;
 		this.prixVente = prixVente;
 		this.noUtilisateur = noUtilisateur;
+	}
+
+
+	public Articles() {
 	}
 
 
@@ -98,13 +102,21 @@ public class Articles {
 	}
 
 
-	public Utilisateur getNoUtilisateur() {
+	public int getNoUtilisateur() {
 		return noUtilisateur;
 	}
 
 
-	public void setNoUtilisateur(Utilisateur noUtilisateur) {
+	public void setNoUtilisateur(int noUtilisateur) {
 		this.noUtilisateur = noUtilisateur;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Articles [noArticle=" + noArticle + ", nomArticle=" + nomArticle + ", description=" + description
+				+ ", dateDebutEncheres=" + dateDebutEncheres + ", dateFinEncheres=" + dateFinEncheres + ", miseAPrix="
+				+ miseAPrix + ", prixVente=" + prixVente + ", noUtilisateur=" + noUtilisateur + "]";
 	}
 	
 	
