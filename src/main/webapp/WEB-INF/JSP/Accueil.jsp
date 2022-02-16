@@ -22,24 +22,34 @@
 		<fieldset>
 			<input type="text" name="filtre" id="filtre" required>	
 		</fieldset>
+		<select>
+			<option value="0">Toutes</option>
+			<option value="1">Informatique</option>
+			<option value="2">Ameublement</option>
+			<option value="3">Vêtement</option>
+			<option value="4">Sport & Loisirs</option>
+		</select>
 		<input type="submit" value="Rechercher">
 	</form>
 	
 	<c:if test="${requestScope.articles != null}">
 		<c:if test="${ requestScope.articlesBN == null}">
-		<div class = "container">
-			<div class="row">
-			<c:forEach var="article" items="${requestScope.articles}" >
-			 	<div class="col-3">
-			 			<p>${article.nomArticle }</p>
-				 		<p>prix : ${article.prixVente }</p>
-				 		<p>Fin de l'enchère : ${article.dateFinEncheres }</p>
-				 		<p>Vendeur : ${article.noUtilisateur  }</p>
-			 		</div> 	
-		 		</c:forEach>
-		 	</div>
-		</div>
-		
+			<div class = "container">
+				<div class="row">
+					<c:forEach var="article" items="${requestScope.articles}" >
+						<c:forEach var="user" items="${requestScope.users}">
+							<c:if test="${article.noUtil == user.noUtilisateur}">
+					 			<div class="col-3">
+				 					<p>${article.nomArticle }</p>
+					 				<p>prix : ${article.prixVente } points</p>
+					 				<p>Fin de l'enchère : ${article.dateFinEncheres }</p>
+					 				<p>Vendeur : 	${users.nom}</p>
+				 				</div> 
+					 		</c:if>				 			
+						 </c:forEach>
+			 		</c:forEach>
+				 </div>
+			</div>	
 		</c:if>	
 	</c:if>
 	
