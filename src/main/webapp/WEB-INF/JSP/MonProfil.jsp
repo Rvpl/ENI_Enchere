@@ -19,6 +19,11 @@
 		<p>Code Postal : ${sessionScope.utilisateur.codePostal}</p>
 		<p>Ville : ${sessionScope.utilisateur.ville}</p>
 	</div>
+	<form action="${pageContext.request.contextPath}/modificationProfil" method="get">
+			<div class="col-6">
+				<input type="submit" value = "Modifier">
+			</div>
+	</form>
 
 <%@ include file="/WEB-INF/JSP/Fragments/Footer.jspf"%>
 </body>
