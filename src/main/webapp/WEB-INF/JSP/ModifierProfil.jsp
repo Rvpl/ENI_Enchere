@@ -76,8 +76,9 @@
 				<div class="col-6">
 				<label>crédit: ${sessionScope.utilisateur.credit}</label>
 			</div>
-			<form action="${pageContext.request.contextPath}/supprimerProfil" method="post">
+			<form action="${pageContext.request.contextPath}/supprimer" method="get">
 			<div class="col-6">
+				<input name="id" value="${sessionScope.utilisateur.noUtil}" type="hidden">
 				<input type="submit" value = "Supprimer mon compte">
 			</div>
 			</form>

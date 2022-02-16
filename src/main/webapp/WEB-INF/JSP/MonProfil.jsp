@@ -24,6 +24,11 @@
 			<button class="btn btn-warning">Modifier</button>
 		</form>
 	</div>
+	<form action="${pageContext.request.contextPath}/modificationProfil" method="get">
+			<div class="col-6">
+				<input type="submit" value = "Modifier">
+			</div>
+	</form>
 
 <%@ include file="/WEB-INF/JSP/Fragments/Footer.jspf"%>
 </body>
