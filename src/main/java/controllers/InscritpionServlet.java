@@ -103,6 +103,8 @@ public class InscritpionServlet extends HttpServlet {
 		}
 		
 			Utilisateur user = new Utilisateur(pseudo,nom,prenom,email,tel,rue,cp,ville,motDePasse);
+			
+			// SI l'utilisateur existe déjà en BDD on renvoie l'identifiant de l'user existant
 			int exist = inscriptionMng.insert(user);
 			if(exist != 0) {
 				request.setAttribute("exist", exist);

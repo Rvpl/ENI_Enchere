@@ -29,6 +29,8 @@ public class DeconnexionServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		//Récupération et suppression des sessions	
 		request.getSession();
 		HttpSession session = request.getSession();
 		session.invalidate();

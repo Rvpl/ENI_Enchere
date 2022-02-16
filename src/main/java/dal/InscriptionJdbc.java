@@ -21,13 +21,15 @@ public class InscriptionJdbc {
 		 try {
 			cnx = ConnectionProvider.getConnection();
 			
-			
+			// Si le pseudo existe déjà on renvoie 1 qui confirme qu'il n'est pas unique
 			PreparedStatement rqt = cnx.prepareStatement(SQL_VERIF);
 			rqt.setString(1, nouvelUtilisateur.getPseudo());
 			ResultSet nbLigne = rqt.executeQuery();
 			if(nbLigne.next()) {
 				exist =1;
 			}else {
+				
+				// sinon on valorise la requête et on l'execute
 				PreparedStatement ordre = cnx.prepareStatement(SQL_INSERT, PreparedStatement.RETURN_GENERATED_KEYS );
 				ordre.setString(1, nouvelUtilisateur.getPseudo());
 				ordre.setString(2, nouvelUtilisateur.getNom());

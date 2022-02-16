@@ -18,6 +18,8 @@ public class ArticleJdbcImpl {
 	private static final String SELECT_BY_NAME = "SELECT no_article, nom_article, description,date_debut_encheres,date_fin_encheres,prix_initial,prix_vente,no_utilisateur,no_categorie FROM ARTICLES_VENDUS Articles_vendus WHERE nom_article LIKE '%'+?+'%';";
 	private static final String SELECT_ALL =     "SELECT no_article, nom_article, description,date_debut_encheres,date_fin_encheres,prix_initial,prix_vente,no_utilisateur,no_categorie FROM ARTICLES_VENDUS;";
 	
+	
+	//Retourne une liste d'article en fonction de leur noms
 	public List<Articles> select (String nomArticle) {
 		Connection cnx = null;	
 		articlesBN = new ArrayList<>();
@@ -46,11 +48,12 @@ public class ArticleJdbcImpl {
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			System.out.println("Echec connexion à la BDD");
+			System.out.println("Impossible de trouver l'article recherché");
 		}
 		return articlesBN;
 	}	
 	
+	//Retourne tout les articles
 	public List<Articles> getArticles() {
 		Connection cnx = null;
 		articles = new ArrayList<>();
