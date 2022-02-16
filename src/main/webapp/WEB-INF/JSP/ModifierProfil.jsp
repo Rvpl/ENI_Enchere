@@ -74,7 +74,7 @@
 				</div>
 					
 				<div class="col-6">
-				<input name="credit" type="text" value = "${sessionScope.credit}">
+				<label>crédit: ${sessionScope.utilisateur.credit}</label>
 			</div>
 			<form action="${pageContext.request.contextPath}/supprimerProfil" method="post">
 			<div class="col-6">
