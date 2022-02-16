@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <title>Modifier profil</title>
 </head>
-<body>
+<body> 
 	<h1>Mon profil</h1>
 	<div class=container>
 		<form action="${pageContext.request.contextPath}/modificationProfil" method="post">
