@@ -18,7 +18,7 @@
 	<input type="password" name="password">
 	<button class="btn btn-warning">Connexion</button>
 </form>
-<c:if test="${requestScope.introuvable == 0 }">
+<c:if test="${requestScope.introuvable == null}">
 	<p>Login ou Mot de passe incorrect</p>
 </c:if>
 <button class="btn btn-warning">Créer un compte</button>

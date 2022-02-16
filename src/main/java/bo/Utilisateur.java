@@ -30,6 +30,9 @@ public class Utilisateur {
 		
 	}
 
+	public Utilisateur() {
+	}
+
 	public int getNoUtil() {
 		return noUtil;
 	}

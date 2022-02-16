@@ -1,5 +1,6 @@
 package bll;
 
+import bo.Utilisateur;
 import dal.ConnexionJdbcImpl;
 
 public class ConnecterManager {
@@ -11,7 +12,7 @@ public class ConnecterManager {
 		connexionMng = new ConnexionJdbcImpl();
 	}
 	
-	public int selectUtilisateur(String pseudo, String mdp) {
+	public Utilisateur selectUtilisateur(String pseudo, String mdp) {
 		return connexionMng.select(pseudo, mdp);
 	}
 }

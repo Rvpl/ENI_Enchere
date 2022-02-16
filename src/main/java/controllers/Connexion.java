@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import bll.ConnecterManager;
+import bo.Utilisateur;
 
 /**
  * Servlet implementation class Connexion
@@ -45,7 +46,7 @@ public class Connexion extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String login = null;
 		String mdp = null;
-		int identifiant = 0;
+		
 		
 		if(request.getParameter("login") != null) {
 			login = request.getParameter("login").trim();
@@ -55,8 +56,8 @@ public class Connexion extends HttpServlet {
 			mdp = request.getParameter("password").trim();
 		}
 		
-		identifiant = connexionMng.selectUtilisateur(login, mdp);
-		if(identifiant != 0) {
+		Utilisateur identifiant = connexionMng.selectUtilisateur(login, mdp);
+		if(identifiant != null) {
 			HttpSession session = request.getSession();
 			session.setAttribute("utilisateur", identifiant);
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/JSP/Accueil.jsp");
