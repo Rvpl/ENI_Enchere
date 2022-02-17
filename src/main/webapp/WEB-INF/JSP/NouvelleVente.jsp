@@ -49,13 +49,12 @@
 			</div>
 			<div class="col-12">
 				<button class="btn btn-success">Enregistrer</button>
-				<button class="btn btn-warning" disabled>Annuler</button>
 			</div>		
 		</div>	
 	</form>
 	<form action="${pageContext.request.contextPath}/home" method="get">
 		<div> 
-			<button class="btn btn-warning" disabled>Annuler</button>
+			<button class="btn btn-warning">Annuler</button>
 		</div>	
 	</form>
 		
