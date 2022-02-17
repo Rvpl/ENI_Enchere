@@ -11,56 +11,56 @@
 <body> 
 	<h1>Mon profil</h1>
 	<div class=container>
-		<form action="${pageContext.request.contextPath}/modificationProfil" method="post">
+		<form action="${pageContext.request.contextPath}/modificationProfil" method="post" >
 			<div class="row">	
 				<div class="col-6">
 					<label>Pseudo:</label>
-					<input type="text" name="pseudo" value="${requestScope.utilisateur.pseudo}">
+					<input type="text" name="pseudo" value="${sessionScope.utilisateur.pseudo}">
 				</div>
 					
 				<div class="col-6">
 					<label>Nom:</label>
-					<input type="text" name="nom"  value="${requestScope.utilisateur.nom}">
+					<input type="text" name="nom"  value="${sessionScope.utilisateur.nom}">
 				</div>
 				
 				<div class="col-6">	
 				<label>Prénom:</label>
-					<input type="text" name="Prenom"  value="${requestScope.utilisateur.prenom}">
+					<input type="text" name="Prenom"  value="${sessionScope.utilisateur.prenom}">
 				</div>
 				
 				<div class="col-6">
 					
 					<label>Email:</label>
-					<input type="text" name="email"  value="${requestScope.utilisateur.email}">
+					<input type="text" name="email"  value="${sessionScope.utilisateur.email}">
 				</div>
 				
 				<div class="col-6">
 					
 					<label>Téléphone:</label>
-					<input type="text" name="telephone"  value="${requestScope.utilisateur.tel}">
+					<input type="text" name="telephone"  value="${sessionScope.utilisateur.numero}">
 				</div>
 				
 				<div class="col-6">
 					
 					<label>rue:</label>
-					<input type="text" name="rue"  value="${requestScope.utilisateur.rue}">
+					<input type="text" name="rue"  value="${sessionScope.utilisateur.rue}">
 				</div>
 				
 				<div class="col-6">
 					
 					<label>Code postal:</label>
-					<input type="text" name="codePostal"  value="${requestScope.utilisateur.cp}">
+					<input type="text" name="codePostal"  value="${sessionScope.utilisateur.cp}">
 				</div>
 				
 				<div class="col-6">
 					
 					<label>ville:</label>
-					<input type="text" name="ville"  value="${requestScope.utilisateur.ville}">
+					<input type="text" name="ville"  value="${sessionScope.utilisateur.ville}">
 				</div>
 				
 				<div class="col-6">
 					<label>Mot de passe actuel:</label>
-					<input type="password" name=motDePasseActuel>
+					<input type="password" name=motDePasseActuel value="${sessionScope.utilisateur.mdp}">
 				</div>	
 				
 				<div class="col-6">
@@ -79,6 +79,7 @@
 			<div class="col-6">
 				<input type="submit" value = "enregistrer">
 			</div>
+			
 		</form>
 		<form action="${pageContext.request.contextPath}/supprimer" method="get">
 			<div class="col-6">

@@ -25,13 +25,15 @@ public class ModifierProfilServlet extends HttpServlet {
      */
     public ModifierProfilServlet() {
     	 super();
-    	modificationProfilMng = new ModificationProfilJdbc();
+    	 modificationProfilMng = new ModificationProfilJdbc();
+    	
     } 
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.getSession();
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/JSP/ModifierProfil.jsp");
 		if (rd != null) {
 			rd.forward(request, response); 
@@ -56,47 +58,47 @@ public class ModifierProfilServlet extends HttpServlet {
 		int tel= 0;
 		int cp = 0;
 		
-		if(request.getParameter("Npseudo") != null) {
-			pseudo = request.getParameter("Npseudo").trim();
+		if(request.getParameter("pseudo") != null) {
+			pseudo = request.getParameter("pseudo").trim();
 		}
-		if(request.getParameter("NPrenom") != null) {
-			prenom = request.getParameter("NPrenom").trim();
+		if(request.getParameter("Prenom") != null) {
+			prenom = request.getParameter("Prenom").trim();
 		}
-		if(request.getParameter("Ntelephone") != null) {
-			telephoneStr = request.getParameter("Ntelephone").trim();
+		if(request.getParameter("telephone") != null) {
+			telephoneStr = request.getParameter("telephone").trim();
 			tel = Integer.parseInt(telephoneStr);
 		}
-		if(request.getParameter("NcodePostal") != null) {
-			codePostalStr = request.getParameter("NcodePostal").trim();
+		if(request.getParameter("codePostal") != null) {
+			codePostalStr = request.getParameter("codePostal").trim();
 			cp = Integer.parseInt(codePostalStr);
 		}
 		
 		
-		if(request.getParameter("Nnom") != null) {
-			nom = request.getParameter("Nnom").trim();
+		if(request.getParameter("nom") != null) {
+			nom = request.getParameter("nom").trim();
 		}
 		
-		if(request.getParameter("newMDP") != null) {
-			motDePasse = request.getParameter("newMDP").trim();
+		if(request.getParameter("nouveauMDP") != null) {
+			motDePasse = request.getParameter("nouveauMDP").trim();
 		}
 		
-		if(request.getParameter("Nemail") != null) {
-			email = request.getParameter("Nemail").trim();
-		}
-		
-		
-		if(request.getParameter("Nrue") != null) {
-			rue = request.getParameter("Nrue").trim();
+		if(request.getParameter("email") != null) {
+			email = request.getParameter("email").trim();
 		}
 		
 		
-		if(request.getParameter("Nville") != null) {
-			ville = request.getParameter("Nville").trim();
+		if(request.getParameter("rue") != null) {
+			rue = request.getParameter("rue").trim();
 		}
 		
-		if(request.getParameter("motDePasseActuel") == request.getSession().getAttribute("motDePasse")) {
-			if(request.getParameter("newMDP") != null && request.getParameter("confirmationMDP") == motDePasse) {			
-				motDePasse = request.getParameter("newMDP").trim();
+		
+		if(request.getParameter("ville") != null) {
+			ville = request.getParameter("ville").trim();
+		}
+		
+		if(request.getParameter("motDePasseActuel") == request.getParameter("nouveauMDP")) {
+			if(request.getParameter("nouveauMDP") != null && request.getParameter("confirmationMDP") == request.getParameter("nouveauMDP")) {			
+				motDePasse = request.getParameter("nouveauMDP").trim();
 				}
 			} 
 		
@@ -105,7 +107,16 @@ public class ModifierProfilServlet extends HttpServlet {
 		user.setPseudo(pseudo);
 		user.setNom(nom);
 		user.setPrenom(prenom);
+		user.setEmail(email);
+		user.setCodePostal(cp);
+		user.setMdp(confimationMDP);
+		user.setNumero(tel);
+		user.setRue(rue);
+		user.setVille(ville);
 		
+		
+		
+		modificationProfilMng.update(user);
 		
 		// SI l'utilisateur existe déjà en BDD on renvoie l'identifiant de l'user existant
 //		int exist = modificationProfilMng.update(user);
