@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import bll.ModificationProfilManager;
 import bo.Utilisateur;
 import dal.ModificationProfilJdbc;
 
@@ -55,8 +54,10 @@ public class ModifierProfilServlet extends HttpServlet {
 		String administrateur = null ; 
 		String confimationMDP= null ; 
 		String codePostalStr = null;
+		String idStr = null;
 		int tel= 0;
 		int cp = 0;
+		int id = 0;
 		
 		if(request.getParameter("pseudo") != null) {
 			pseudo = request.getParameter("pseudo").trim();
@@ -96,6 +97,12 @@ public class ModifierProfilServlet extends HttpServlet {
 			ville = request.getParameter("ville").trim();
 		}
 		
+		if(request.getParameter("id") != null) {
+			idStr = request.getParameter("id").trim();
+			id = Integer.parseInt(idStr);
+			
+		}
+		
 		if(request.getParameter("motDePasseActuel") == request.getParameter("verifMdp")) {
 			if(request.getParameter("nouveauMDP") != null && request.getParameter("confirmationMDP") == request.getParameter("nouveauMDP")&& request.getParameter("confimationMDP")!= null) {			
 				motDePasse = request.getParameter("nouveauMDP").trim();
@@ -103,7 +110,7 @@ public class ModifierProfilServlet extends HttpServlet {
 			} 
 		
 		Utilisateur user = new Utilisateur();
-		user.setNoUtil(Integer.parseInt(request.getParameter("id")));
+		user.setNoUtil(id);
 		user.setPseudo(pseudo);
 		user.setNom(nom); 
 		user.setPrenom(prenom);

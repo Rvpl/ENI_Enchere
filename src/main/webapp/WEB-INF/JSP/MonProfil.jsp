@@ -18,17 +18,12 @@
 		<p>Téléphone : ${sessionScope.utilisateur.numero}</p>
 		<p>Rue : ${sessionScope.utilisateur.rue}</p>
 		<p>Code Postal : ${sessionScope.utilisateur.codePostal}</p>
-		<p>Ville : ${sessionScope.utilisateur.noUtil}</p>
+		<p>Ville : ${sessionScope.utilisateur.ville}</p>
 		
-		<form action="${pageContext.request.contextPath}/profil" method="post">
+		<form action="${pageContext.request.contextPath}/modificationProfil" method="get">
 			<button class="btn btn-warning">Modifier</button>
 		</form>
 	</div>
-	<form action="${pageContext.request.contextPath}/modificationProfil" method="get">
-			<div class="col-6">
-				<input type="submit" value = "Modifier">
-			</div>
-	</form>
 
 <%@ include file="/WEB-INF/JSP/Fragments/Footer.jspf"%>
 </body>
