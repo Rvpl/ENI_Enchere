@@ -96,8 +96,8 @@ public class ModifierProfilServlet extends HttpServlet {
 			ville = request.getParameter("ville").trim();
 		}
 		
-		if(request.getParameter("motDePasseActuel") == request.getParameter("nouveauMDP")) {
-			if(request.getParameter("nouveauMDP") != null && request.getParameter("confirmationMDP") == request.getParameter("nouveauMDP")) {			
+		if(request.getParameter("motDePasseActuel") == request.getParameter("verifMdp")) {
+			if(request.getParameter("nouveauMDP") != null && request.getParameter("confirmationMDP") == request.getParameter("nouveauMDP")&& request.getParameter("confimationMDP")!= null) {			
 				motDePasse = request.getParameter("nouveauMDP").trim();
 				}
 			} 
@@ -109,7 +109,7 @@ public class ModifierProfilServlet extends HttpServlet {
 		user.setPrenom(prenom);
 		user.setEmail(email);
 		user.setCodePostal(cp);
-		user.setMdp(confimationMDP);
+		user.setMdp(motDePasse);
 		user.setNumero(tel);
 		user.setRue(rue);
 		user.setVille(ville);

@@ -60,7 +60,9 @@
 					
 					<div class="col-6">
 						<label>Mot de passe actuel:</label>
-						<input type="password" name=motDePasseActuel value="${sessionScope.utilisateur.mdp}">
+						<input type="password" name=motDePasseActuel  >
+						
+						
 					</div>	 
 					
 					<div class="col-6">
@@ -74,14 +76,7 @@
 					</div>
 						
 					<div class="col-6">
-	
-						<label>crédit: ${sessionScope.utilisateur.credit}</label>
-					</div>
-					
-					<div class="col-6">
-						<input type="submit" value = "enregistrer">
-					</div>
-					
+										
 	
 					<label>crédit: ${sessionScope.utilisateur.credit}</label>
 				</div>
@@ -100,8 +95,16 @@
 							<input type="submit" value = "Supprimer mon compte">
 							
 						</div>
-					
+						<div class="col-6" style="visibility:hidden">
+							<label>Mot de passe actuel:</label>
+							<input type="password" name=motDePasseActuel value="${sessionScope.utilisateur.mdp}" disabled >
+							<input name="mdp" value="${sessionScope.utilisateur.mdp}" >
+							
+						</div>	 
 					</form>
+					
+					
+					
 			<c:if test="${requestScope.exist == 1 }">
 				<p>Le pseudo est déjà utilisé, veuillez en choisir un autre</p>
 			</c:if>
