@@ -12,10 +12,11 @@ public class Article {
 	private int miseAPrix;
 	private int prixVente;
 	private int noUtilisateur;
+	private Categorie noCategorie;
 	
 	
 	public Article(int noArticle, String nomArticle, String description, LocalDate dateDebutEncheres,
-			LocalDate dateFinEncheres, int miseAPrix, int prixVente, int noUtilisateur) {
+			LocalDate dateFinEncheres, int miseAPrix, int prixVente, int noUtilisateur, Categorie noCategorie) {
 		super();
 		this.noArticle = noArticle;
 		this.nomArticle = nomArticle;
@@ -25,6 +26,7 @@ public class Article {
 		this.miseAPrix = miseAPrix;
 		this.prixVente = prixVente;
 		this.noUtilisateur = noUtilisateur;
+		this.noCategorie = noCategorie;
 	}
 
 
@@ -109,6 +111,17 @@ public class Article {
 
 	public void setNoUtilisateur(int noUtilisateur) {
 		this.noUtilisateur = noUtilisateur;
+	}
+	
+
+
+	public Categorie getNoCategorie() {
+		return noCategorie;
+	}
+
+
+	public void setNoCategorie(Categorie noCategorie) {
+		this.noCategorie = noCategorie;
 	}
 
 
