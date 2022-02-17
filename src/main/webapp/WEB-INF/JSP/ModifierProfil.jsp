@@ -49,7 +49,7 @@
 					<div class="col-6">
 						
 						<label>Code postal:</label>
-						<input type="text" name="codePostal"  value="${sessionScope.utilisateur.cp}">
+						<input type="text" name="codePostal"  value="${sessionScope.utilisateur.codePostal}">
 					</div>
 					
 					<div class="col-6">

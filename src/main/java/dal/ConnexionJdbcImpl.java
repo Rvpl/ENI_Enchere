@@ -36,7 +36,7 @@ public class ConnexionJdbcImpl {
 				user.setCodePostal(rs.getInt(8));
 				user.setVille(rs.getString(9));
 				user.setCredit(rs.getInt(10));
-			}
+				user.setMdp(mdp);			}
 		}catch(Exception e) {
 			System.out.println("Echec connexion à la BDD");
 		}
