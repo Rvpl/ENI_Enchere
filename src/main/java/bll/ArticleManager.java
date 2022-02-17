@@ -2,7 +2,7 @@ package bll;
 
 import java.util.List;
 
-import bo.Articles;
+import bo.Article;
 import bo.Utilisateur;
 import dal.ArticleJdbcImpl;
 
@@ -15,12 +15,12 @@ public class ArticleManager {
 		articleMng = new ArticleJdbcImpl();
 	}
 	
-	public List<Articles> select(String nomArticle) {
+	public List<Article> select(String nomArticle) {
 		
 		return articleMng.select(nomArticle);
 	}
 	
-	public List<Articles> getArticles() {
+	public List<Article> getArticles() {
 		return articleMng.getArticles();
 	}
 	

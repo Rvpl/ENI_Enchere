@@ -37,14 +37,12 @@
 			<div class = "container">
 				<div class="row">
 					<c:forEach var="article" items="${requestScope.articles}" >
-	
 					 			<div class="col-3">
 				 					<p>${article.nomArticle }</p>
 					 				<p>prix : ${article.prixVente } points</p>
 					 				<p>Fin de l'enchère : ${article.dateFinEncheres }</p>
 					 				<p>Vendeur : 	${article.noUtilisateur }</p>
-				 				</div> 		 			
-						 
+				 				</div> 		 				 
 			 		</c:forEach>
 				 </div>
 			</div>	

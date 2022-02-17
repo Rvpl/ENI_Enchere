@@ -8,29 +8,31 @@ import java.sql.SQLException;
 import bo.Utilisateur;
 
 public class ModificationProfilJdbc {
-	private static final String SQL_UPDATE ="UPDATE mot_de_passe FROM UTILISATEURS WHERE no_utilisateur= ?;";
+	private static final String SQL_UPDATE ="UPDATE pseudo, nom, prenom, email, telephone, rue, code_postal, "
+			+ "ville, mot_de_passe FROM UTILISATEURS WHERE no_utilisateur= ? VALUES(?,?,?,?,?,?,?,?,?);";
 	private static final String SQL_VERIF ="SELECT pseudo FROM UTILISATEURS WHERE pseudo = ?;";
 	
 	
 	public int update (Utilisateur modificationUtilisateur) {
 		
 		Connection cnx = null;
-		int exist = 0;		
+		int exist = 0;		 
 		 try {
 			cnx = ConnectionProvider.getConnection();
 			
 			// Si le pseudo existe déjà on renvoie 1 qui confirme qu'il n'est pas unique
 			//TODO gérer lorsque l'utilisateur garde le même pseudo (conflit avec son ancien pseudo qui est pareil)
 			 
-		/*	PreparedStatement rqt = cnx.prepareStatement(SQL_VERIF);
-			rqt.setString(1, modificationProfile.getPseudo());
+			PreparedStatement rqt = cnx.prepareStatement(SQL_VERIF);
+			rqt.setInt(1, modificationUtilisateur.getNoUtil());
 			ResultSet nbLigne = rqt.executeQuery();
 			if(nbLigne.next()) {
 				exist =1;
-			}else { */
+				System.out.println(nbLigne.getString(1));
+			}else {
 				
 				// sinon on valorise la requête et on l'execute
-				PreparedStatement ordre = cnx.prepareStatement(SQL_UPDATE, PreparedStatement.RETURN_GENERATED_KEYS );
+				PreparedStatement ordre = cnx.prepareStatement(SQL_UPDATE);
 				ordre.setString(1, modificationUtilisateur.getPseudo());
 				ordre.setString(2, modificationUtilisateur.getNom());
 				ordre.setString(3, modificationUtilisateur.getPrenom());
@@ -51,7 +53,7 @@ public class ModificationProfilJdbc {
 					modificationUtilisateur.setNoUtil(clefAutoGeneree);
 				}
 				
-			//}
+			}
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
