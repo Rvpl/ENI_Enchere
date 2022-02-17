@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta charset="UTF-8">
+		<%@ include file="/WEB-INF/JSP/Fragments/headerCo.jspf"%>
 		<title>Modifier profil</title>
 	</head>
 	<body> 
