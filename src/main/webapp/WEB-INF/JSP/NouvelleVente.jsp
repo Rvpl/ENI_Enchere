@@ -15,7 +15,7 @@
 		<div class="row">
 			<div class="col-12">
 				<label>Article: </label>
-				<input name="nomArticle">
+				<input name="nomArticle" type="text">
 			</div>
 			<div class="col-12">
 				<label>Description : </label>
@@ -27,7 +27,7 @@
 			</div>
 			<div class="col-12">
 				<label>Début de l'enchère : </label>
-				<input name="date_debut" type.="date">
+				<input name="date_debut" type="date">
 			</div>
 			<div class="col-12">
 				<label>Fin de l'enchère : </label>
