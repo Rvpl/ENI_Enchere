@@ -77,13 +77,18 @@ public class NouvelArticleServlet extends HttpServlet {
 		
 		Article article = new Article(nomArticle,description,dateDebutEncheres,dateFinEncheres,miseAPrix);
 		
-		request.setAttribute("nomArticle", nomArticle);
-		request.setAttribute("description", description);
-		request.setAttribute("date_debut", dateDebutEncheres);
-		request.setAttribute("date_fin", dateFinEncheres);
-		request.setAttribute("prix", miseAPrix);
+		int exist = creaArticleMng.addArticle(article);
+		if(exist == 0) {
+			
+			request.setAttribute("nomArticle", nomArticle);
+			request.setAttribute("description", description);
+			request.setAttribute("date_debut", dateDebutEncheres);
+			request.setAttribute("date_fin", dateFinEncheres);
+			request.setAttribute("prix", miseAPrix);
 
-		doGet(request, response);
+			doGet(request, response);
+		}
+		
 	}
 
 }
