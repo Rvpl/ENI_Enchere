@@ -11,9 +11,9 @@ public class Article {
 	private LocalDate dateFinEncheres;
 	private int miseAPrix;
 	private int prixVente;
-	private int noUtilisateur;
+	private Utilisateur noUtilisateur;
 	private Categorie noCategorie;
-	
+	private String nomUtil;
 	
 	
 	public Article(String nomArticle, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres,
@@ -28,8 +28,10 @@ public class Article {
 
 
 	public Article(int noArticle, String nomArticle, String description, LocalDate dateDebutEncheres,
-			LocalDate dateFinEncheres, int miseAPrix, int prixVente, int noUtilisateur, Categorie noCategorie) {
+			LocalDate dateFinEncheres, int miseAPrix, int prixVente, int noUtilisater, int noCategorie) {
 		super();
+		this.noUtilisateur = new Utilisateur();
+		this.noCategorie = new Categorie();
 		this.noArticle = noArticle;
 		this.nomArticle = nomArticle;
 		this.description = description;
@@ -37,12 +39,28 @@ public class Article {
 		this.dateFinEncheres = dateFinEncheres;
 		this.miseAPrix = miseAPrix;
 		this.prixVente = prixVente;
-		this.noUtilisateur = noUtilisateur;
-		this.noCategorie = noCategorie;
+		this.noUtilisateur.setNoUtil(noUtilisater);;
+		this.noCategorie.getNoCategorie();
+		nomUtil = noUtilisateur.getNom();
+		
 	}
 
 
 	public Article() {
+		this.noUtilisateur = new Utilisateur();
+		nomUtil = noUtilisateur.getNom();
+	}
+
+
+	public Article(String nomArticle2, String description2, LocalDate dateDebutEncheres2, LocalDate dateFinEncheres2,int miseAPrix2, int idUtil) {
+		this.noUtilisateur = new Utilisateur();
+		this.nomArticle = nomArticle2;
+		this.description = description2;
+		this.dateDebutEncheres = dateDebutEncheres2;
+		this.dateFinEncheres = dateFinEncheres2;
+		this.miseAPrix = miseAPrix2;
+		this.noUtilisateur.setNoUtil(idUtil);
+		nomUtil = noUtilisateur.getNom();
 	}
 
 
@@ -116,12 +134,12 @@ public class Article {
 	}
 
 
-	public int getNoUtilisateur() {
+	public Utilisateur getUtilisateur() {
 		return noUtilisateur;
 	}
 
 
-	public void setNoUtilisateur(int noUtilisateur) {
+	public void setUtilisateur(Utilisateur noUtilisateur) {
 		this.noUtilisateur = noUtilisateur;
 	}
 	
@@ -142,6 +160,11 @@ public class Article {
 		return "Articles [noArticle=" + noArticle + ", nomArticle=" + nomArticle + ", description=" + description
 				+ ", dateDebutEncheres=" + dateDebutEncheres + ", dateFinEncheres=" + dateFinEncheres + ", miseAPrix="
 				+ miseAPrix + ", prixVente=" + prixVente + ", noUtilisateur=" + noUtilisateur + "]";
+	}
+
+
+	public String getNomUtil() {
+		return nomUtil = noUtilisateur.getNom();
 	}
 	
 	

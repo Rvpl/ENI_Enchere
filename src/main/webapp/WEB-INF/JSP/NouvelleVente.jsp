@@ -50,6 +50,7 @@
 			<div class="col-12">
 				<button class="btn btn-success">Enregistrer</button>
 			</div>		
+			<input type="hidden" name="util" value="${sessionScope.utilisateur.noUtil}">
 		</div>	
 	</form>
 	<form action="${pageContext.request.contextPath}/home" method="get">

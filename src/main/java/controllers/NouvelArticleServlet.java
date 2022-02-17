@@ -34,6 +34,7 @@ public class NouvelArticleServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.getSession();
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/JSP/NouvelleVente.jsp");
 		if (rd != null) {
 			rd.forward(request, response); 
@@ -53,6 +54,9 @@ public class NouvelArticleServlet extends HttpServlet {
 		String dateFinEncheresStr = null;
 		int miseAPrix = 0;
 		String miseAPrixStr = null;
+		String idUtilStr = null;
+		int idUtil = 0;
+		Utilisateur userName = null;
 		
 		
 		if(request.getParameter("nomArticle") != null) {
@@ -75,19 +79,23 @@ public class NouvelArticleServlet extends HttpServlet {
 			dateFinEncheres = LocalDate.parse(dateFinEncheresStr);
 		}
 		
-		Article article = new Article(nomArticle,description,dateDebutEncheres,dateFinEncheres,miseAPrix);
+		if(request.getParameter("util") != null) {
+			idUtilStr = request.getParameter("util").trim();
+			idUtil = Integer.parseInt(idUtilStr);
+		}
+		
+		Article article = new Article(nomArticle,description,dateDebutEncheres,dateFinEncheres,miseAPrix,idUtil);
 		
 		int exist = creaArticleMng.addArticle(article);
-		if(exist == 0) {
-			
-			request.setAttribute("nomArticle", nomArticle);
-			request.setAttribute("description", description);
-			request.setAttribute("date_debut", dateDebutEncheres);
-			request.setAttribute("date_fin", dateFinEncheres);
-			request.setAttribute("prix", miseAPrix);
+		if(exist == 2) {
 
-			doGet(request, response);
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/JSP/Accueil.jsp");
+			if (rd != null) {
+				rd.forward(request, response); 
+			}
 		}
+		
+		
 		
 	}
 

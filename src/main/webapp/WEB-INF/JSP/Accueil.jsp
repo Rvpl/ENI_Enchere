@@ -8,12 +8,7 @@
 <body>
 <c:if test="${sessionScope.utilisateur == null }">
 		<%@ include file="/WEB-INF/JSP/Fragments/headerDeco.jspf"%>
-	</c:if>
-	<c:if test="${sessionScope.utilisateur != null }">
-		<%@ include file="/WEB-INF/JSP/Fragments/headerCo.jspf"%>
-	</c:if>
-	
-	<div class="container">
+		<div class="container">
 	
 
 	<h2 class="title">Liste des enchères</h2>
@@ -41,7 +36,8 @@
 				 					<p>${article.nomArticle }</p>
 					 				<p>prix : ${article.prixVente } points</p>
 					 				<p>Fin de l'enchère : ${article.dateFinEncheres }</p>
-					 				<p>Vendeur : 	${article.noUtilisateur }</p>
+					 				<p>Vendeur : 	${article.nomUtil}
+										
 				 				</div> 		 				 
 			 		</c:forEach>
 				 </div>
@@ -63,6 +59,15 @@
 		
 	</c:if>
 	</div>
+	</c:if>
+	
+	
+	
+	<c:if test="${sessionScope.utilisateur != null }">
+		<%@ include file="/WEB-INF/JSP/Fragments/headerCo.jspf"%>
+	</c:if>
+	
+	
  
 </body>
 <%@ include file="/WEB-INF/JSP/Fragments/Footer.jspf"%>

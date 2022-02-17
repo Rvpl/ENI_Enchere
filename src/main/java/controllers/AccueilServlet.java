@@ -54,7 +54,6 @@ public class AccueilServlet extends HttpServlet {
 		if (rd != null) {
 			rd.forward(request, response);					
 		}
-		request.setAttribute("articlesBN", null);
 	}
 
 	/**

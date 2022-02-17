@@ -12,11 +12,8 @@ import bo.Article;
 import bo.Utilisateur;
 
 public class ArticleJdbcImpl {
-	
-	private List<Article>articles;
-	private List<Article>articlesBN;
-	private List<Utilisateur>users;
 	private List<Utilisateur>usersBN;
+	private List<Utilisateur>users;
 	private static final String SELECT_BY_NAME = "SELECT no_article, nom_article, description,date_debut_encheres,date_fin_encheres,prix_initial,prix_vente,ARTICLES_VENDUS.no_utilisateur,no_categorie, nom,prenom,pseudo FROM ARTICLES_VENDUS,UTILISATEURS WHERE ARTICLES_VENDUS.no_utilisateur = UTILISATEURS.no_utilisateur AND nom_article LIKE '%'+?+'%';";
 	private static final String SELECT_ALL =     "SELECT no_article, nom_article, description,date_debut_encheres,date_fin_encheres,prix_initial,prix_vente,ARTICLES_VENDUS.no_utilisateur,no_categorie, nom,prenom,pseudo FROM ARTICLES_VENDUS,UTILISATEURS WHERE ARTICLES_VENDUS.no_utilisateur = UTILISATEURS.no_utilisateur;";
 	
@@ -24,7 +21,7 @@ public class ArticleJdbcImpl {
 	//Retourne une liste d'article en fonction de leur noms
 	public List<Article> select (String nomArticle) {
 		Connection cnx = null;	
-		articlesBN = new ArrayList<>();
+		List<Article>articlesBN = new ArrayList<>();
 		usersBN = new ArrayList<>();
 		try {
 			cnx = ConnectionProvider.getConnection();	
@@ -46,7 +43,7 @@ public class ArticleJdbcImpl {
 				article.setDateFinEncheres(rs.getDate(5).toLocalDate());
 				article.setMiseAPrix(rs.getInt(6));
 				article.setPrixVente(rs.getInt(7));
-				article.setNoUtilisateur(rs.getInt(8));
+				article.getUtilisateur().setNoUtil(rs.getInt(8));
 				
 				
 				user.setNoUtil(rs.getInt(8));	
@@ -68,7 +65,7 @@ public class ArticleJdbcImpl {
 	//Retourne tout les articles
 	public List<Article> getArticles() {
 		Connection cnx = null;
-		articles = new ArrayList<>();
+		List<Article>articles = new ArrayList<>();
 		users = new ArrayList<>();
 		try {
 			cnx = ConnectionProvider.getConnection();
@@ -84,7 +81,7 @@ public class ArticleJdbcImpl {
 				article.setDateFinEncheres(nbLigne.getDate(5).toLocalDate());
 				article.setMiseAPrix(nbLigne.getInt(6));
 				article.setPrixVente(nbLigne.getInt(7));
-				article.setNoUtilisateur(nbLigne.getInt(8));
+				article.getUtilisateur().setNoUtil((nbLigne.getInt(8)));
 				
 				user.setNoUtil(nbLigne.getInt(8));		
 				user.setNom(nbLigne.getString(10));
