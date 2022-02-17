@@ -53,7 +53,7 @@ public class ModifierProfilServlet extends HttpServlet {
 		String ville= null ;
 		String motDePasse= null ;
 		String administrateur = null ; 
-		String confimationMDP= null ;
+		String confimationMDP= null ; 
 		String codePostalStr = null;
 		int tel= 0;
 		int cp = 0;
