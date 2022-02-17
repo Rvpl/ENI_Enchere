@@ -8,7 +8,7 @@ import bo.Utilisateur;
 
 public class ConnexionJdbcImpl {
 
-	private static final String SELECT_UTIL = "SELECT no_utilisateur,pseudo,nom,prenom,email,telephone,rue,code_postal,ville FROM utilisateurs WHERE pseudo = ? AND mot_de_passe = ?";
+	private static final String SELECT_UTIL = "SELECT no_utilisateur,pseudo,nom,prenom,email,telephone,rue,code_postal,ville,credit FROM utilisateurs WHERE pseudo = ? AND mot_de_passe = ?";
 	
 	public Utilisateur select(String pseudo,String mdp) {
 		Connection cnx = null;
@@ -35,6 +35,7 @@ public class ConnexionJdbcImpl {
 				user.setRue(rs.getString(7));
 				user.setCodePostal(rs.getInt(8));
 				user.setVille(rs.getString(9));
+				user.setCredit(rs.getInt(10));
 			}
 		}catch(Exception e) {
 			System.out.println("Echec connexion à la BDD");

@@ -76,16 +76,16 @@
 				<div class="col-6">
 				<label>crédit: ${sessionScope.utilisateur.credit}</label>
 			</div>
-			<form action="${pageContext.request.contextPath}/supprimer" method="get">
+			<div class="col-6">
+				<input type="submit" value = "enregistrer">
+			</div>
+		</form>
+		<form action="${pageContext.request.contextPath}/supprimer" method="get">
 			<div class="col-6">
 				<input name="id" value="${sessionScope.utilisateur.noUtil}" type="hidden">
 				<input type="submit" value = "Supprimer mon compte">
 			</div>
 			</form>
-			<div class="col-6">
-				<input type="submit" value = "enregistrer">
-			</div>
-		</form>
 		<c:if test="${requestScope.exist == 1 }">
 			<p>Le pseudo est déjà utilisé, veuillez en choisir un autre</p>
 		</c:if>

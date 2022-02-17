@@ -9,6 +9,7 @@
 <title>Mon Profil</title>
 <%@ include file="/WEB-INF/JSP/Fragments/headerCo.jspf"%>
 <body>
+	<!-- Utilisation de la session pour récupérer les informations de l'utilisateur -->
 	<div class="container">
 		<p>Pseudo : ${sessionScope.utilisateur.pseudo}</p>
 		<p>Nom : ${sessionScope.utilisateur.nom}</p>
@@ -17,7 +18,11 @@
 		<p>Téléphone : ${sessionScope.utilisateur.numero}</p>
 		<p>Rue : ${sessionScope.utilisateur.rue}</p>
 		<p>Code Postal : ${sessionScope.utilisateur.codePostal}</p>
-		<p>Ville : ${sessionScope.utilisateur.ville}</p>
+		<p>Ville : ${sessionScope.utilisateur.noUtil}</p>
+		
+		<form action="${pageContext.request.contextPath}/profil" method="post">
+			<button class="btn btn-warning">Modifier</button>
+		</form>
 	</div>
 	<form action="${pageContext.request.contextPath}/modificationProfil" method="get">
 			<div class="col-6">

@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import bll.ArticleManager;
 import bo.Articles;
+import bo.Utilisateur;
 
 /**
  * Servlet implementation class AccueilServlet
@@ -23,6 +24,8 @@ public class AccueilServlet extends HttpServlet {
 	private ArticleManager ArticleMng;
 	private List<Articles>articles;
 	private List<Articles>articlesBN;
+	private List<Utilisateur> users;
+	private List<Utilisateur> usersBN;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -32,18 +35,24 @@ public class AccueilServlet extends HttpServlet {
         ArticleMng = new ArticleManager();
         articles = new ArrayList<>();
         articlesBN = new ArrayList<>();
+        users = new ArrayList<>();
+        usersBN = new ArrayList<>();
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getSession();		
+		request.getSession();	
+		articles = ArticleMng.getArticles();
+		users = ArticleMng.getUser();
+		
+		request.setAttribute("users", users);
+		request.setAttribute("articles", articles);
+			
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/JSP/Accueil.jsp");
 		if (rd != null) {
-			articles = ArticleMng.getArticles();
-			request.setAttribute("articles", articles);
-			rd.forward(request, response);
+			rd.forward(request, response);					
 		}
 		request.setAttribute("articlesBN", null);
 	}
@@ -56,7 +65,9 @@ public class AccueilServlet extends HttpServlet {
 		if(request.getParameter("filtre")!= null) {
 			filtre = request.getParameter("filtre");
 		}
+		usersBN = ArticleMng.getUserBN(filtre);	
 		articlesBN = ArticleMng.select(filtre);
+		request.setAttribute("usersBN", usersBN);	
 		request.setAttribute("articlesBN", articlesBN);	
 		
 		doGet(request, response);

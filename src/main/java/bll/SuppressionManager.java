@@ -16,7 +16,6 @@ public class SuppressionManager {
 		try {
 			suppressionMng.delete(utilisateurASupprimer);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

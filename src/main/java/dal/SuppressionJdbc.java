@@ -7,6 +7,7 @@ import java.sql.SQLException;
 public class SuppressionJdbc {
 	
 	private static final String SQL_DELETE_BY_NO= "DELETE FROM UTILISATEURS WHERE no_utilisateur = ?";
+	private static final String SQL_DELETE_ARTICLES = "DELETE FROM ARTICLES_VENDUS WHERE no_utilisateur = ?";
 	
 	
 	public void delete (Integer utilisateurASupprimer) throws Exception {
@@ -16,7 +17,11 @@ public class SuppressionJdbc {
 			cnx = ConnectionProvider.getConnection();
 			
 			//Créer la commande
+			PreparedStatement rqt = cnx.prepareStatement(SQL_DELETE_ARTICLES);
 			PreparedStatement ordre = cnx.prepareStatement(SQL_DELETE_BY_NO);
+			
+			rqt.setInt(1, utilisateurASupprimer);
+			rqt.executeUpdate();
 			
 			ordre.setInt(1,utilisateurASupprimer);
 			
