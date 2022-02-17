@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import bll.SuppressionManager;
+import bo.Utilisateur;
 
 /**
  * Servlet implementation class SupprimerServlet
@@ -33,18 +34,17 @@ public class SupprimerServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		String idStr = null;
+		int id = 0;
 		request.getSession();
 		HttpSession session = request.getSession();
-		
 		session.getAttribute("utilisateur");
 		
 		if(request.getParameter("id")!= null) {
-			String idStr = request.getParameter("id");
-			int id = Integer.parseInt(idStr);
-			deleteMng.delete(id);
+			idStr = request.getParameter("id");
+			id = Integer.parseInt(idStr);
 		}
-		
+		deleteMng.delete(id);
 		session.invalidate();
 		
         
@@ -52,14 +52,6 @@ public class SupprimerServlet extends HttpServlet {
 		if (rd != null) {
 			rd.forward(request, response);
 		}
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
 	}
 
 }

@@ -60,7 +60,7 @@ public class Connexion extends HttpServlet {
 		if(identifiant != null) {
 			HttpSession session = request.getSession();
 			session.setAttribute("utilisateur", identifiant);
-			System.out.println(session.getAttribute("utilisateur[1]"));
+
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/JSP/Accueil.jsp");
 			if (rd != null) {
 				rd.forward(request, response);

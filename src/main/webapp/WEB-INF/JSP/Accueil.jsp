@@ -37,16 +37,14 @@
 			<div class = "container">
 				<div class="row">
 					<c:forEach var="article" items="${requestScope.articles}" >
-						<c:forEach var="user" items="${requestScope.users}">
-							<c:if test="${article.noUtil == user.noUtilisateur}">
+	
 					 			<div class="col-3">
 				 					<p>${article.nomArticle }</p>
 					 				<p>prix : ${article.prixVente } points</p>
 					 				<p>Fin de l'enchère : ${article.dateFinEncheres }</p>
-					 				<p>Vendeur : 	${users.nom}</p>
-				 				</div> 
-					 		</c:if>				 			
-						 </c:forEach>
+					 				<p>Vendeur : 	${article.noUtilisateur }</p>
+				 				</div> 		 			
+						 
 			 		</c:forEach>
 				 </div>
 			</div>	
