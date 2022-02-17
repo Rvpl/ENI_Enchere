@@ -8,14 +8,15 @@ import java.sql.SQLException;
 import bo.Utilisateur;
 
 public class ModificationProfilJdbc {
-	private static final String SQL_UPDATE ="UPDATE mot_de_passe FROM UTILISATEURS WHERE no_utilisateur= ?;";
+	private static final String SQL_UPDATE ="UPDATE pseudo, nom, prenom, email, telephone, rue, code_postal, "
+			+ "ville, mot_de_passe FROM UTILISATEURS WHERE no_utilisateur= ? VALUES(?,?,?,?,?,?,?,?,?);";
 	private static final String SQL_VERIF ="SELECT pseudo FROM UTILISATEURS WHERE pseudo = ?;";
 	
 	
 	public int update (Utilisateur modificationUtilisateur) {
 		
 		Connection cnx = null;
-		int exist = 0;		
+		int exist = 0;		 
 		 try {
 			cnx = ConnectionProvider.getConnection();
 			
@@ -27,7 +28,7 @@ public class ModificationProfilJdbc {
 			ResultSet nbLigne = rqt.executeQuery();
 			if(nbLigne.next()) {
 				exist =1;
-			}else { */
+			}else { */ 
 				
 				// sinon on valorise la requête et on l'execute
 				PreparedStatement ordre = cnx.prepareStatement(SQL_UPDATE, PreparedStatement.RETURN_GENERATED_KEYS );
