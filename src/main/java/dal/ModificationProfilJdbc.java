@@ -8,8 +8,8 @@ import java.sql.SQLException;
 import bo.Utilisateur;
 
 public class ModificationProfilJdbc {
-	private static final String SQL_UPDATE ="UPDATE pseudo, nom, prenom, email, telephone, rue, code_postal, "
-			+ "ville, mot_de_passe FROM UTILISATEURS WHERE no_utilisateur= ? VALUES(?,?,?,?,?,?,?,?,?);";
+	private static final String SQL_UPDATE ="UPDATE UTILISATEURS SET pseudo= ?, nom= ?, prenom= ?, email= ?, telephone= ?, rue= ?, code_postal= ?, "
+			+ "ville= ?, mot_de_passe= ?  WHERE no_utilisateur= ? ";
 	private static final String SQL_VERIF ="SELECT pseudo FROM UTILISATEURS WHERE pseudo = ?;";
 	
 	
