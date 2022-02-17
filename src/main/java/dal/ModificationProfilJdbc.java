@@ -24,15 +24,13 @@ public class ModificationProfilJdbc {
 			//TODO gérer lorsque l'utilisateur garde le même pseudo (conflit avec son ancien pseudo qui est pareil)
 			 
 			PreparedStatement rqt = cnx.prepareStatement(SQL_VERIF);
-			rqt.setInt(1, modificationUtilisateur.getNoUtil());
+			rqt.setString(1, modificationUtilisateur.getPseudo());
 			ResultSet nbLigne = rqt.executeQuery();
+			PreparedStatement ordre = cnx.prepareStatement(SQL_UPDATE);
+			//Si la requête renvoie une ligne
 			if(nbLigne.next()) {
-				exist =1;
-				System.out.println(nbLigne.getString(1));
-			}else {
-				
-				// sinon on valorise la requête et on l'execute
-				PreparedStatement ordre = cnx.prepareStatement(SQL_UPDATE);
+				//existe passe à un qui signifie qu'il existe au moins 1 utilisateur avec ce pseudo
+				exist =1;				
 				ordre.setString(1, modificationUtilisateur.getPseudo());
 				ordre.setString(2, modificationUtilisateur.getNom());
 				ordre.setString(3, modificationUtilisateur.getPrenom());
@@ -42,17 +40,32 @@ public class ModificationProfilJdbc {
 				ordre.setInt(7, modificationUtilisateur.getCodePostal());
 				ordre.setString(8, modificationUtilisateur.getVille());
 				ordre.setString(9, modificationUtilisateur.getMdp());
+				ordre.setInt(10, modificationUtilisateur.getNoUtil());
+				
+				//si le nom d'utilisateur qu'on a rentré = nom utilisateur acutel on exécute qd même l'update
+				if(modificationUtilisateur.getPseudo() == modificationUtilisateur.getPseudo()) {
+					ordre.executeUpdate();
+				}else {
+					//Sinon on renvoi 2 pour dire que le pseudo existe déjà mais d'un autre utilisateur donc d'en choisir un autre
+					exist = 2;
+				}
+			}else {
+				
+				// sinon le pseudo n'existe pas alors on valorise la requête et on l'execute
+				ordre.setString(1, modificationUtilisateur.getPseudo());
+				ordre.setString(2, modificationUtilisateur.getNom());
+				ordre.setString(3, modificationUtilisateur.getPrenom());
+				ordre.setString(4, modificationUtilisateur.getEmail());
+				ordre.setInt(5, modificationUtilisateur.getNumero());
+				ordre.setString(6, modificationUtilisateur.getRue());
+				ordre.setInt(7, modificationUtilisateur.getCodePostal());
+				ordre.setString(8, modificationUtilisateur.getVille());
+				ordre.setString(9, modificationUtilisateur.getMdp());
+				ordre.setInt(10, modificationUtilisateur.getNoUtil());
 				int nbLignesAffectees = ordre.executeUpdate();
 				if (nbLignesAffectees == 0) {
 					throw new Exception("Aucune ligne n'a été ajoutée en base");
 				}
-				ResultSet clefs = ordre.getGeneratedKeys();
-				int clefAutoGeneree = -1;
-				if (clefs.next()) {
-					clefAutoGeneree = clefs.getInt(1);
-					modificationUtilisateur.setNoUtil(clefAutoGeneree);
-				}
-				
 			}
 			
 		} catch (SQLException e) {

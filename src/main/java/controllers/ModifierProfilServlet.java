@@ -116,22 +116,22 @@ public class ModifierProfilServlet extends HttpServlet {
 		
 		
 		
-		modificationProfilMng.update(user);
+		int exist = modificationProfilMng.update(user);
 		
-		// SI l'utilisateur existe déjà en BDD on renvoie l'identifiant de l'user existant
-//		int exist = modificationProfilMng.update(user);
-//		if(exist != 0) {
-//			request.setAttribute("exist", exist);
-//			request.setAttribute("pseudo", pseudo);
-//			request.setAttribute("nom", nom);
-//			request.setAttribute("prenom", prenom);
-//			request.setAttribute("email", email);
-//			request.setAttribute("tel", tel);
-//			request.setAttribute("rue", rue);
-//			request.setAttribute("cp", cp);
-//			request.setAttribute("ville", ville);
-//			doGet(request, response);
-//		}
+		
+		// SI l'utilisateur existe déjà en BDD on renvoie le message d'erreur
+		exist = modificationProfilMng.update(user);
+		if(exist == 2) {
+			String error = "Pseudo déjà utilisé veuillez en choisir un autre";
+			request.setAttribute("error", error);
+			doGet(request, response);
+		}else {
+
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/JSP/MonProfil.jsp");
+			if (rd != null) {
+				rd.forward(request, response); 
+			}
+		}
 		
 		
 		

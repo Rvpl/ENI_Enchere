@@ -105,8 +105,8 @@
 					
 					
 					
-			<c:if test="${requestScope.exist == 1 }">
-				<p>Le pseudo est déjà utilisé, veuillez en choisir un autre</p>
+			<c:if test="${requestScope.exist == 2 }">
+				<p>${requestScope.error}</p>
 			</c:if>
 		</div>
 	</body>
