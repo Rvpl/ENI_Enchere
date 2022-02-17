@@ -47,15 +47,16 @@
 				<label>Ville:</label>
 				<input type="text" value="${sessionScope.utilisateur.ville}">
 			</div>
-			<div >
+			<div class="col-12">
 				<button class="btn btn-success">Enregistrer</button>
-			</div>
-			
-			
-				
-		</div>
-		
-		
+				<button class="btn btn-warning" disabled>Annuler</button>
+			</div>		
+		</div>	
+	</form>
+	<form action="${pageContext.request.contextPath}/home" method="get">
+		<div> 
+			<button class="btn btn-warning" disabled>Annuler</button>
+		</div>	
 	</form>
 		
 	</div>
