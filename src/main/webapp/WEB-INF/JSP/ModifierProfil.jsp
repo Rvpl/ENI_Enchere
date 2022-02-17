@@ -60,7 +60,7 @@
 					
 					<div class="col-6">
 						<label>Mot de passe actuel:</label>
-						<input type="password" name=motDePasseActuel  >
+						<input type="password" name=verifMdp  >
 						
 						
 					</div>	 
