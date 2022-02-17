@@ -28,7 +28,7 @@ private static final String SQL_INSERT_ARTICLE ="INSERT INTO ARTICLES_VENDUS ( n
 			rqt.setString(4, nouvelArticle.getDateFinEncheres().toString());
 			rqt.setInt(5, nouvelArticle.getMiseAPrix());
 			rqt.setInt(6, nouvelArticle.getNoUtilisateur());
-			//numéro catégorie à régler
+			//numéro catégorie à régler!
 			rqt.setInt(7, 1);
 			int nbLignesAffectees = rqt.executeUpdate();
 			if (nbLignesAffectees == 0) {
