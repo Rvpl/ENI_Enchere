@@ -83,7 +83,7 @@
 				<div class="col-6">
 					<input type="submit" value = "enregistrer">
 				</div>
-				
+				<input name="id" value="${sessionScope.utilisateur.noUtil}" type="hidden">
 			</form>
 					
 					<form action="${pageContext.request.contextPath}/supprimer" method="get">

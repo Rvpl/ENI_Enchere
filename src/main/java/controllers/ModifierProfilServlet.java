@@ -103,7 +103,7 @@ public class ModifierProfilServlet extends HttpServlet {
 			} 
 		
 		Utilisateur user = new Utilisateur();
-		
+		user.setNoUtil(Integer.parseInt(request.getParameter("id")));
 		user.setPseudo(pseudo);
 		user.setNom(nom); 
 		user.setPrenom(prenom);
