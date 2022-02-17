@@ -2,7 +2,7 @@ package bo;
 
 import java.time.LocalDate;
 
-public class Articles {
+public class Article {
 	
 	private int noArticle;
 	private String nomArticle;
@@ -14,7 +14,7 @@ public class Articles {
 	private int noUtilisateur;
 	
 	
-	public Articles(int noArticle, String nomArticle, String description, LocalDate dateDebutEncheres,
+	public Article(int noArticle, String nomArticle, String description, LocalDate dateDebutEncheres,
 			LocalDate dateFinEncheres, int miseAPrix, int prixVente, int noUtilisateur) {
 		super();
 		this.noArticle = noArticle;
@@ -28,7 +28,7 @@ public class Articles {
 	}
 
 
-	public Articles() {
+	public Article() {
 	}
 
 

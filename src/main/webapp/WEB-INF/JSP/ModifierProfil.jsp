@@ -15,47 +15,47 @@
 			<div class="row">	
 				<div class="col-6">
 					<label>Pseudo:</label>
-					<input type="text" name="pseudo" value="${requestScope.pseudo}">
+					<input type="text" name="pseudo" value="${requestScope.utilisateur.pseudo}">
 				</div>
 					
 				<div class="col-6">
 					<label>Nom:</label>
-					<input type="text" name="nom"  value="${requestScope.nom}">
+					<input type="text" name="nom"  value="${requestScope.utilisateur.nom}">
 				</div>
 				
 				<div class="col-6">	
 				<label>Prénom:</label>
-					<input type="text" name="Prenom"  value="${requestScope.prenom}">
+					<input type="text" name="Prenom"  value="${requestScope.utilisateur.prenom}">
 				</div>
 				
 				<div class="col-6">
 					
 					<label>Email:</label>
-					<input type="text" name="email"  value="${requestScope.email}">
+					<input type="text" name="email"  value="${requestScope.utilisateur.email}">
 				</div>
 				
 				<div class="col-6">
 					
 					<label>Téléphone:</label>
-					<input type="text" name="telephone"  value="${requestScope.tel}">
+					<input type="text" name="telephone"  value="${requestScope.utilisateur.tel}">
 				</div>
 				
 				<div class="col-6">
 					
 					<label>rue:</label>
-					<input type="text" name="rue"  value="${requestScope.rue}">
+					<input type="text" name="rue"  value="${requestScope.utilisateur.rue}">
 				</div>
 				
 				<div class="col-6">
 					
 					<label>Code postal:</label>
-					<input type="text" name="codePostal"  value="${requestScope.cp}">
+					<input type="text" name="codePostal"  value="${requestScope.utilisateur.cp}">
 				</div>
 				
 				<div class="col-6">
 					
 					<label>ville:</label>
-					<input type="text" name="ville"  value="${requestScope.ville}">
+					<input type="text" name="ville"  value="${requestScope.utilisateur.ville}">
 				</div>
 				
 				<div class="col-6">

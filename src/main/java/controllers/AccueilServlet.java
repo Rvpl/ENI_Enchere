@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import bll.ArticleManager;
-import bo.Articles;
+import bo.Article;
 import bo.Utilisateur;
 
 /**
@@ -22,8 +22,8 @@ import bo.Utilisateur;
 public class AccueilServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ArticleManager ArticleMng;
-	private List<Articles>articles;
-	private List<Articles>articlesBN;
+	private List<Article>articles;
+	private List<Article>articlesBN;
 	private List<Utilisateur> users;
 	private List<Utilisateur> usersBN;
        

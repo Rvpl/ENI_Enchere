@@ -23,15 +23,16 @@ public class ModificationProfilJdbc {
 			// Si le pseudo existe déjà on renvoie 1 qui confirme qu'il n'est pas unique
 			//TODO gérer lorsque l'utilisateur garde le même pseudo (conflit avec son ancien pseudo qui est pareil)
 			 
-		/*	PreparedStatement rqt = cnx.prepareStatement(SQL_VERIF);
-			rqt.setString(1, modificationProfile.getPseudo());
+			PreparedStatement rqt = cnx.prepareStatement(SQL_VERIF);
+			rqt.setInt(1, modificationUtilisateur.getNoUtil());
 			ResultSet nbLigne = rqt.executeQuery();
 			if(nbLigne.next()) {
 				exist =1;
-			}else { */ 
+				System.out.println(nbLigne.getString(1));
+			}else {
 				
 				// sinon on valorise la requête et on l'execute
-				PreparedStatement ordre = cnx.prepareStatement(SQL_UPDATE, PreparedStatement.RETURN_GENERATED_KEYS );
+				PreparedStatement ordre = cnx.prepareStatement(SQL_UPDATE);
 				ordre.setString(1, modificationUtilisateur.getPseudo());
 				ordre.setString(2, modificationUtilisateur.getNom());
 				ordre.setString(3, modificationUtilisateur.getPrenom());
@@ -52,7 +53,7 @@ public class ModificationProfilJdbc {
 					modificationUtilisateur.setNoUtil(clefAutoGeneree);
 				}
 				
-			//}
+			}
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

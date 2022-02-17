@@ -24,8 +24,8 @@ public class ModifierProfilServlet extends HttpServlet {
      * @see HttpServlet#HttpServlet()
      */
     public ModifierProfilServlet() {
-        super();
-        // TODO Auto-generated constructor stub
+    	 super();
+    	modificationProfilMng = new ModificationProfilJdbc();
     } 
 
 	/**
@@ -100,8 +100,12 @@ public class ModifierProfilServlet extends HttpServlet {
 				}
 			} 
 		
+		Utilisateur user = new Utilisateur();
 		
-		ModificationProfilManager user = new ModificationProfilManager();
+		user.setPseudo(pseudo);
+		user.setNom(nom);
+		user.setPrenom(prenom);
+		
 		
 		// SI l'utilisateur existe déjà en BDD on renvoie l'identifiant de l'user existant
 //		int exist = modificationProfilMng.update(user);

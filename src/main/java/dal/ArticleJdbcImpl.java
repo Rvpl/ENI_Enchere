@@ -8,13 +8,13 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import bo.Articles;
+import bo.Article;
 import bo.Utilisateur;
 
 public class ArticleJdbcImpl {
 	
-	private List<Articles>articles;
-	private List<Articles>articlesBN;
+	private List<Article>articles;
+	private List<Article>articlesBN;
 	private List<Utilisateur>users;
 	private List<Utilisateur>usersBN;
 	private static final String SELECT_BY_NAME = "SELECT no_article, nom_article, description,date_debut_encheres,date_fin_encheres,prix_initial,prix_vente,ARTICLES_VENDUS.no_utilisateur,no_categorie, nom,prenom,pseudo FROM ARTICLES_VENDUS,UTILISATEURS WHERE ARTICLES_VENDUS.no_utilisateur = UTILISATEURS.no_utilisateur AND nom_article LIKE '%'+?+'%';";
@@ -22,7 +22,7 @@ public class ArticleJdbcImpl {
 	
 	
 	//Retourne une liste d'article en fonction de leur noms
-	public List<Articles> select (String nomArticle) {
+	public List<Article> select (String nomArticle) {
 		Connection cnx = null;	
 		articlesBN = new ArrayList<>();
 		usersBN = new ArrayList<>();
@@ -38,7 +38,7 @@ public class ArticleJdbcImpl {
 			ResultSet rs = rqt.executeQuery();
 			while(rs.next()) {
 				Utilisateur user = new Utilisateur();
-				Articles article = new Articles();
+				Article article = new Article();
 				article.setNoArticle(rs.getInt(1));
 				article.setNomArticle(rs.getString(2));
 				article.setDescription(rs.getString(3));
@@ -66,7 +66,7 @@ public class ArticleJdbcImpl {
 	}	
 	
 	//Retourne tout les articles
-	public List<Articles> getArticles() {
+	public List<Article> getArticles() {
 		Connection cnx = null;
 		articles = new ArrayList<>();
 		users = new ArrayList<>();
@@ -76,7 +76,7 @@ public class ArticleJdbcImpl {
 			ResultSet nbLigne = req.executeQuery(SELECT_ALL);
 			while(nbLigne.next()) {
 				Utilisateur user = new Utilisateur();
-				Articles article = new Articles();
+				Article article = new Article();
 				article.setNoArticle(nbLigne.getInt(1));
 				article.setNomArticle(nbLigne.getString(2));
 				article.setDescription(nbLigne.getString(3));
