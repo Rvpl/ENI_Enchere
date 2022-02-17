@@ -1,0 +1,37 @@
+Gestion de projet : 
+
+Je ne vois pas le document de suivi, difficile de savoir où vous en êtes rapidement
+et comment vous vous êtes organisés.
+
+
+Git : Argh! le gitignore comporte une erreur : 
+.classpth !!! devrait être classpath
+Ca m'a bien pourri mon projet !!
+Je vous laisse corriger
+
+- BO Articles : 
+-- A mettre au singulier
+-- La BO devrait être orientée objet, donc pas que le noUtilisateur dans Articles mais 
+une référence vers Utilisateur (sauf si très bonne raison ?)
+
+
+-CONTROLLERS
+AccueilServlet : les variables commencent par des minuscules  (ArticleMng)
+Ne pas déclarer de variables contenant des données en global dans les servlets : 
+private List<Articles>articles;
+	private List<Articles>articlesBN;
+=> DANGEREUX dans le cadre d'une application web multi-utilisateurs - il faut déclarer en local dans la méthode
+Des commentaires ou un meilleur nommage aiderait à comprendre le code - qu'est ce que articlesBN par exemple ?
+
+DeconnexionServlet :
+Sur le doGet, une redirection serait préférable à un forward ( ou au minimum faire un request.getSession(false) 
+pour ne pas recréer de session quand l'utilisateur rafraichit sa page après s'être déconnecté
+
+
+-COUCHE METIER
+
+
+-COUCHE DAL
+Essayez de structurer votre couche dal pour permettre un couplage faible avec la BLL.
+Au minimum, créez les interfaces et implémentez les dans implémentations des DAOs
+
