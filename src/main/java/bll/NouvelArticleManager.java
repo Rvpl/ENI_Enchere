@@ -3,11 +3,11 @@ package bll;
 import bo.Article;
 import dal.CreationArticleJdbc;
 
-public class NouvelArtcleManager {
+public class NouvelArticleManager {
 	
 	private CreationArticleJdbc creationArticleMng;
 
-	public NouvelArtcleManager() {
+	public NouvelArticleManager() {
 		super();
 		creationArticleMng = new CreationArticleJdbc();
 	}
