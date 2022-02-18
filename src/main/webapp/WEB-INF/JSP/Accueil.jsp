@@ -17,13 +17,11 @@
 		<fieldset>
 			<input type="text" name="filtre" id="filtre" required>	
 		</fieldset>
-		<select>
-			<option value="0">Toutes</option>
-			<option value="1">Informatique</option>
-			<option value="2">Ameublement</option>
-			<option value="3">Vêtement</option>
-			<option value="4">Sport & Loisirs</option>
-		</select>
+		<select name="choixCategorie">
+					<c:forEach var="categorie" items="${requestScope.categorie}">
+						<option value="${categorie}">${categorie}</option>
+					</c:forEach>
+				</select>
 		<input type="submit" value="Rechercher">
 	</form>
 	

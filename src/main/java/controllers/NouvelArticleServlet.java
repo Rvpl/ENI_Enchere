@@ -35,6 +35,9 @@ public class NouvelArticleServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getSession();
+		String[] tabCategorie = this.getServletContext().getInitParameter("categorie").split(";");
+		request.setAttribute("categorie", tabCategorie);
+		
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/JSP/NouvelleVente.jsp");
 		if (rd != null) {
 			rd.forward(request, response); 
@@ -56,7 +59,8 @@ public class NouvelArticleServlet extends HttpServlet {
 		String miseAPrixStr = null;
 		String idUtilStr = null;
 		int idUtil = 0;
-		Utilisateur userName = null;
+		String categorieStr = null;
+		int categorie = 0;
 		
 		
 		if(request.getParameter("nomArticle") != null) {
@@ -65,6 +69,23 @@ public class NouvelArticleServlet extends HttpServlet {
 		if(request.getParameter("description") != null) {
 			description = request.getParameter("description").trim();
 		}
+		
+		if(request.getParameter("choixCategorie") != null) {
+			categorieStr = request.getParameter("choixCategorie").trim();
+			if(categorieStr.equals("informatique")) {
+				categorie = 1;
+			}
+			if(categorieStr.equals("Ameublement")) {
+				categorie = 2;
+			}
+			if(categorieStr.equals("VÃªtement")) {
+				categorie = 3;
+			}
+			if(categorieStr.equals("Sport/Loisirs")) {
+				categorie = 4;
+			}
+		}
+		
 		if(request.getParameter("prix") != null) {
 			miseAPrixStr = request.getParameter("prix").trim();
 			miseAPrix = Integer.parseInt(miseAPrixStr);
@@ -84,10 +105,10 @@ public class NouvelArticleServlet extends HttpServlet {
 			idUtil = Integer.parseInt(idUtilStr);
 		}
 		
-		Article article = new Article(nomArticle,description,dateDebutEncheres,dateFinEncheres,miseAPrix,idUtil);
+		Article article = new Article(nomArticle,description,dateDebutEncheres,dateFinEncheres,miseAPrix,idUtil,categorie);
 		
 		int exist = creaArticleMng.addArticle(article);
-		if(exist == 2) {
+		if(exist != 0) {
 
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/JSP/Accueil.jsp");
 			if (rd != null) {

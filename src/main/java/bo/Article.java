@@ -40,7 +40,7 @@ public class Article {
 		this.miseAPrix = miseAPrix;
 		this.prixVente = prixVente;
 		this.noUtilisateur.setNoUtil(noUtilisater);;
-		this.noCategorie.getNoCategorie();
+		this.noCategorie.setNoCategorie(noCategorie);;
 		nomUtil = noUtilisateur.getNom();
 		
 	}
@@ -48,18 +48,21 @@ public class Article {
 
 	public Article() {
 		this.noUtilisateur = new Utilisateur();
+		this.noCategorie = new Categorie();
 		nomUtil = noUtilisateur.getNom();
 	}
 
 
-	public Article(String nomArticle2, String description2, LocalDate dateDebutEncheres2, LocalDate dateFinEncheres2,int miseAPrix2, int idUtil) {
+	public Article(String nomArticle2, String description2, LocalDate dateDebutEncheres2, LocalDate dateFinEncheres2,int miseAPrix2, int idUtil, int categorie) {
 		this.noUtilisateur = new Utilisateur();
+		this.noCategorie = new Categorie();
 		this.nomArticle = nomArticle2;
 		this.description = description2;
 		this.dateDebutEncheres = dateDebutEncheres2;
 		this.dateFinEncheres = dateFinEncheres2;
 		this.miseAPrix = miseAPrix2;
 		this.noUtilisateur.setNoUtil(idUtil);
+		this.noCategorie.setNoCategorie(categorie);
 		nomUtil = noUtilisateur.getNom();
 	}
 

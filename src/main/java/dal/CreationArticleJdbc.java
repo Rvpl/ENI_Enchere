@@ -10,9 +10,9 @@ import bo.Utilisateur;
 
 public class CreationArticleJdbc {
 
-private static final String SQL_INSERT_ARTICLE ="INSERT INTO ARTICLES_VENDUS (nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie) VALUES ( ?, ?, ?, ?, ?, ?, ?, 1)";
+private static final String SQL_INSERT_ARTICLE ="INSERT INTO ARTICLES_VENDUS (nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?)";
 private static final String SQL_INSERT_ENCHERE ="INSERT INTO ENCHERES(date_enchere,montant_enchere,no_article,no_utilisateur) VALUES (?,?,?,?)";
-private static final String SQL_SELCT_USER ="SELECT pseudo,nom,prenom FROM UTILISATEURS WHERE no_utilisateur = ?";
+
 	public int addArticle (Article nouvelArticle) {
 		
 		Connection cnx = null;
@@ -34,6 +34,9 @@ private static final String SQL_SELCT_USER ="SELECT pseudo,nom,prenom FROM UTILI
 			rqt.setInt(6, 0);
 			//Récupération de l'id utilisateur
 			rqt.setInt(7, nouvelArticle.getUtilisateur().getNoUtil());
+			
+			rqt.setInt(8, nouvelArticle.getNoCategorie().getNoCategorie());
+			
 			int nbLignesAffectees = rqt.executeUpdate();
 			if (nbLignesAffectees == 0) {
 				throw new Exception("Aucune ligne n'a été ajoutée en base");
@@ -57,6 +60,7 @@ private static final String SQL_SELCT_USER ="SELECT pseudo,nom,prenom FROM UTILI
 					throw new Exception("Aucune ligne n'a été ajoutée en base");
 				}
 				verif = 2;
+				
 			}
 			
 		} catch (SQLException e) {

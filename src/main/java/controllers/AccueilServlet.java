@@ -43,7 +43,9 @@ public class AccueilServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getSession();	
+		request.getSession();
+		String[] tabCategorie = this.getServletContext().getInitParameter("categorie").split(";");
+		request.setAttribute("categorie", tabCategorie);
 		articles = ArticleMng.getArticles();
 		users = ArticleMng.getUser();
 		
