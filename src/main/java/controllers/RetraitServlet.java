@@ -60,7 +60,7 @@ public class RetraitServlet extends HttpServlet {
 			
 		}
 		
-		
+		Retrait ret = new Retrait(rue, code_postal, ville);
 		
 		doGet(request, response);
 	}
