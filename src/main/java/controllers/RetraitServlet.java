@@ -33,7 +33,7 @@ public class RetraitServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/JSP/NouvelleVente.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/JSP/retrait.jsp");
 		if (rd != null) {
 			rd.forward(request, response); 
 		}
@@ -45,6 +45,7 @@ public class RetraitServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		int no_article = 0;
+		String no_articleStr = null;
 		String rue = null;
 		String code_postal = null;
 		String ville = null;
@@ -59,10 +60,21 @@ public class RetraitServlet extends HttpServlet {
 			ville = request.getParameter("ville").trim();
 			
 		}
+		if(request.getParameter("no_article") != null) {
+			no_articleStr = request.getParameter("no_article").trim();
+			no_article = Integer.parseInt(no_articleStr);
+		}
 		
-		Retrait ret = new Retrait(rue, code_postal, ville);
+		Retrait ret = new Retrait(rue, code_postal, ville,no_article);
+		int exist = retraitMng.addRetrait(ret);
+		if(exist != 0) {
+
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/JSP/Accueil.jsp");
+			if (rd != null) {
+				rd.forward(request, response); 
+			}
 		
-		doGet(request, response);
+		}
 	}
 
 }

@@ -9,7 +9,7 @@ import bo.Retrait;
 
 public class RetraitArticleJdbc {
 	
-	private static final String SQL_INSERT_RETRAIT = "INSERT INTO RETRAITS (no_article,rue, code_postal, ville) VALUES (1, ?, ?, ?)";
+	private static final String SQL_INSERT_RETRAIT = "INSERT INTO RETRAITS (no_article,rue, code_postal, ville) VALUES (?, ?, ?, ?)";
 	
 	public int addRetrait (Retrait retraitArticle) {
 		

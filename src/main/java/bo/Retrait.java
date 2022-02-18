@@ -7,6 +7,11 @@ public class Retrait {
 	private String ville;
 	private Article no_article;
 	
+	
+	public Retrait() {
+		super();
+	}
+	
 	public Retrait(String rue, String code_postal, String ville) {
 		super();
 		this.rue = rue;
@@ -21,6 +26,14 @@ public class Retrait {
 		this.code_postal = code_postal;
 		this.ville = ville;
 		this.no_article = no_article;
+	}
+	public Retrait(String rue, String code_postal, String ville, int no_article1) {
+		super();
+		this.no_article = new Article();
+		this.rue = rue;
+		this.code_postal = code_postal;
+		this.ville = ville;
+		this.no_article.setNoArticle(no_article1);
 	}
 
 
