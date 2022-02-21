@@ -4,4 +4,9 @@
   <welcome-file-list>
     <welcome-file>home</welcome-file>
   </welcome-file-list>
+  
+  <context-param>
+  	<param-name>categorie</param-name>
+  	<param-value>informatique;Ameublement;Vêtement;Sport/Loisirs</param-value>
+  </context-param>
 </web-app>
