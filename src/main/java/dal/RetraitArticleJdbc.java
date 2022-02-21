@@ -20,9 +20,9 @@ public class RetraitArticleJdbc {
 			cnx = ConnectionProvider.getConnection();
 			PreparedStatement rqt = cnx.prepareStatement(SQL_INSERT_RETRAIT,  PreparedStatement.RETURN_GENERATED_KEYS);
 			
-			rqt.setInt(1, retraitArticle.getNo_article().getNoArticle());
+			rqt.setInt(1, retraitArticle.getNo_article());
 			rqt.setString(2, retraitArticle.getRue());
-			rqt.setString(3, retraitArticle.getCode_postal());
+			rqt.setInt(3, retraitArticle.getCodePostal());
 			rqt.setString(4, retraitArticle.getVille());
 			
 			int nbLignesAffectees = rqt.executeUpdate();
