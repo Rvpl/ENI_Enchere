@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import bo.Article;
-import bo.Utilisateur;
+import bo.Retrait;
 import dal.CreationArticleJdbc;
 
 /**
@@ -61,6 +61,9 @@ public class NouvelArticleServlet extends HttpServlet {
 		int idUtil = 0;
 		String categorieStr = null;
 		int categorie = 0;
+		String ville = null;
+		int cp = 0;
+		String rue = null;
 		
 		
 		if(request.getParameter("nomArticle") != null) {
@@ -105,7 +108,25 @@ public class NouvelArticleServlet extends HttpServlet {
 			idUtil = Integer.parseInt(idUtilStr);
 		}
 		
+		if(request.getParameter("rue") != null) {
+			rue = request.getParameter("rue");
+		}
+		
+		if(request.getParameter("codePostal") != null) {
+			cp = Integer.parseInt(request.getParameter("codePostal"));
+		}
+		
+		if(request.getParameter("ville") != null) {
+			ville = request.getParameter("ville");
+		}
+		
+			
+		
 		Article article = new Article(nomArticle,description,dateDebutEncheres,dateFinEncheres,miseAPrix,idUtil,categorie);
+		article.getRetrait().setRue(rue);
+		article.getRetrait().setVille(ville);
+		article.getRetrait().setCodePostal(cp);
+		article.getRetrait().setNo_article(article.getNoArticle());
 		
 		int exist = creaArticleMng.addArticle(article);
 		if(exist != 0) {

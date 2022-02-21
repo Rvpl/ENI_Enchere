@@ -8,6 +8,10 @@ public class SuppressionJdbc {
 	
 	private static final String SQL_DELETE_BY_NO= "DELETE FROM UTILISATEURS WHERE no_utilisateur = ?";
 	private static final String SQL_DELETE_ARTICLES = "DELETE FROM ARTICLES_VENDUS WHERE no_utilisateur = ?";
+	private static final String SQL_DELETE_RETRAIT = "DELETE FROM RETRAITS WHERE no_article = ?";
+	private static final String SQL_DELETE_ENCHERES ="DELETE FROM ENCHERES WHERE no_utilisateur = ?";
+	
+	//TODO Exécuter les requêtes afin de compléter la suppression de profil
 	
 	
 	public void delete (Integer utilisateurASupprimer) throws Exception {

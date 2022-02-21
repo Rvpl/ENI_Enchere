@@ -63,7 +63,7 @@ public class Connexion extends HttpServlet {
 
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/JSP/Accueil.jsp");
 			if (rd != null) {
-				rd.forward(request, response);
+				response.sendRedirect(request.getContextPath()+"/home");
 			}
 		}else {
 			request.setAttribute("introuvable", identifiant);

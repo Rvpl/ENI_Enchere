@@ -15,13 +15,13 @@ public class ArticleManager {
 		articleMng = new ArticleJdbcImpl();
 	}
 	
-	public List<Article> select(String nomArticle) {
+	public List<Article> select(String nomArticle, int categorie) {
 		
-		return articleMng.select(nomArticle);
+		return articleMng.select(nomArticle,categorie);
 	}
 	
-	public List<Article> getArticles() {
-		return articleMng.getArticles();
+	public List<Article> getArticles(String nomArticle) {
+		return articleMng.getArticles(nomArticle);
 	}
 	
 	public List<Utilisateur> getUserBN(String nomArticle){

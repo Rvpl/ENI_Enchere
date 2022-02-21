@@ -13,12 +13,13 @@ public class Article {
 	private int prixVente;
 	private Utilisateur noUtilisateur;
 	private Categorie noCategorie;
-	private String nomUtil;
+	private Retrait retrait;
 	
 	
 	public Article(String nomArticle, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres,
 			int miseAPrix) {
 		super();
+		this.retrait = new Retrait();
 		this.nomArticle = nomArticle;
 		this.description = description;
 		this.dateDebutEncheres = dateDebutEncheres;
@@ -30,6 +31,7 @@ public class Article {
 	public Article(int noArticle, String nomArticle, String description, LocalDate dateDebutEncheres,
 			LocalDate dateFinEncheres, int miseAPrix, int prixVente, int noUtilisater, int noCategorie) {
 		super();
+		this.retrait = new Retrait();
 		this.noUtilisateur = new Utilisateur();
 		this.noCategorie = new Categorie();
 		this.noArticle = noArticle;
@@ -40,16 +42,15 @@ public class Article {
 		this.miseAPrix = miseAPrix;
 		this.prixVente = prixVente;
 		this.noUtilisateur.setNoUtil(noUtilisater);;
-		this.noCategorie.setNoCategorie(noCategorie);;
-		nomUtil = noUtilisateur.getNom();
+		this.noCategorie.setNoCategorie(noCategorie);
 		
 	}
 
 
 	public Article() {
+		this.retrait = new Retrait();
 		this.noUtilisateur = new Utilisateur();
 		this.noCategorie = new Categorie();
-		nomUtil = noUtilisateur.getNom();
 	}
 
 
@@ -63,7 +64,7 @@ public class Article {
 		this.miseAPrix = miseAPrix2;
 		this.noUtilisateur.setNoUtil(idUtil);
 		this.noCategorie.setNoCategorie(categorie);
-		nomUtil = noUtilisateur.getNom();
+		this.retrait = new Retrait();
 	}
 
 
@@ -167,9 +168,19 @@ public class Article {
 
 
 	public String getNomUtil() {
-		return nomUtil = noUtilisateur.getNom();
+		return noUtilisateur.getNom();
 	}
-	
+
+
+	public Retrait getRetrait() {
+		return retrait;
+	}
+
+
+	public void setRetrait(Retrait retrait) {
+		this.retrait = retrait;
+	}
+
 	
 	
 }

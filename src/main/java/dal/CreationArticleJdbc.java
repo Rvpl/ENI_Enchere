@@ -12,7 +12,7 @@ public class CreationArticleJdbc {
 
 private static final String SQL_INSERT_ARTICLE ="INSERT INTO ARTICLES_VENDUS (nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?)";
 private static final String SQL_INSERT_ENCHERE ="INSERT INTO ENCHERES(date_enchere,montant_enchere,no_article,no_utilisateur) VALUES (?,?,?,?)";
-
+private static final String SQL_INSERT_RETRAIT ="INSERT INTO RETRAITS (no_article,rue,code_postal,ville) VALUES (?,?,?,?)";
 	public int addArticle (Article nouvelArticle) {
 		
 		Connection cnx = null;
@@ -63,6 +63,18 @@ private static final String SQL_INSERT_ENCHERE ="INSERT INTO ENCHERES(date_enche
 				
 			}
 			
+			PreparedStatement rqt3 = cnx.prepareStatement(SQL_INSERT_RETRAIT);
+			
+			rqt3.setInt(1, nouvelArticle.getNoArticle());
+			rqt3.setString(2, nouvelArticle.getRetrait().getRue());
+			rqt3.setInt(3, nouvelArticle.getRetrait().getCodePostal());
+			rqt3.setString(4, nouvelArticle.getRetrait().getVille());
+			
+			int nbLignes = rqt3.executeUpdate();
+			if(nbLignes == 0) {
+				throw new Exception("Erreur à la création du retrait");
+			}
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

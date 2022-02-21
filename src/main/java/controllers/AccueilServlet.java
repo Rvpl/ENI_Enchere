@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import bll.ArticleManager;
 import bo.Article;
@@ -43,10 +44,22 @@ public class AccueilServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int categorie = -1;
+		String rech = "";
 		request.getSession();
+		HttpSession session = request.getSession();
 		String[] tabCategorie = this.getServletContext().getInitParameter("categorie").split(";");
 		request.setAttribute("categorie", tabCategorie);
-		articles = ArticleMng.getArticles();
+		
+		
+		if(request.getParameter("choixCategorie") == null) {
+			categorie = 0;
+		}
+		if(categorie == 0) {
+			articles = ArticleMng.select(rech,categorie);
+		}
+
+		
 		users = ArticleMng.getUser();
 		
 		request.setAttribute("users", users);
@@ -63,11 +76,37 @@ public class AccueilServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String filtre = null;
+		String categorieStr = null;
+		int categorie = -1;
 		if(request.getParameter("filtre")!= null) {
 			filtre = request.getParameter("filtre");
 		}
+		if(request.getParameter("choixCategorie") != null) {
+			categorieStr = request.getParameter("choixCategorie");
+			if(categorieStr.equals("Toutes")) {
+				categorie = 0;
+			}
+			if(categorieStr.equals("informatique")) {
+				categorie = 1;
+			}
+			if(categorieStr.equals("Ameublement")) {
+				categorie = 2;
+			}
+			if(categorieStr.equals("VÃªtement")) {
+				categorie = 3;
+			}
+			if(categorieStr.equals("Sport/Loisirs")) {
+				categorie = 4;
+			}
+		}
+		
+		if(categorie == 0) {
+			articlesBN = ArticleMng.getArticles(filtre);
+		}else {
+			articlesBN = ArticleMng.select(filtre, categorie);
+		}	
 		usersBN = ArticleMng.getUserBN(filtre);	
-		articlesBN = ArticleMng.select(filtre);
+		
 		request.setAttribute("usersBN", usersBN);	
 		request.setAttribute("articlesBN", articlesBN);	
 		
