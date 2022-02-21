@@ -15,11 +15,11 @@ private static final String SQL_INSERT_ENCHERE ="INSERT INTO ENCHERES(date_enche
 private static final String SQL_INSERT_RETRAIT ="INSERT INTO RETRAITS (no_article,rue,code_postal,ville) VALUES (?,?,?,?)";
 	public int addArticle (Article nouvelArticle) {
 		
-		Connection cnx = null;
+		
 		int verif = 0;
 		
-		try {
-			cnx = ConnectionProvider.getConnection();
+		try (Connection cnx = ConnectionProvider.getConnection()) {
+			
 			
 			
 			PreparedStatement rqt = cnx.prepareStatement(SQL_INSERT_ARTICLE,  PreparedStatement.RETURN_GENERATED_KEYS);

@@ -15,10 +15,10 @@ public class ModificationProfilJdbc {
 	
 	public int update (Utilisateur modificationUtilisateur) {
 		
-		Connection cnx = null;
+		 
 		int exist = 0;		 
-		 try {
-			cnx = ConnectionProvider.getConnection();
+		 try (Connection cnx = ConnectionProvider.getConnection()) {
+			 
 			
 			// Si le pseudo existe déjà on renvoie 1 qui confirme qu'il n'est pas unique
 			//TODO gérer lorsque l'utilisateur garde le même pseudo (conflit avec son ancien pseudo qui est pareil)

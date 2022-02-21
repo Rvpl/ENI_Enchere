@@ -11,10 +11,10 @@ public class ConnexionJdbcImpl {
 	private static final String SELECT_UTIL = "SELECT no_utilisateur,pseudo,nom,prenom,email,telephone,rue,code_postal,ville,credit FROM utilisateurs WHERE pseudo = ? AND mot_de_passe = ?";
 	
 	public Utilisateur select(String pseudo,String mdp) {
-		Connection cnx = null;
+		
 		Utilisateur user = null;
-		try {
-			cnx = ConnectionProvider.getConnection();
+		try (Connection  cnx = ConnectionProvider.getConnection()){
+			
 			
 			//Créer la commande
 			PreparedStatement rqt = cnx.prepareStatement(SELECT_UTIL);

@@ -20,11 +20,11 @@ public class ArticleJdbcImpl {
 	private static final String SELECT_ALL_BY_NAME = "SELECT no_article, nom_article, description,date_debut_encheres,date_fin_encheres,prix_initial,prix_vente,ARTICLES_VENDUS.no_utilisateur,no_categorie, nom,prenom,pseudo FROM ARTICLES_VENDUS,UTILISATEURS WHERE ARTICLES_VENDUS.no_utilisateur = UTILISATEURS.no_utilisateur AND nom_article  LIKE '%'+?+'%';";
 	//Retourne une liste d'article en fonction de leur noms
 	public List<Article> select (String nomArticle, int categorie) {
-		Connection cnx = null;	
+			
 		List<Article>articlesBN = new ArrayList<>();
 		usersBN = new ArrayList<>();
-		try {
-			cnx = ConnectionProvider.getConnection();	
+		try (Connection cnx = ConnectionProvider.getConnection()) {
+				
 			
 			if(categorie == 0) {
 				//Créer la commande
@@ -94,11 +94,11 @@ public class ArticleJdbcImpl {
 	}	
 	//Retourne tout les articles
 	public List<Article> getArticles(String nomArticle) {
-		Connection cnx = null;
+		 
 		List<Article>articles = new ArrayList<>();
 		users = new ArrayList<>();
-		try {
-			cnx = ConnectionProvider.getConnection();
+		try (Connection cnx = ConnectionProvider.getConnection()) {
+			
 					//Créer la commande
 					PreparedStatement rqt = cnx.prepareStatement(SELECT_ALL_BY_NAME);
 					

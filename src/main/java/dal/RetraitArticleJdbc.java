@@ -13,11 +13,11 @@ public class RetraitArticleJdbc {
 	
 	public int addRetrait (Retrait retraitArticle) {
 		
-		Connection cnx = null;
+		
 		int retrait = 0;
 		
-		try {
-			cnx = ConnectionProvider.getConnection();
+		try (Connection cnx = ConnectionProvider.getConnection()){
+			
 			PreparedStatement rqt = cnx.prepareStatement(SQL_INSERT_RETRAIT,  PreparedStatement.RETURN_GENERATED_KEYS);
 			
 			rqt.setInt(1, retraitArticle.getNo_article());

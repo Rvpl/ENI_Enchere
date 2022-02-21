@@ -16,9 +16,9 @@ public class SuppressionJdbc {
 	
 	public void delete (Integer utilisateurASupprimer) throws Exception {
 		
-		Connection cnx = null;
-		try {
-			cnx = ConnectionProvider.getConnection();
+		
+		try (Connection cnx = ConnectionProvider.getConnection()){
+			
 			
 			//Créer la commande
 			PreparedStatement rqt = cnx.prepareStatement(SQL_DELETE_ARTICLES);
@@ -38,14 +38,9 @@ public class SuppressionJdbc {
 		} catch (SQLException e) {
 			throw new Exception("Impossible de supprimer l'utilisateur");
 			
-		} finally {
-			
-			try {
-				cnx.close();
+		
 				
-			} catch (SQLException e) {
 				
-				e.printStackTrace();
 			}
 			
 			
@@ -53,4 +48,4 @@ public class SuppressionJdbc {
 		
 	}
 	
-}
+

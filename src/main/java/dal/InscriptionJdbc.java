@@ -16,10 +16,10 @@ public class InscriptionJdbc {
 	
 	public int insert (Utilisateur nouvelUtilisateur) {
 		
-		Connection cnx = null;
+		 
 		int exist = 0;		
-		 try {
-			cnx = ConnectionProvider.getConnection();
+		 try (Connection cnx = ConnectionProvider.getConnection()){
+			 
 			
 			// Si le pseudo existe déjà on renvoie 1 qui confirme qu'il n'est pas unique
 			PreparedStatement rqt = cnx.prepareStatement(SQL_VERIF);
