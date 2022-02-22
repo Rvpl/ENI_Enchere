@@ -7,7 +7,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Inscription</title>
-		<%@ include file="/WEB-INF/JSP/Fragments/headerCo.jspf"%>
+		<%@ include file="/WEB-INF/JSP/Fragments/headerDeco.jspf"%>
 	</head>
 	<body>
 		<h2 class="display-4 text-center mt-3">Création du profil</h2>
