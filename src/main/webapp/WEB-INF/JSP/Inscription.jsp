@@ -64,11 +64,11 @@
 					</div>	
 				</div>
 				<div class="row">	
-					<div class="col-6 text-center">
-						<button class="btn btn-success btn-lg mt-3" type="submit" value= "creer">Creer</button>
+					<div class="col-6 text-center ">
+						<button class="btn btn-primary btn-lg mt-3  fw-bolder" type="submit" value= "creer">Creer</button>
 					</div>
-					<div class="col-6 text-center">
-						<button class="btn btn-danger btn-lg mt-3"><a class="link-light text-decoration-none" href="${pageContext.request.contextPath}/home">Annuler</a></button>
+					<div class="col-6 text-center ">
+						<button class="btn btn-warning btn-lg mt-3"><a class="link-light text-decoration-none fw-bold" href="${pageContext.request.contextPath}/home">Annuler</a></button>
 					</div>
 				</div>	
 			</form>
