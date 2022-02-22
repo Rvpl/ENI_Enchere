@@ -38,13 +38,15 @@ public class DetailVenteServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String users = null;
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/JSP/DetailVente.jsp");
 		
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/JSP/DetailVente.jsp");
+		request.getSession();
 			
 		if (rd != null) {
 			rd.forward(request, response);
 		}
+		
+		System.out.println(request.getParameter("noArcticle"));
 }
 
 	/**
