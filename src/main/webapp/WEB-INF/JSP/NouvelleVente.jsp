@@ -21,10 +21,21 @@
 				<label>Description : </label>
 				<textarea name="description" rows="" cols=""></textarea>
 			</div>
+			
+			<div class="col-12">
+				<label>Catégorie :</label>
+				<select name="choixCategorie">
+					<c:forEach var="categorie" items="${requestScope.categorie}">
+						<option value="${categorie}">${categorie}</option>
+					</c:forEach>
+				</select>
+			</div>
+			
 			<div class="col-12">
 				<label>Mise à prix :</label>
 				<input name="prix" type="number">
-			</div>
+			</div>		
+			
 			<div class="col-12">
 				<label>Début de l'enchère : </label>
 				<input name="date_debut" type="date">
@@ -37,15 +48,15 @@
 			<h3>Retrait</h3>
 			<div class="col-12">
 				<label>Rue :</label>
-				<input type="text" value="${sessionScope.utilisateur.rue}">
+				<input name="rue" type="text" value="${sessionScope.utilisateur.rue}">
 			</div>
 			<div class="col-12">
 				<label>Code postal :</label>
-				<input type="text" value="${sessionScope.utilisateur.codePostal}">
+				<input name="codePostal" type="text" value="${sessionScope.utilisateur.codePostal}">
 			</div>
 			<div class="col-12">
 				<label>Ville:</label>
-				<input type="text" value="${sessionScope.utilisateur.ville}">
+				<input name="ville" type="text" value="${sessionScope.utilisateur.ville}">
 			</div>
 			<div class="col-12">
 				<button class="btn btn-success">Enregistrer</button>
