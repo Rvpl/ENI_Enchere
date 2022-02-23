@@ -5,10 +5,9 @@ public class Retrait {
 	private String rue;
 	private int codePostal;
 	private String ville;
-	
+
 	public Retrait() {
 	}
-
 
 	public Retrait(int noArticle, String rue, int cp, String ville) {
 		this.setNo_article(noArticle);
@@ -41,11 +40,9 @@ public class Retrait {
 		this.ville = ville;
 	}
 
-
 	public int getNo_article() {
 		return no_article;
 	}
-
 
 	public void setNo_article(int no_article) {
 		this.no_article = no_article;

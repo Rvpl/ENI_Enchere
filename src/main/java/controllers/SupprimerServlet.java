@@ -20,34 +20,35 @@ import bo.Utilisateur;
 public class SupprimerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private SuppressionManager deleteMng;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public SupprimerServlet() {
-        super();
-        deleteMng = new SuppressionManager();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public SupprimerServlet() {
+		super();
+		deleteMng = new SuppressionManager();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		String idStr = null;
 		int id = 0;
 		request.getSession();
 		HttpSession session = request.getSession();
 		session.getAttribute("utilisateur");
-		
-		if(request.getParameter("id")!= null) {
+
+		if (request.getParameter("id") != null) {
 			idStr = request.getParameter("id");
 			id = Integer.parseInt(idStr);
 		}
 		deleteMng.delete(id);
 		session.invalidate();
-		
-        
+
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/JSP/Accueil.jsp");
 		if (rd != null) {
 			rd.forward(request, response);

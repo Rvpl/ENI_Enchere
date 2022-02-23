@@ -10,27 +10,24 @@ import javax.servlet.RequestDispatcher;
 import bo.Utilisateur;
 
 public class InscriptionJdbc {
-	private static final String SQL_INSERT ="INSERT INTO UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe,credit,administrateur) VALUES (?,?,?,?,?,?,?,?,?,?,?);";
-	private static final String SQL_VERIF ="SELECT pseudo FROM UTILISATEURS WHERE pseudo = ?;";
-	
-	
-	public int insert (Utilisateur nouvelUtilisateur) {
-		
-		 
-		int exist = 0;		
-		 try (Connection cnx = ConnectionProvider.getConnection()){
-			 
-			
+	private static final String SQL_INSERT = "INSERT INTO UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe,credit,administrateur) VALUES (?,?,?,?,?,?,?,?,?,?,?);";
+	private static final String SQL_VERIF = "SELECT pseudo FROM UTILISATEURS WHERE pseudo = ?;";
+
+	public int insert(Utilisateur nouvelUtilisateur) {
+
+		int exist = 0;
+		try (Connection cnx = ConnectionProvider.getConnection()) {
+
 			// Si le pseudo existe déjà on renvoie 1 qui confirme qu'il n'est pas unique
 			PreparedStatement rqt = cnx.prepareStatement(SQL_VERIF);
 			rqt.setString(1, nouvelUtilisateur.getPseudo());
 			ResultSet nbLigne = rqt.executeQuery();
-			if(nbLigne.next()) {
-				exist =1;
-			}else {
-				
+			if (nbLigne.next()) {
+				exist = 1;
+			} else {
+
 				// sinon on valorise la requête et on l'execute
-				PreparedStatement ordre = cnx.prepareStatement(SQL_INSERT, PreparedStatement.RETURN_GENERATED_KEYS );
+				PreparedStatement ordre = cnx.prepareStatement(SQL_INSERT, PreparedStatement.RETURN_GENERATED_KEYS);
 				ordre.setString(1, nouvelUtilisateur.getPseudo());
 				ordre.setString(2, nouvelUtilisateur.getNom());
 				ordre.setString(3, nouvelUtilisateur.getPrenom());
@@ -53,7 +50,7 @@ public class InscriptionJdbc {
 					nouvelUtilisateur.setNoUtil(clefAutoGeneree);
 				}
 			}
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -62,8 +59,7 @@ public class InscriptionJdbc {
 			e.printStackTrace();
 		}
 		return exist;
-		
+
 	}
-	
 
 }

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,20 +11,23 @@ pageEncoding="UTF-8"%>
 
 
 <%@ include file="/WEB-INF/JSP/Fragments/Head.jspf"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <body>
-<h1>Détail vente</h1>
+	<h1>Détail vente</h1>
 
-<div class="col-3" >
-<p> ${requestScope.nomArticle} </p>
-<p>Description : ${requestScope.description }</p>
-<p>Catégorie : ${requestScope.categorie} </p>
-<p>meilleure offre : ${requestScope.prixVenteStr}</p>
-<p>mise a prix :${requestScope.miseAPrixStr} </p>
-<p>fin de l'enchère : ${requestScope.dateFinEncheresStr} </p>
-<p>retrait : ${requestScope.rue} <br>${requestScope.codePostal} ${requestScope.ville}</p>
-<p>vendeur : ${requestScope.pseudo}</p>
-</div>
+	<div class="col-3">
+		<p>${requestScope.nomArticle}</p>
+		<p>Description : ${requestScope.description }</p>
+		<p>Catégorie : ${requestScope.categorie}</p>
+		<p>meilleure offre : ${requestScope.prixVenteStr}</p>
+		<p>mise a prix :${requestScope.miseAPrixStr}</p>
+		<p>fin de l'enchère : ${requestScope.dateFinEncheresStr}</p>
+		<p>
+			retrait : ${requestScope.rue} <br>${requestScope.codePostal}
+			${requestScope.ville}
+		</p>
+		<p>vendeur : ${requestScope.pseudo}</p>
+	</div>
 
 
 

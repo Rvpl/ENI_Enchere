@@ -9,13 +9,13 @@ public class Enchere {
 	private int montant;
 	private int no_article;
 	private int no_util;
-	
-	
+
 	public Enchere() {
-		
+
 	}
-	public Enchere(int no_enchere, LocalDate date_debut,int montant, int no_article, int no_util) {
-		
+
+	public Enchere(int no_enchere, LocalDate date_debut, int montant, int no_article, int no_util) {
+
 		this.no_enchere = no_enchere;
 		this.date_debut = date_debut;
 		this.montant = montant;

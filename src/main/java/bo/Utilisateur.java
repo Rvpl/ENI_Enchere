@@ -14,8 +14,9 @@ public class Utilisateur {
 	private String mdp;
 	private int credit;
 	private boolean admin;
-	
-	public Utilisateur(String pseudo, String nom, String prenom, String email, int numero, String rue, int codePostal, String ville, String mdp) {
+
+	public Utilisateur(String pseudo, String nom, String prenom, String email, int numero, String rue, int codePostal,
+			String ville, String mdp) {
 		this.pseudo = pseudo;
 		this.nom = nom;
 		this.prenom = prenom;
@@ -27,7 +28,7 @@ public class Utilisateur {
 		this.mdp = mdp;
 		credit = 100;
 		admin = false;
-		
+
 	}
 
 	public Utilisateur() {
@@ -120,6 +121,5 @@ public class Utilisateur {
 	public void setCredit(int credit) {
 		this.credit = credit;
 	}
-	
-	
+
 }

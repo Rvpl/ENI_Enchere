@@ -3,7 +3,7 @@ package bo;
 import java.time.LocalDate;
 
 public class Article {
-	
+
 	private int noArticle;
 	private String nomArticle;
 	private String description;
@@ -14,8 +14,7 @@ public class Article {
 	private Utilisateur noUtilisateur;
 	private Categorie noCategorie;
 	private Retrait retrait;
-	
-	
+
 	public Article(String nomArticle, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres,
 			int miseAPrix) {
 		super();
@@ -26,7 +25,6 @@ public class Article {
 		this.dateFinEncheres = dateFinEncheres;
 		this.miseAPrix = miseAPrix;
 	}
-
 
 	public Article(int noArticle, String nomArticle, String description, LocalDate dateDebutEncheres,
 			LocalDate dateFinEncheres, int miseAPrix, int prixVente, int noUtilisater, int noCategorie) {
@@ -41,11 +39,11 @@ public class Article {
 		this.dateFinEncheres = dateFinEncheres;
 		this.miseAPrix = miseAPrix;
 		this.prixVente = prixVente;
-		this.noUtilisateur.setNoUtil(noUtilisater);;
+		this.noUtilisateur.setNoUtil(noUtilisater);
+		;
 		this.noCategorie.setNoCategorie(noCategorie);
-		
-	}
 
+	}
 
 	public Article() {
 		this.retrait = new Retrait();
@@ -53,8 +51,8 @@ public class Article {
 		this.noCategorie = new Categorie();
 	}
 
-
-	public Article(String nomArticle2, String description2, LocalDate dateDebutEncheres2, LocalDate dateFinEncheres2,int miseAPrix2, int idUtil, int categorie) {
+	public Article(String nomArticle2, String description2, LocalDate dateDebutEncheres2, LocalDate dateFinEncheres2,
+			int miseAPrix2, int idUtil, int categorie) {
 		this.noUtilisateur = new Utilisateur();
 		this.noCategorie = new Categorie();
 		this.nomArticle = nomArticle2;
@@ -67,97 +65,77 @@ public class Article {
 		this.retrait = new Retrait();
 	}
 
-
 	public int getNoArticle() {
 		return noArticle;
 	}
-
 
 	public void setNoArticle(int noArticle) {
 		this.noArticle = noArticle;
 	}
 
-
 	public String getNomArticle() {
 		return nomArticle;
 	}
-
 
 	public void setNomArticle(String nomArticle) {
 		this.nomArticle = nomArticle;
 	}
 
-
 	public String getDescription() {
 		return description;
 	}
-
 
 	public void setDescription(String description) {
 		this.description = description;
 	}
 
-
 	public LocalDate getDateDebutEncheres() {
 		return dateDebutEncheres;
 	}
-
 
 	public void setDateDebutEncheres(LocalDate dateDebutEncheres) {
 		this.dateDebutEncheres = dateDebutEncheres;
 	}
 
-
 	public LocalDate getDateFinEncheres() {
 		return dateFinEncheres;
 	}
-
 
 	public void setDateFinEncheres(LocalDate dateFinEncheres) {
 		this.dateFinEncheres = dateFinEncheres;
 	}
 
-
 	public int getMiseAPrix() {
 		return miseAPrix;
 	}
-
 
 	public void setMiseAPrix(int miseAPrix) {
 		this.miseAPrix = miseAPrix;
 	}
 
-
 	public int getPrixVente() {
 		return prixVente;
 	}
-
 
 	public void setPrixVente(int prixVente) {
 		this.prixVente = prixVente;
 	}
 
-
 	public Utilisateur getUtilisateur() {
 		return noUtilisateur;
 	}
 
-
 	public void setUtilisateur(Utilisateur noUtilisateur) {
 		this.noUtilisateur = noUtilisateur;
 	}
-	
-
 
 	public Categorie getNoCategorie() {
 		return noCategorie;
 	}
 
-
 	public void setNoCategorie(Categorie noCategorie) {
 		this.noCategorie = noCategorie;
 	}
-
 
 	@Override
 	public String toString() {
@@ -166,21 +144,16 @@ public class Article {
 				+ miseAPrix + ", prixVente=" + prixVente + ", noUtilisateur=" + noUtilisateur + "]";
 	}
 
-
 	public String getNomUtil() {
 		return noUtilisateur.getNom();
 	}
-
 
 	public Retrait getRetrait() {
 		return retrait;
 	}
 
-
 	public void setRetrait(Retrait retrait) {
 		this.retrait = retrait;
 	}
 
-	
-	
 }
