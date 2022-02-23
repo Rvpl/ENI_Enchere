@@ -51,7 +51,7 @@ public class DetailVenteServlet extends HttpServlet {
 				request.setAttribute("codePostal", article.getRetrait().getCodePostal());
 				request.setAttribute("ville", article.getRetrait().getVille());
 				request.setAttribute("pseudo", article.getUtilisateur().getPseudo());
-
+ 
 			}
 		} catch (NumberFormatException e) {
 // TODO Auto-generated catch block
