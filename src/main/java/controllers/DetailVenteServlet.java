@@ -83,11 +83,25 @@ public class DetailVenteServlet extends HttpServlet {
 			if(request.getParameter("enchere")!= null) {
 				montantStr= request.getParameter("enchere");
 				montant=Integer.parseInt(montantStr);
-				detailVenteMng.addEnchere(montant,idArticle);
-				
-				
+				if(detailVenteMng.addEnchere(montant,idArticle) == false) {
+					request.setAttribute("message", "Veuillez entrer une valeur supérieure à la dernière offre");
+						Article article = detailVenteMng.selectAll(idArticle);
+						request.setAttribute("nomArticle", article.getNomArticle());
+						request.setAttribute("description", article.getDescription());
+						request.setAttribute("categorie", article.getNoCategorie().getLibelle());
+						request.setAttribute("prixVente", article.getPrixVente());
+						request.setAttribute("miseAPrixStr", article.getMiseAPrix());
+						request.setAttribute("dateFinEncheresStr", article.getDateFinEncheres());
+						request.setAttribute("rue", article.getRetrait().getRue());
+						request.setAttribute("codePostal", article.getRetrait().getCodePostal());
+						request.setAttribute("ville", article.getRetrait().getVille());
+						request.setAttribute("pseudo", article.getUtilisateur().getPseudo());
+						request.getRequestDispatcher("/WEB-INF/JSP/DetailVente.jsp").forward(request, response);
+				}else {
+					response.sendRedirect(request.getContextPath() + "/home");
+				}
 			}
-		} catch (NumberFormatException e) {
+		} catch (NumberFormatException | SQLException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 		}

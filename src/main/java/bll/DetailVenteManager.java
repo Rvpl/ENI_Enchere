@@ -18,18 +18,26 @@ public class DetailVenteManager {
 		return detailVenteMng.detailVente(detailArticle);
 	}
 	
-	public void addEnchere(int montant, int idArticle) {
-		int montantInit = recupMontant(idArticle);
-		if(montantInit < montant) {
-			detailVenteMng.addEnchere(montant, idArticle);
-		}else {
-			System.out.println("Veuillez saisir un montant supérieur à la dernière enchère");
-		}
-		
-		}
-
 	public int recupMontant(int idArticle) {
 		return detailVenteMng.recupMontant(idArticle);
 	
 	}
+	
+	public boolean addEnchere(int montant, int idArticle) {
+		boolean ok = false;
+		
+		int montantInit = recupMontant(idArticle);
+		
+		if(montantInit < montant) {
+			detailVenteMng.addEnchere(montant, idArticle);
+			ok = true;
+		}else {
+			System.out.println("Veuillez saisir un montant supérieur à la dernière enchère");
+			ok = false;
+		}
+		return ok;
+		
+		}
+
+	
 }

@@ -32,6 +32,7 @@
 			<p>Ma proposition :</p>
 			<input type="number" name="enchere"> 
 			<input type="submit" value="Encherir">
+			<p>${requestScope.message}</p>
 		</form>
 
 
