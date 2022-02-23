@@ -80,6 +80,9 @@
 		<c:if test="${requestScope.exist == 1 }">
 			<p>Le pseudo est déjà utilisé, veuillez en choisir un autre</p>
 		</c:if>
+		<c:if test="${requestScope.message == 1 }">
+			<p>Le pseudo est déjà utilisé, veuillez en choisir un autre</p>
+		</c:if>
 	</div>
 </body>
 <%@ include file="/WEB-INF/JSP/Fragments/Footer.jspf"%>
