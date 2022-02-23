@@ -12,27 +12,142 @@ import bo.Article;
 import bo.Utilisateur;
 
 public class ArticleJdbc {
-	private static final String SELECT_ALL = "SELECT no_article, nom_article, description,date_debut_encheres,date_fin_encheres,prix_initial,prix_vente,ARTICLES_VENDUS.no_utilisateur,no_categorie, nom,prenom,pseudo FROM ARTICLES_VENDUS,UTILISATEURS WHERE ARTICLES_VENDUS.no_utilisateur = UTILISATEURS.no_utilisateur;";
-	// requête qui affiche les articles en fonction des catégories
-	private static final String SELECT_BY_NAMECATEG = "SELECT no_article, nom_article, description,date_debut_encheres,date_fin_encheres,prix_initial,prix_vente,ARTICLES_VENDUS.no_utilisateur,no_categorie, nom,prenom,pseudo FROM ARTICLES_VENDUS,UTILISATEURS WHERE ARTICLES_VENDUS.no_utilisateur = UTILISATEURS.no_utilisateur AND nom_article  LIKE '%'+?+'%' AND no_categorie = ?;";
-	private static final String SELECT_ALL_BY_NAME = "SELECT no_article, nom_article, description,date_debut_encheres,date_fin_encheres,prix_initial,prix_vente,ARTICLES_VENDUS.no_utilisateur,no_categorie, nom,prenom,pseudo FROM ARTICLES_VENDUS,UTILISATEURS WHERE ARTICLES_VENDUS.no_utilisateur = UTILISATEURS.no_utilisateur AND nom_article  LIKE '%'+?+'%';";
-
-	private static final String SQL_INSERT_ARTICLE = "INSERT INTO ARTICLES_VENDUS (nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, no_encherisseur) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?,?)";
-	private static final String SQL_INSERT_ENCHERE = "INSERT INTO ENCHERES(date_enchere,montant_enchere,no_article,no_utilisateur) VALUES (?,?,?,?)";
-	private static final String SQL_INSERT_RETRAIT = "INSERT INTO RETRAITS (no_article,rue,code_postal,ville) VALUES (?,?,?,?)";
-
-	private static final String SQL_SELECT_ARTICLE = "SELECT nom_article,description, "
-			+ "date_debut_encheres, date_fin_encheres, prix_initial,prix_vente, ARTICLES_VENDUS.no_utilisateur,"
-			+ " ARTICLES_VENDUS.no_categorie,CATEGORIES.libelle, RETRAITS.rue,RETRAITS.code_postal, "
-			+ "RETRAITS.ville, pseudo, nom,prenom FROM ARTICLES_VENDUS,CATEGORIES,RETRAITS,UTILISATEURS"
-			+ " WHERE ARTICLES_VENDUS.no_article = RETRAITS.no_article "
-			+ "AND CATEGORIES.no_categorie = ARTICLES_VENDUS.no_categorie"
-			+ " AND ARTICLES_VENDUS.no_utilisateur = UTILISATEURS.no_utilisateur AND ARTICLES_VENDUS.no_article = ?";
 	
-	private static final String SQL_UPDATE_ARTICLE = "UPDATE ARTICLES_VENDUS SET prix_vente=? , no_encherisseur =? WHERE no_article=? ";
+	private static final String SELECT_ALL = "SELECT no_article, nom_article, description,date_debut_encheres,date_fin_encheres,"
+			+ "prix_initial,prix_vente,ARTICLES_VENDUS.no_utilisateur,no_categorie, nom,prenom,pseudo FROM ARTICLES_VENDUS,UTILISATEURS "
+			+ "WHERE ARTICLES_VENDUS.no_utilisateur = UTILISATEURS.no_utilisateur;";
+	
+	
+	private static final String SELECT_BY_NAMECATEG = "SELECT no_article, nom_article, description,date_debut_encheres,date_fin_encheres,"
+			+ "prix_initial,prix_vente,ARTICLES_VENDUS.no_utilisateur,no_categorie, nom,prenom,pseudo FROM ARTICLES_VENDUS,UTILISATEURS "
+			+ "WHERE ARTICLES_VENDUS.no_utilisateur = UTILISATEURS.no_utilisateur AND nom_article  LIKE '%'+?+'%' AND no_categorie = ?;";
+	
+	//Affiche tout les articles peu importe la catégorie
+	//   OU
+	//Affiche les articles en fonction des catégories	
+	public List<Article> select(String nomArticle, int categorie) {
 
-	private static final String SQL_SELECT_MONTANT = "SELECT prix_vente FROM ARTICLES_VENDUS WHERE no_article=? ";
+		List<Article> articlesBN = new ArrayList<>();
+		// usersBN = new ArrayList<>();
+		try (Connection cnx = ConnectionProvider.getConnection()) {
 
+			if (categorie == 0) {
+				// Créer la commande
+				Statement rqt = cnx.createStatement();
+
+				ResultSet rs = rqt.executeQuery(SELECT_ALL);
+				while (rs.next()) {
+					Utilisateur user = new Utilisateur();
+					Article article = new Article();
+					article.setNoArticle(rs.getInt(1));
+					article.setNomArticle(rs.getString(2));
+					article.setDescription(rs.getString(3));
+					article.setDateDebutEncheres(rs.getDate(4).toLocalDate());
+					article.setDateFinEncheres(rs.getDate(5).toLocalDate());
+					article.setMiseAPrix(rs.getInt(6));
+					article.setPrixVente(rs.getInt(7));
+					article.getUtilisateur().setNoUtil(rs.getInt(8));
+					
+
+					user.setNoUtil(rs.getInt(8));
+					user.setNom(rs.getString(10));
+					user.setPrenom(rs.getString(11));
+					user.setPseudo(rs.getString(12));
+					article.setUtilisateur(user);
+
+					articlesBN.add(article);
+				}
+			} else {
+				// Créer la commande
+				PreparedStatement rqt = cnx.prepareStatement(SELECT_BY_NAMECATEG);
+
+				// initialiser la variable
+				rqt.setString(1, nomArticle);
+				rqt.setInt(2, categorie);
+
+				ResultSet rs = rqt.executeQuery();
+				while (rs.next()) {
+					Utilisateur user = new Utilisateur();
+					Article article = new Article();
+					article.setNoArticle(rs.getInt(1));
+					article.setNomArticle(rs.getString(2));
+					article.setDescription(rs.getString(3));
+					article.setDateDebutEncheres(rs.getDate(4).toLocalDate());
+					article.setDateFinEncheres(rs.getDate(5).toLocalDate());
+					article.setMiseAPrix(rs.getInt(6));
+					article.setPrixVente(rs.getInt(7));
+
+					user.setNoUtil(rs.getInt(8));
+					user.setNom(rs.getString(10));
+					user.setPrenom(rs.getString(11));
+					user.setPseudo(rs.getString(12));
+
+					article.setUtilisateur(user);
+					articlesBN.add(article);
+				}
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.out.println("Impossible de trouver l'article recherché");
+		}
+		return articlesBN;
+	}
+
+	
+	
+	private static final String SELECT_ALL_BY_NAME = "SELECT no_article, nom_article, description,date_debut_encheres,date_fin_encheres,"
+			+ "prix_initial,prix_vente,ARTICLES_VENDUS.no_utilisateur,no_categorie, nom,prenom,pseudo FROM ARTICLES_VENDUS,UTILISATEURS "
+			+ "WHERE ARTICLES_VENDUS.no_utilisateur = UTILISATEURS.no_utilisateur AND nom_article  LIKE '%'+?+'%';";
+	//Affiche tout les articles par nom
+	public List<Article> getArticles(String nomArticle) {
+
+		List<Article> articles = new ArrayList<>();
+		try (Connection cnx = ConnectionProvider.getConnection()) {
+
+			// Créer la commande
+			PreparedStatement rqt = cnx.prepareStatement(SELECT_ALL_BY_NAME);
+
+			// initialiser la variable
+			rqt.setString(1, nomArticle);
+
+			ResultSet rs = rqt.executeQuery();
+			while (rs.next()) {
+				Utilisateur user = new Utilisateur();
+				Article article = new Article();
+				article.setNoArticle(rs.getInt(1));
+				article.setNomArticle(rs.getString(2));
+				article.setDescription(rs.getString(3));
+				article.setDateDebutEncheres(rs.getDate(4).toLocalDate());
+				article.setDateFinEncheres(rs.getDate(5).toLocalDate());
+				article.setMiseAPrix(rs.getInt(6));
+				article.setPrixVente(rs.getInt(7));
+				article.getUtilisateur().setNoUtil(rs.getInt(8));
+
+				user.setNoUtil(rs.getInt(8));
+				user.setNom(rs.getString(10));
+				user.setPrenom(rs.getString(11));
+				user.setPseudo(rs.getString(12));
+				article.setUtilisateur(user);
+				articles.add(article);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return articles;
+	}
+
+	
+	private static final String SQL_INSERT_ARTICLE = "INSERT INTO ARTICLES_VENDUS (nom_article, description, date_debut_encheres,"
+			+ "date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, no_encherisseur) "
+			+ "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?,?)";
+	
+	private static final String SQL_INSERT_ENCHERE = "INSERT INTO ENCHERES(date_enchere,montant_enchere,no_article,no_utilisateur) "
+			+ "VALUES (?,?,?,?)";
+	
+	private static final String SQL_INSERT_RETRAIT = "INSERT INTO RETRAITS (no_article,rue,code_postal,ville) VALUES (?,?,?,?)";
+	//Insertion de retrait / article / encheres
 	public int addArticle(Article nouvelArticle) {
 
 		int verif = 0;
@@ -103,6 +218,15 @@ public class ArticleJdbc {
 		return verif;
 	}
 
+	
+	private static final String SQL_SELECT_ARTICLE = "SELECT nom_article,description, "
+			+ "date_debut_encheres, date_fin_encheres, prix_initial,prix_vente, ARTICLES_VENDUS.no_utilisateur,"
+			+ " ARTICLES_VENDUS.no_categorie,CATEGORIES.libelle, RETRAITS.rue,RETRAITS.code_postal, "
+			+ "RETRAITS.ville, pseudo, nom,prenom FROM ARTICLES_VENDUS,CATEGORIES,RETRAITS,UTILISATEURS"
+			+ " WHERE ARTICLES_VENDUS.no_article = RETRAITS.no_article "
+			+ "AND CATEGORIES.no_categorie = ARTICLES_VENDUS.no_categorie"
+			+ " AND ARTICLES_VENDUS.no_utilisateur = UTILISATEURS.no_utilisateur AND ARTICLES_VENDUS.no_article = ?";
+	//Selection des éléments d'articles, utilisateur,retrait et catégorie par numéro d'article
 	public Article detailVente(int detailArticle) throws SQLException {
 		Article nouvelArticle = null;
 		try (Connection cnx = ConnectionProvider.getConnection()) {
@@ -135,6 +259,8 @@ public class ArticleJdbc {
 		return nouvelArticle;
 	}
 
+	private static final String SQL_UPDATE_ARTICLE = "UPDATE ARTICLES_VENDUS SET prix_vente=? , no_encherisseur =? WHERE no_article=? ";
+	//Mise à jour de l'article lors d'une enchère
 	public void addEnchere(int montant, int noEncherisseur, int noArticle) {
 		try (Connection cnx = ConnectionProvider.getConnection()) {
 			PreparedStatement rqt = cnx.prepareStatement(SQL_UPDATE_ARTICLE);
@@ -148,6 +274,8 @@ public class ArticleJdbc {
 		}
 	}
 
+	//Récupération du prix de vente
+	private static final String SQL_SELECT_MONTANT = "SELECT prix_vente FROM ARTICLES_VENDUS WHERE no_article=? ";
 	public int recupMontant(int idArticle) {
 		int montant = 0;
 
@@ -165,111 +293,4 @@ public class ArticleJdbc {
 		return montant;
 	}
 
-	public List<Article> select(String nomArticle, int categorie) {
-
-		List<Article> articlesBN = new ArrayList<>();
-		// usersBN = new ArrayList<>();
-		try (Connection cnx = ConnectionProvider.getConnection()) {
-
-			if (categorie == 0) {
-				// Créer la commande
-				Statement rqt = cnx.createStatement();
-
-				ResultSet rs = rqt.executeQuery(SELECT_ALL);
-				while (rs.next()) {
-					Utilisateur user = new Utilisateur();
-					Article article = new Article();
-					article.setNoArticle(rs.getInt(1));
-					article.setNomArticle(rs.getString(2));
-					article.setDescription(rs.getString(3));
-					article.setDateDebutEncheres(rs.getDate(4).toLocalDate());
-					article.setDateFinEncheres(rs.getDate(5).toLocalDate());
-					article.setMiseAPrix(rs.getInt(6));
-					article.setPrixVente(rs.getInt(7));
-					article.getUtilisateur().setNoUtil(rs.getInt(8));
-					
-
-					user.setNoUtil(rs.getInt(8));
-					user.setNom(rs.getString(10));
-					user.setPrenom(rs.getString(11));
-					user.setPseudo(rs.getString(12));
-					article.setUtilisateur(user);
-
-					articlesBN.add(article);
-				}
-			} else {
-				// Créer la commande
-				PreparedStatement rqt = cnx.prepareStatement(SELECT_BY_NAMECATEG);
-
-				// initialiser la variable
-				rqt.setString(1, nomArticle);
-				rqt.setInt(2, categorie);
-
-				ResultSet rs = rqt.executeQuery();
-				while (rs.next()) {
-					Utilisateur user = new Utilisateur();
-					Article article = new Article();
-					article.setNoArticle(rs.getInt(1));
-					article.setNomArticle(rs.getString(2));
-					article.setDescription(rs.getString(3));
-					article.setDateDebutEncheres(rs.getDate(4).toLocalDate());
-					article.setDateFinEncheres(rs.getDate(5).toLocalDate());
-					article.setMiseAPrix(rs.getInt(6));
-					article.setPrixVente(rs.getInt(7));
-
-					user.setNoUtil(rs.getInt(8));
-					user.setNom(rs.getString(10));
-					user.setPrenom(rs.getString(11));
-					user.setPseudo(rs.getString(12));
-
-					article.setUtilisateur(user);
-					articlesBN.add(article);
-				}
-			}
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			System.out.println("Impossible de trouver l'article recherché");
-		}
-		return articlesBN;
 	}
-
-	// Retourne tout les articles
-	public List<Article> getArticles(String nomArticle) {
-
-		List<Article> articles = new ArrayList<>();
-		try (Connection cnx = ConnectionProvider.getConnection()) {
-
-			// Créer la commande
-			PreparedStatement rqt = cnx.prepareStatement(SELECT_ALL_BY_NAME);
-
-			// initialiser la variable
-			rqt.setString(1, nomArticle);
-
-			ResultSet rs = rqt.executeQuery();
-			while (rs.next()) {
-				Utilisateur user = new Utilisateur();
-				Article article = new Article();
-				article.setNoArticle(rs.getInt(1));
-				article.setNomArticle(rs.getString(2));
-				article.setDescription(rs.getString(3));
-				article.setDateDebutEncheres(rs.getDate(4).toLocalDate());
-				article.setDateFinEncheres(rs.getDate(5).toLocalDate());
-				article.setMiseAPrix(rs.getInt(6));
-				article.setPrixVente(rs.getInt(7));
-				article.getUtilisateur().setNoUtil(rs.getInt(8));
-
-				user.setNoUtil(rs.getInt(8));
-				user.setNom(rs.getString(10));
-				user.setPrenom(rs.getString(11));
-				user.setPseudo(rs.getString(12));
-				article.setUtilisateur(user);
-				articles.add(article);
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return articles;
-	}
-}

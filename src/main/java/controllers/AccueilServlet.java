@@ -24,10 +24,8 @@ import bo.Utilisateur;
 public class AccueilServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private articleBLL articleMng;
-	private utilisateurBLL userMng;
 	private List<Article> articles;
 	private List<Article> articlesBN;
-	private List<Utilisateur> usersBN;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -35,10 +33,8 @@ public class AccueilServlet extends HttpServlet {
 	public AccueilServlet() {
 		super();
 		articleMng = new articleBLL();
-		userMng = new utilisateurBLL();
 		articles = new ArrayList<>();
 		articlesBN = new ArrayList<>();
-		usersBN = new ArrayList<>();
 	}
 
 	/**
