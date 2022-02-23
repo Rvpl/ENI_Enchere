@@ -119,7 +119,10 @@
 					<div class="row">
 						<c:forEach var="article" items="${requestScope.articles}" >
 						 	<div class="col-3">
-						 		<p>${article.nomArticle }</p>
+						 		<form action="${pageContext.request.contextPath}/detailVente" method="get" >
+						 			<input type="hidden" name="noArticle" type="submit" value="${article.noArticle}">
+						 			<button  > ${article.nomArticle }</button>
+						 		</form>
 							 	<p>prix : ${article.miseAPrix } points</p>
 							 	<p>Fin de l'enchère : ${article.dateFinEncheres }</p>
 							 	<p>Vendeur : <a href="#">lien vers page vendeur</a></p>			
