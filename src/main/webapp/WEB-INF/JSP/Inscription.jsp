@@ -11,7 +11,7 @@
 	</head>
 	<body>
 		<h2 class="display-4 text-center mt-3">Création du profil</h2>
-		<div class="container text-white fs-5 bg-black rounded mt-5 w-50 p-3">
+		<div class="container fs-5 rounded mt-5 w-50 p-3">
 			<form action="${pageContext.request.contextPath}/inscription" method="post">
 				<div class="row">	
 					<div class="col-6">
@@ -69,7 +69,7 @@
 					</div>
 					<div class="col-6 text-center ">
 						<button class="btn btn-warning btn-lg mt-3"><a class="link-light text-decoration-none fw-bold" href="${pageContext.request.contextPath}/home">Annuler</a></button>
-					</div>
+					</div> 
 				</div>	
 			</form>
 			<c:if test="${requestScope.exist == 1 }">
