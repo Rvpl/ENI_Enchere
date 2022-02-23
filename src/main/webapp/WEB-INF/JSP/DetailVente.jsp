@@ -19,7 +19,7 @@
 		<p>${requestScope.nomArticle}</p>
 		<p>Description : ${requestScope.description }</p>
 		<p>Catégorie : ${requestScope.categorie}</p>
-		<p>meilleure offre : ${requestScope.prixVenteStr}</p>
+		<p>meilleure offre : ${requestScope.prixVente}</p>
 		<p>mise a prix :${requestScope.miseAPrixStr}</p>
 		<p>fin de l'enchère : ${requestScope.dateFinEncheresStr}</p>
 		<p>
@@ -28,8 +28,11 @@
 		</p>
 		<p>vendeur : ${requestScope.pseudo}</p>
 	</div>
-
-
+	<form action="${pageContext.request.contextPath}/detailVente" method="post">
+			<p>Ma proposition :</p>
+			<input type="number" name="enchere"> 
+			<input type="submit" value="Encherir">
+		</form>
 
 
 </body>

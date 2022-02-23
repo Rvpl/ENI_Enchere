@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import bll.DetailVenteManager;
 import bo.Article;
@@ -50,6 +51,9 @@ public class DetailVenteServlet extends HttpServlet {
 				request.setAttribute("codePostal", article.getRetrait().getCodePostal());
 				request.setAttribute("ville", article.getRetrait().getVille());
 				request.setAttribute("pseudo", article.getUtilisateur().getPseudo());
+				
+				HttpSession session = request.getSession();
+				session.setAttribute("idArticle", Integer.parseInt(request.getParameter("noArticle")));
 
 			}
 		} catch (NumberFormatException e) {
@@ -69,6 +73,24 @@ public class DetailVenteServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		String montantStr= null;
+		int montant=0;
+		HttpSession session = request.getSession();
+		
+		
+		int idArticle  = (Integer)session.getAttribute("idArticle");
+		try {
+			if(request.getParameter("enchere")!= null) {
+				montantStr= request.getParameter("enchere");
+				montant=Integer.parseInt(montantStr);
+				detailVenteMng.addEnchere(montant,idArticle);
+				
+				
+			}
+		} catch (NumberFormatException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+		}
 
 	}
 

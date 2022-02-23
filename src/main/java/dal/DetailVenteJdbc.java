@@ -15,6 +15,10 @@ public class DetailVenteJdbc {
 			+ " WHERE ARTICLES_VENDUS.no_article = RETRAITS.no_article "
 			+ "AND CATEGORIES.no_categorie = ARTICLES_VENDUS.no_categorie"
 			+ " AND ARTICLES_VENDUS.no_utilisateur = UTILISATEURS.no_utilisateur AND ARTICLES_VENDUS.no_article = ?";
+	
+	private static final String SQL_UPDATE_ARTICLE= "UPDATE ARTICLES_VENDUS SET prix_vente=? WHERE no_article=? ";
+	
+	private static final String SQL_SELECT_MONTANT = "SELECT prix_vente FROM ARTICLES_VENDUS WHERE no_article=? ";
 
 	public Article detailVente(int detailArticle) throws SQLException {
 		Article nouvelArticle = null;
@@ -41,12 +45,40 @@ public class DetailVenteJdbc {
 				nouvelArticle.getUtilisateur().setPrenom(rs.getString(15));
 			}
 		} catch (SQLException e) {
-// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (Exception e) {
-// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return nouvelArticle;
 	}
+
+	public void addEnchere(int montant, int noArticle) {
+		try (Connection cnx = ConnectionProvider.getConnection()) {
+			PreparedStatement rqt = cnx.prepareStatement(SQL_UPDATE_ARTICLE);
+			rqt.setInt(1, montant);
+			rqt.setInt(2, noArticle);
+			rqt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public int recupMontant(int idArticle) {
+		int montant = 0;
+		
+		try (Connection cnx = ConnectionProvider.getConnection()) {
+			PreparedStatement rqt = cnx.prepareStatement(SQL_SELECT_MONTANT);
+			rqt.setInt(1, idArticle);
+			ResultSet rs = rqt.executeQuery();
+			if(rs.next()) {
+				montant = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return montant;
+	}
+
 }
