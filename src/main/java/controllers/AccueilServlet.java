@@ -27,7 +27,6 @@ public class AccueilServlet extends HttpServlet {
 	private utilisateurBLL userMng;
 	private List<Article> articles;
 	private List<Article> articlesBN;
-	private List<Utilisateur> users;
 	private List<Utilisateur> usersBN;
 
 	/**
@@ -39,7 +38,6 @@ public class AccueilServlet extends HttpServlet {
 		userMng = new utilisateurBLL();
 		articles = new ArrayList<>();
 		articlesBN = new ArrayList<>();
-		users = new ArrayList<>();
 		usersBN = new ArrayList<>();
 	}
 
@@ -62,9 +60,6 @@ public class AccueilServlet extends HttpServlet {
 		if (categorie == 0) {
 			articles = articleMng.select(rech, categorie);
 		}
-
-
-		request.setAttribute("users", users);
 		request.setAttribute("articles", articles);
 
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/JSP/Accueil.jsp");
@@ -109,9 +104,6 @@ public class AccueilServlet extends HttpServlet {
 		} else {
 			articlesBN = articleMng.select(filtre, categorie);
 		}
-		usersBN = articleMng.getUserBN(filtre);
-
-		request.setAttribute("usersBN", usersBN);
 		request.setAttribute("articlesBN", articlesBN);
 
 		doGet(request, response);

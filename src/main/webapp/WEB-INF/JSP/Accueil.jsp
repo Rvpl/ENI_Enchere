@@ -14,7 +14,7 @@
 				class="filters" method="post">
 				<label for="name">Filtres : </label>
 				<fieldset>
-					<input type="text" name="filtre" id="filtre" required>
+					<input type="text" name="filtre" id="filtre">
 				</fieldset>
 				<select name="choixCategorie">
 					<option value="Toutes">Toutes</option>
@@ -33,7 +33,7 @@
 									<p>${article.nomArticle }</p>
 									<p>prix : ${article.miseAPrix } points</p>
 									<p>Fin de l'enchère : ${article.dateFinEncheres }</p>
-									<p>Vendeur : ${article.nomArticle}</p>
+									<p>Vendeur : ${article.utilisateur.pseudo}</p>
 								</div>
 							</c:forEach>
 						</div>
@@ -48,7 +48,7 @@
 							<p>${articleBN.nomArticle }</p>
 							<p>prix : ${articleBN.miseAPrix }</p>
 							<p>Fin de l'enchère : ${articleBN.dateFinEncheres }</p>
-							<p>Vendeur :</p>
+							<p>Vendeur : ${article.utilisateur.pseudo}</p>
 						</div>
 					</c:forEach>
 				</div>
@@ -66,7 +66,7 @@
 				class="filters" method="post">
 				<label for="name">Filtres : </label>
 				<fieldset>
-					<input type="text" name="filtre" id="filtre" required>
+					<input type="text" name="filtre" id="filtre" >
 				</fieldset>
 				<select name="choixCategorie">
 					<option value="Toutes">Toutes</option>
@@ -123,7 +123,7 @@
 									<p>prix : ${article.miseAPrix } points</p>
 									<p>Fin de l'enchère : ${article.dateFinEncheres }</p>
 									<p>
-										Vendeur : <a href="#">lien vers page vendeur</a>
+										Vendeur : <a href="#">${article.utilisateur.pseudo}</a>
 									</p>
 								</div>
 							</c:forEach>
@@ -136,10 +136,17 @@
 				<div class="row" style="padding-top: 40px">
 					<c:forEach var="articleBN" items="${requestScope.articlesBN}">
 						<div class="col-3">
-							<p>${articleBN.nomArticle }</p>
+							<form action="${pageContext.request.contextPath}/detailVente"
+										method="get">
+										<input type="hidden" name="noArticle" type="submit"
+											value="${articleBN.noArticle}">
+										<button>${articleBN.nomArticle }</button>
+									</form>
 							<p>prix : ${articleBN.miseAPrix }</p>
 							<p>Fin de l'enchère : ${articleBN.dateFinEncheres }</p>
-							<p>Vendeur :</p>
+							<p>
+								Vendeur : <a href="#">${articleBN.utilisateur.pseudo}</a>
+							</p>
 						</div>
 					</c:forEach>
 				</div>

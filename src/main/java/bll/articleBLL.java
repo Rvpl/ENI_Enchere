@@ -54,12 +54,6 @@ public class articleBLL {
 	public List<Article> getArticles(String nomArticle) {
 		return articleMng.getArticles(nomArticle);
 	}
-	
-	public List<Utilisateur> getUserBN(String nomArticle) {
-	return articleMng.getUsersBN();
-	} public List<Utilisateur> getUser() {
-	return articleMng.getUsers();
-	}
 
 
 }
