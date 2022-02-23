@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import bll.utilisateurBLL;
 import bo.Utilisateur;
-import dal.InscriptionJdbc;
 
 /**
  * Servlet implementation class InscritpionServlet
@@ -18,14 +18,14 @@ import dal.InscriptionJdbc;
 @WebServlet("/inscription")
 public class InscritpionServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private InscriptionJdbc inscriptionMng;
+	private utilisateurBLL userMng;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public InscritpionServlet() {
 		super();
-		inscriptionMng = new InscriptionJdbc();
+		userMng = new utilisateurBLL();
 		// TODO Auto-generated constructor stub
 	}
 
@@ -106,7 +106,7 @@ public class InscritpionServlet extends HttpServlet {
 
 		// SI l'utilisateur existe déjà en BDD on renvoie l'identifiant de l'user
 		// existant
-		int exist = inscriptionMng.insert(user);
+		int exist = userMng.insert(user);
 		if (exist != 0) {
 			request.setAttribute("exist", exist);
 			request.setAttribute("pseudo", pseudo);

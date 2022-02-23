@@ -10,9 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import bll.articleBLL;
 import bo.Article;
-import bo.Retrait;
-import dal.CreationArticleJdbc;
 
 /**
  * Servlet implementation class NouvelArticleServlet
@@ -20,14 +19,14 @@ import dal.CreationArticleJdbc;
 @WebServlet("/newArticle")
 public class NouvelArticleServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private CreationArticleJdbc creaArticleMng;
+	private articleBLL articleMng;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public NouvelArticleServlet() {
 		super();
-		creaArticleMng = new CreationArticleJdbc();
+		articleMng = new articleBLL();
 	}
 
 	/**
@@ -130,7 +129,7 @@ public class NouvelArticleServlet extends HttpServlet {
 		article.getRetrait().setCodePostal(cp);
 		article.getRetrait().setNo_article(article.getNoArticle());
 
-		int exist = creaArticleMng.addArticle(article);
+		int exist = articleMng.addArticle(article);
 		if (exist != 0) {
 
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/JSP/Accueil.jsp");

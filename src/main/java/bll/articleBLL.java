@@ -1,15 +1,17 @@
 package bll;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import bo.Article;
+import bo.Utilisateur;
 import dal.ArticleJdbc;
 
-public class DetailVenteManager {
-
+public class articleBLL {
+	
 	private ArticleJdbc articleMng;
-
-	public DetailVenteManager() {
+	
+	public articleBLL() {
 		super();
 		articleMng = new ArticleJdbc();
 	}
@@ -39,5 +41,25 @@ public class DetailVenteManager {
 		
 		}
 
+	public int addArticle(Article nouvelArticle) {
+
+		return articleMng.addArticle(nouvelArticle);
+	}
 	
+	public List<Article> select(String nomArticle, int categorie) {
+
+		return articleMng.select(nomArticle, categorie);
+	}
+
+	public List<Article> getArticles(String nomArticle) {
+		return articleMng.getArticles(nomArticle);
+	}
+	
+	public List<Utilisateur> getUserBN(String nomArticle) {
+	return articleMng.getUsersBN();
+	} public List<Utilisateur> getUser() {
+	return articleMng.getUsers();
+	}
+
+
 }

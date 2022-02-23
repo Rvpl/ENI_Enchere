@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import bll.ConnecterManager;
+import bll.utilisateurBLL;
 import bo.Utilisateur;
 
 /**
@@ -19,13 +19,13 @@ import bo.Utilisateur;
 @WebServlet("/connecter")
 public class Connexion extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private ConnecterManager connexionMng;
+	private utilisateurBLL userMng;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public Connexion() {
-		connexionMng = new ConnecterManager();
+		userMng = new utilisateurBLL();
 	}
 
 	/**
@@ -59,7 +59,7 @@ public class Connexion extends HttpServlet {
 			mdp = request.getParameter("password").trim();
 		}
 
-		Utilisateur identifiant = connexionMng.selectUtilisateur(login, mdp);
+		Utilisateur identifiant = userMng.selectUtilisateur(login, mdp);
 		if (identifiant != null) {
 			HttpSession session = request.getSession();
 			session.setAttribute("utilisateur", identifiant);

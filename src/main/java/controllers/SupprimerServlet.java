@@ -10,8 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import bll.SuppressionManager;
-import bo.Utilisateur;
+import bll.utilisateurBLL;
 
 /**
  * Servlet implementation class SupprimerServlet
@@ -19,14 +18,14 @@ import bo.Utilisateur;
 @WebServlet("/supprimer")
 public class SupprimerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private SuppressionManager deleteMng;
+	private utilisateurBLL userMng;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public SupprimerServlet() {
 		super();
-		deleteMng = new SuppressionManager();
+		userMng = new utilisateurBLL();
 		// TODO Auto-generated constructor stub
 	}
 
@@ -46,7 +45,7 @@ public class SupprimerServlet extends HttpServlet {
 			idStr = request.getParameter("id");
 			id = Integer.parseInt(idStr);
 		}
-		deleteMng.delete(id);
+		userMng.delete(id);
 		session.invalidate();
 
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/JSP/Accueil.jsp");

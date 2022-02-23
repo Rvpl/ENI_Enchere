@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import bll.utilisateurBLL;
 import bo.Utilisateur;
-import dal.ModificationProfilJdbc;
 
 /**
  * Servlet implementation class ModifierProfilServlet
@@ -18,14 +18,14 @@ import dal.ModificationProfilJdbc;
 @WebServlet("/modificationProfil")
 public class ModifierProfilServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private ModificationProfilJdbc modificationProfilMng;
+	private utilisateurBLL userMng;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public ModifierProfilServlet() {
 		super();
-		modificationProfilMng = new ModificationProfilJdbc();
+		userMng = new utilisateurBLL();
 
 	}
 
@@ -125,10 +125,10 @@ public class ModifierProfilServlet extends HttpServlet {
 		user.setRue(rue);
 		user.setVille(ville);
 
-		int exist = modificationProfilMng.update(user);
+		int exist = userMng.update(user);
 
 		// SI l'utilisateur existe déjà en BDD on renvoie le message d'erreur
-		exist = modificationProfilMng.update(user);
+		exist = userMng.update(user);
 		if (exist == 2) {
 			String error = "Pseudo déjà utilisé veuillez en choisir un autre";
 			request.setAttribute("error", error);

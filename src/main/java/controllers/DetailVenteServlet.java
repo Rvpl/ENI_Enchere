@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import bll.DetailVenteManager;
 import bo.Article;
+import bo.Utilisateur;
 
 /**
  * Servlet implementation class EnchereServlet
@@ -51,10 +52,8 @@ public class DetailVenteServlet extends HttpServlet {
 				request.setAttribute("codePostal", article.getRetrait().getCodePostal());
 				request.setAttribute("ville", article.getRetrait().getVille());
 				request.setAttribute("pseudo", article.getUtilisateur().getPseudo());
-				
 				HttpSession session = request.getSession();
 				session.setAttribute("idArticle", Integer.parseInt(request.getParameter("noArticle")));
-
 			}
 		} catch (NumberFormatException e) {
 // TODO Auto-generated catch block
@@ -83,7 +82,7 @@ public class DetailVenteServlet extends HttpServlet {
 			if(request.getParameter("enchere")!= null) {
 				montantStr= request.getParameter("enchere");
 				montant=Integer.parseInt(montantStr);
-				if(detailVenteMng.addEnchere(montant,idArticle) == false) {
+				if(detailVenteMng.addEnchere(montant,((Utilisateur) session.getAttribute("utilisateur")).getNoUtil(),idArticle) == false) {
 					request.setAttribute("message", "Veuillez entrer une valeur supérieure à la dernière offre");
 						Article article = detailVenteMng.selectAll(idArticle);
 						request.setAttribute("nomArticle", article.getNomArticle());

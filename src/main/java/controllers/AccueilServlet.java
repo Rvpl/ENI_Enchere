@@ -12,7 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import bll.ArticleManager;
+import bll.articleBLL;
+import bll.utilisateurBLL;
 import bo.Article;
 import bo.Utilisateur;
 
@@ -22,7 +23,8 @@ import bo.Utilisateur;
 @WebServlet("/home")
 public class AccueilServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private ArticleManager ArticleMng;
+	private articleBLL articleMng;
+	private utilisateurBLL userMng;
 	private List<Article> articles;
 	private List<Article> articlesBN;
 	private List<Utilisateur> users;
@@ -33,7 +35,8 @@ public class AccueilServlet extends HttpServlet {
 	 */
 	public AccueilServlet() {
 		super();
-		ArticleMng = new ArticleManager();
+		articleMng = new articleBLL();
+		userMng = new utilisateurBLL();
 		articles = new ArrayList<>();
 		articlesBN = new ArrayList<>();
 		users = new ArrayList<>();
@@ -57,10 +60,9 @@ public class AccueilServlet extends HttpServlet {
 			categorie = 0;
 		}
 		if (categorie == 0) {
-			articles = ArticleMng.select(rech, categorie);
+			articles = articleMng.select(rech, categorie);
 		}
 
-		users = ArticleMng.getUser();
 
 		request.setAttribute("users", users);
 		request.setAttribute("articles", articles);
@@ -103,11 +105,11 @@ public class AccueilServlet extends HttpServlet {
 		}
 
 		if (categorie == 0) {
-			articlesBN = ArticleMng.getArticles(filtre);
+			articlesBN = articleMng.getArticles(filtre);
 		} else {
-			articlesBN = ArticleMng.select(filtre, categorie);
+			articlesBN = articleMng.select(filtre, categorie);
 		}
-		usersBN = ArticleMng.getUserBN(filtre);
+		usersBN = articleMng.getUserBN(filtre);
 
 		request.setAttribute("usersBN", usersBN);
 		request.setAttribute("articlesBN", articlesBN);
