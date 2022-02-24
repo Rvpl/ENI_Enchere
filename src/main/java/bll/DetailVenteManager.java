@@ -36,31 +36,30 @@ public class DetailVenteManager {
 		return montant;
 	}
 
-	public boolean addEnchere(int montant, int noEncherisseur, int idArticle, int credit) throws BLLException{
+	public boolean addEnchere(int montant, int noEncherisseur, int idArticle, int credit)
+			throws BLLException {
 		boolean ok = false;
-		
-		int montantInit = 0;
-		try {
-			montantInit = recupMontant(idArticle);
-			if(credit > montant) {
-				if(montantInit < montant) {
-					articleMng.addEnchere(montant,noEncherisseur, idArticle);
-					ok = true;
-				}else {
-					ok = false;
-					throw new BLLException("Veuillez entrer une valeur supérieur à la dernière enchère");
-				}
-			}else {
-				throw new BLLException("Vous n'avez pas assez de crédits");
-			}
-			}catch(BLLException | DALException e) {
-				e.printStackTrace();
-			}
-		return ok;
 
-		
-		
+		int montantInit = 0;
+		montantInit = recupMontant(idArticle);
+		if (credit > montant) {
+			if (montantInit < montant) {
+				try {
+					articleMng.addEnchere(montant, noEncherisseur, idArticle);
+				} catch (DALException e) {
+					throw new BLLException(e.getMessage());
+				}
+				ok = true;
+			} else {
+				ok = false;
+				throw new BLLException("Veuillez entrer une valeur supérieur à la dernière enchère");
+			}
+		} else {
+			throw new BLLException("Vous n'avez pas assez de crédits");
 		}
 
-	
+		return ok;
+
+	}
+
 }

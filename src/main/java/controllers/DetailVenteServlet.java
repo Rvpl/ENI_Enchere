@@ -1,9 +1,8 @@
 package controllers;
 
 import java.io.IOException;
-import java.sql.SQLException;
+import java.time.LocalDate;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -70,6 +69,16 @@ public class DetailVenteServlet extends HttpServlet {
 			throws ServletException, IOException {
 		String montantStr = null;
 		int montant = 0;
+		String nom = null;
+		String description = null;
+		String cate = null;
+		int prixVente = 0;
+		int miseAPrix = 0;
+		LocalDate dateFin = null;
+		String rue = null;
+		int cp = 0;
+		String ville = null;
+		String pseudo = null;
 
 		HttpSession session = request.getSession();
 
@@ -81,7 +90,6 @@ public class DetailVenteServlet extends HttpServlet {
 			Utilisateur user = (Utilisateur) request.getSession().getAttribute("utilisateur");
 			if (detailVenteMng.addEnchere(montant, ((Utilisateur) session.getAttribute("utilisateur")).getNoUtil(),
 					idArticle, user.getCredit()) == false) {
-				request.setAttribute("message", "Veuillez entrer une valeur supérieure à la dernière offre");
 				Article article = detailVenteMng.selectAll(idArticle);
 				request.setAttribute("nomArticle", article.getNomArticle());
 				request.setAttribute("description", article.getDescription());
@@ -93,15 +101,35 @@ public class DetailVenteServlet extends HttpServlet {
 				request.setAttribute("codePostal", article.getRetrait().getCodePostal());
 				request.setAttribute("ville", article.getRetrait().getVille());
 				request.setAttribute("pseudo", article.getUtilisateur().getPseudo());
-
+				
+				nom = article.getNomArticle();
+				description = article.getDescription();
+				cate = article.getNoCategorie().getLibelle();
+				prixVente = article.getPrixVente();
+				miseAPrix = article.getMiseAPrix();
+				dateFin = article.getDateFinEncheres();
+				rue = article.getRetrait().getRue();
+				ville = article.getRetrait().getVille();
+				pseudo = article.getUtilisateur().getPseudo();
+				System.out.println(nom+" "+pseudo);
+				
 			} else {
 				response.sendRedirect(request.getContextPath() + "/home");
 			}
 		} catch (BLLException e) {
 			request.setAttribute("error", e.getMessage());
+			request.setAttribute("nomArticle", nom);
+			request.setAttribute("description", description);
+			request.setAttribute("categorie", cate);
+			request.setAttribute("prixVente", prixVente);
+			request.setAttribute("miseAPrixStr", miseAPrix);
+			request.setAttribute("dateFinEncheresStr", dateFin);
+			request.setAttribute("rue",rue);
+			request.setAttribute("codePostal", cp);
+			request.setAttribute("ville", ville);
+			request.setAttribute("pseudo", pseudo);
+			doGet(request, response);
 			e.printStackTrace();
-		} catch (NumberFormatException n) {
-			n.printStackTrace();
 		}
 
 	}

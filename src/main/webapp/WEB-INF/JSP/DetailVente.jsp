@@ -28,22 +28,17 @@
 		</p>
 		<p>vendeur : ${requestScope.pseudo}</p>
 	</div>
-	<form action="${pageContext.request.contextPath}/detailVente" method="post">
-			<p>Ma proposition :</p>
-			<input type="number" name="enchere"> 
-<<<<<<< HEAD
-			<input type="submit" value="Encherir">			
-			<p>${requestScope.erreur}</p>
-		</form>
-		<p>${requestScope.test}</p>
-=======
-			<input type="submit" value="Encherir">
-			<p>${requestScope.message}</p>	
-			<p>${requestScope.error}</p>
-			<input type="hidden" value="${requestScope.noArticle}"	name="noArticle">	
+	<form action="${pageContext.request.contextPath}/detailVente"
+		method="post">
+		<p>Ma proposition :</p>
+		<input type="number" name="enchere"> <input type="submit"
+			value="Encherir">
+		<input type="hidden" value="${requestScope.noArticle}" name="noArticle">
 	</form>
+	<p>${error}</p>
+	<p>${requestScope.test}</p>
 	
->>>>>>> branch 'main' of https://github.com/Rvpl/ENI_Enchere.git
+
 
 </body>
 <%@ include file="/WEB-INF/JSP/Fragments/Footer.jspf"%>
