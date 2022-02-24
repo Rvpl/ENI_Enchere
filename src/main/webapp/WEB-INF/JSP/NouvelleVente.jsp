@@ -55,7 +55,7 @@
 				<div class="col-12">
 					<label>Ville:</label> <input name="ville" type="text"
 						value="${sessionScope.utilisateur.ville}">
-				</div>
+						<p>${error} </p>				</div>
 				<div class="col-12">
 					<button class="btn btn-success">Enregistrer</button>
 				</div>

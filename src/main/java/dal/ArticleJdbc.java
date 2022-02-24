@@ -15,7 +15,7 @@ public class ArticleJdbc {
 	
 	private static final String SELECT_ALL = "SELECT no_article, nom_article, description,date_debut_encheres,date_fin_encheres,"
 			+ "prix_initial,prix_vente,ARTICLES_VENDUS.no_utilisateur,no_categorie, nom,prenom,pseudo FROM ARTICLES_VENDUS,UTILISATEURS "
-			+ "WHERE ARTICLES_VENDUS.no_utilisateur = UTILISATEURS.no_utilisateur;";
+			+ "WHERE ARTICLES_VENDUS.no_utilisateur = UTILISATEURS.no_utilisateur AND date_fin_encheres > GETDATE();";
 	
 	
 	private static final String SELECT_BY_NAMECATEG = "SELECT no_article, nom_article, description,date_debut_encheres,date_fin_encheres,"
@@ -46,7 +46,7 @@ public class ArticleJdbc {
 					article.setDateFinEncheres(rs.getDate(5).toLocalDate());
 					article.setMiseAPrix(rs.getInt(6));
 					article.setPrixVente(rs.getInt(7));
-					article.getUtilisateur().setNoUtil(rs.getInt(8));
+					article.setNoEnchere(rs.getInt(8));
 					
 
 					user.setNoUtil(rs.getInt(8));
@@ -98,7 +98,7 @@ public class ArticleJdbc {
 	
 	private static final String SELECT_ALL_BY_NAME = "SELECT no_article, nom_article, description,date_debut_encheres,date_fin_encheres,"
 			+ "prix_initial,prix_vente,ARTICLES_VENDUS.no_utilisateur,no_categorie, nom,prenom,pseudo FROM ARTICLES_VENDUS,UTILISATEURS "
-			+ "WHERE ARTICLES_VENDUS.no_utilisateur = UTILISATEURS.no_utilisateur AND nom_article  LIKE '%'+?+'%';";
+			+ "WHERE ARTICLES_VENDUS.no_utilisateur = UTILISATEURS.no_utilisateur AND nom_article  LIKE '%'+?+'%' AND date_fin_encheres > GETDATE();";
 	//Affiche tout les articles par nom
 	public List<Article> getArticles(String nomArticle) throws DALException {
 
@@ -222,10 +222,10 @@ public class ArticleJdbc {
 	private static final String SQL_SELECT_ARTICLE = "SELECT nom_article,description, "
 			+ "date_debut_encheres, date_fin_encheres, prix_initial,prix_vente, ARTICLES_VENDUS.no_utilisateur,"
 			+ " ARTICLES_VENDUS.no_categorie,CATEGORIES.libelle, RETRAITS.rue,RETRAITS.code_postal, "
-			+ "RETRAITS.ville, pseudo, nom,prenom FROM ARTICLES_VENDUS,CATEGORIES,RETRAITS,UTILISATEURS"
+			+ "RETRAITS.ville, pseudo, nom,prenom,no_encherisseur FROM ARTICLES_VENDUS,CATEGORIES,RETRAITS,UTILISATEURS"
 			+ " WHERE ARTICLES_VENDUS.no_article = RETRAITS.no_article "
 			+ "AND CATEGORIES.no_categorie = ARTICLES_VENDUS.no_categorie"
-			+ " AND ARTICLES_VENDUS.no_utilisateur = UTILISATEURS.no_utilisateur AND ARTICLES_VENDUS.no_article = ?";
+			+ " AND ARTICLES_VENDUS.no_utilisateur = UTILISATEURS.no_utilisateur AND ARTICLES_VENDUS.no_article = ? ";
 	//Selection des éléments d'articles, utilisateur,retrait et catégorie par numéro d'article
 	public Article detailVente(int detailArticle) throws DALException {
 		Article nouvelArticle = null;
@@ -250,6 +250,8 @@ public class ArticleJdbc {
 				nouvelArticle.getUtilisateur().setPseudo(rs.getString(13));
 				nouvelArticle.getUtilisateur().setNom(rs.getString(14));
 				nouvelArticle.getUtilisateur().setPrenom(rs.getString(15));
+				nouvelArticle.setNoEnchere(rs.getInt(16));
+				
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

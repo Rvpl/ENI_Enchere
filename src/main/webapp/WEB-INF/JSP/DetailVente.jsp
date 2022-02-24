@@ -19,11 +19,11 @@
 		<p>${requestScope.nomArticle}</p>
 		<p>Description : ${requestScope.description }</p>
 		<p>Catégorie : ${requestScope.categorie}</p>
-		<p>meilleure offre : ${requestScope.prixVente}</p>
+		<p>meilleure offre : ${requestScope.prixVente} par ${requestScope.numEnchere}</p>
 		<p>mise a prix :${requestScope.miseAPrixStr}</p>
 		<p>fin de l'enchère : ${requestScope.dateFinEncheresStr}</p>
 		<p>
-			retrait : ${requestScope.rue} <br>${requestScope.codePostal}
+			retrait : ${requestScope.rue} ${requestScope.codePostal}
 			${requestScope.ville}
 		</p>
 		<p>vendeur : ${requestScope.pseudo}</p>

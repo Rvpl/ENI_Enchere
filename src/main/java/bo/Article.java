@@ -14,6 +14,7 @@ public class Article {
 	private Utilisateur noUtilisateur;
 	private Categorie noCategorie;
 	private Retrait retrait;
+	private int noEnchere;
 
 	public Article(String nomArticle, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres,
 			int miseAPrix) {
@@ -154,6 +155,14 @@ public class Article {
 
 	public void setRetrait(Retrait retrait) {
 		this.retrait = retrait;
+	}
+
+	public int getNoEnchere() {
+		return noEnchere;
+	}
+
+	public void setNoEnchere(int noEnchere) {
+		this.noEnchere = noEnchere;
 	}
 
 }

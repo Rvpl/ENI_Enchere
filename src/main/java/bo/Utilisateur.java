@@ -14,6 +14,7 @@ public class Utilisateur {
 	private String mdp;
 	private int credit;
 	private boolean admin;
+	private int no_enchere;
 
 	public Utilisateur(String pseudo, String nom, String prenom, String email, int numero, String rue, int codePostal,
 			String ville, String mdp) {
@@ -30,6 +31,9 @@ public class Utilisateur {
 		admin = false;
 
 	}
+	public int getNoEnchere() {
+		return no_enchere;
+	}
 
 	public Utilisateur() {
 	}
@@ -40,6 +44,7 @@ public class Utilisateur {
 
 	public void setNoUtil(int noUtil) {
 		this.noUtil = noUtil;
+		no_enchere = noUtil;
 	}
 
 	public String getPseudo() {

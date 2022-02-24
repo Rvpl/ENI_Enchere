@@ -92,4 +92,14 @@ public class utilisateurBLL {
 			}
 
 	}	
+	
+	
+	//Selection encherisseur
+	public Utilisateur selectEnchere(int numEnchere)throws BLLException {
+		try {
+			return userMng.selectEnchere(numEnchere);
+		} catch (DALException e) {
+			throw new BLLException(e.getMessage());
+		}
+	} 
 }

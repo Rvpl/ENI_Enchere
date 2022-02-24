@@ -2,6 +2,8 @@ package controllers;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -129,8 +131,17 @@ public class NouvelArticleServlet extends HttpServlet {
 				}
 			}
 		} catch (BLLException e) {
-			// TODO Auto-generated catch block
+			request.setAttribute("error", e.getMessage());
+			doGet(request, response);
 			e.printStackTrace();
+		} catch(NumberFormatException n) {
+			request.setAttribute("error", "veuillez entrer uniquement des nombres pour les champs nécessaires");
+			doGet(request, response);
+			n.printStackTrace();
+		}catch(DateTimeParseException d) {
+			request.setAttribute("error", "veuillez entrer des dates valides");
+			doGet(request, response);
+			d.printStackTrace();
 		}
 		
 		

@@ -211,6 +211,29 @@ public class UtilisateurJdbc {
 		}
 
 	}
-
 	
+	private static final String SQL_SELECT_NO_ENCHERE = "SELECT pseudo,nom,prenom FROM ARTICLES_VENDUS,UTILISATEURS WHERE ARTICLES_VENDUS.no_encherisseur = UTILISATEURS.no_utilisateur AND  no_encherisseur = ?";
+
+	public Utilisateur selectEnchere(Integer numEncherisseur) throws DALException{
+		Utilisateur result =  null;
+		try {
+			Connection cnx = ConnectionProvider.getConnection();
+			
+			PreparedStatement rqt = cnx.prepareStatement(SQL_SELECT_NO_ENCHERE);
+			
+			rqt.setInt(1, numEncherisseur);
+			ResultSet rs = rqt.executeQuery();
+			if (rs.next()) {
+				result = new Utilisateur();
+				result.setPseudo(rs.getString(1));
+				result.setNom(rs.getString(2));
+				result.setPrenom(rs.getString(3));
+			}else {
+				throw new DALException("Aucune ligne n'a trouvée");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 }

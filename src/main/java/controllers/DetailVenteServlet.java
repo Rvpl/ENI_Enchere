@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import bll.BLLException;
 import bll.DetailVenteManager;
+import bll.utilisateurBLL;
 import bo.Article;
 import bo.Utilisateur;
 
@@ -22,6 +23,7 @@ import bo.Utilisateur;
 public class DetailVenteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private DetailVenteManager detailVenteMng;
+	private utilisateurBLL userMng;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -29,6 +31,8 @@ public class DetailVenteServlet extends HttpServlet {
 	public DetailVenteServlet() {
 		super();
 		detailVenteMng = new DetailVenteManager();
+		userMng = new utilisateurBLL();
+		
 
 // TODO Auto-generated constructor stub
 	}
@@ -40,7 +44,11 @@ public class DetailVenteServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
-			Article article = detailVenteMng.selectAll(Integer.parseInt(request.getParameter("noArticle")));
+			Article article = detailVenteMng.selectAll(Integer.parseInt(request.getParameter("noArticle")));			
+			Utilisateur numEnchere = userMng.selectEnchere(article.getNoEnchere());
+			System.out.println(article.getNoEnchere());
+			request.setAttribute("numEnchere", numEnchere.getNom());
+			
 			request.setAttribute("nomArticle", article.getNomArticle());
 			request.setAttribute("description", article.getDescription());
 			request.setAttribute("categorie", article.getNoCategorie().getLibelle());
@@ -69,17 +77,6 @@ public class DetailVenteServlet extends HttpServlet {
 			throws ServletException, IOException {
 		String montantStr = null;
 		int montant = 0;
-		String nom = null;
-		String description = null;
-		String cate = null;
-		int prixVente = 0;
-		int miseAPrix = 0;
-		LocalDate dateFin = null;
-		String rue = null;
-		int cp = 0;
-		String ville = null;
-		String pseudo = null;
-
 		HttpSession session = request.getSession();
 
 		int idArticle = (Integer) session.getAttribute("idArticle");
@@ -102,32 +99,14 @@ public class DetailVenteServlet extends HttpServlet {
 				request.setAttribute("ville", article.getRetrait().getVille());
 				request.setAttribute("pseudo", article.getUtilisateur().getPseudo());
 				
-				nom = article.getNomArticle();
-				description = article.getDescription();
-				cate = article.getNoCategorie().getLibelle();
-				prixVente = article.getPrixVente();
-				miseAPrix = article.getMiseAPrix();
-				dateFin = article.getDateFinEncheres();
-				rue = article.getRetrait().getRue();
-				ville = article.getRetrait().getVille();
-				pseudo = article.getUtilisateur().getPseudo();
-				System.out.println(nom+" "+pseudo);
+				
+
 				
 			} else {
 				response.sendRedirect(request.getContextPath() + "/home");
 			}
 		} catch (BLLException e) {
 			request.setAttribute("error", e.getMessage());
-			request.setAttribute("nomArticle", nom);
-			request.setAttribute("description", description);
-			request.setAttribute("categorie", cate);
-			request.setAttribute("prixVente", prixVente);
-			request.setAttribute("miseAPrixStr", miseAPrix);
-			request.setAttribute("dateFinEncheresStr", dateFin);
-			request.setAttribute("rue",rue);
-			request.setAttribute("codePostal", cp);
-			request.setAttribute("ville", ville);
-			request.setAttribute("pseudo", pseudo);
 			doGet(request, response);
 			e.printStackTrace();
 		}
