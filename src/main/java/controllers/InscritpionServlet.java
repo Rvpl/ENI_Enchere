@@ -75,7 +75,7 @@ public class InscritpionServlet extends HttpServlet {
 			codePostalStr = request.getParameter("codePostal").trim();
 			cp = Integer.parseInt(codePostalStr);
 
-			if(request.getParameter("confirmationMDP").trim() == request.getParameter("motDePasse").trim()){
+			if(request.getParameter("confirmationMDP").trim().equals(request.getParameter("motdePasse"))){
 				motDePasse = request.getParameter("motDePasse").trim();
 			}
 
@@ -87,7 +87,6 @@ public class InscritpionServlet extends HttpServlet {
 
 			ville = request.getParameter("ville").trim();
 
-			motDePasse = request.getParameter("confirmationMDP").trim();
 			Utilisateur user = new Utilisateur(pseudo, nom, prenom, email, tel, rue, cp, ville, motDePasse);
 			
 			exist = userMng.insert(user);

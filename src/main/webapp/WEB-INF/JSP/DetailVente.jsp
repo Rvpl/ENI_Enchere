@@ -31,10 +31,10 @@
 	<form action="${pageContext.request.contextPath}/detailVente" method="post">
 			<p>Ma proposition :</p>
 			<input type="number" name="enchere"> 
-			<input type="submit" value="Encherir">
-			<p>${requestScope.message}</p>
+			<input type="submit" value="Encherir">			
+			<p>${requestScope.erreur}</p>
 		</form>
-
+		<p>${requestScope.test}</p>
 
 </body>
 <%@ include file="/WEB-INF/JSP/Fragments/Footer.jspf"%>

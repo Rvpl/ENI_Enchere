@@ -261,7 +261,7 @@ public class ArticleJdbc {
 
 	private static final String SQL_UPDATE_ARTICLE = "UPDATE ARTICLES_VENDUS SET prix_vente=? , no_encherisseur =? WHERE no_article=? ";
 	//Mise à jour de l'article lors d'une enchère
-	public void addEnchere(int montant, int noEncherisseur, int noArticle) {
+	public void addEnchere(int montant, int noEncherisseur, int noArticle) throws DALException {
 		try (Connection cnx = ConnectionProvider.getConnection()) {
 			PreparedStatement rqt = cnx.prepareStatement(SQL_UPDATE_ARTICLE);
 			rqt.setInt(1, montant);
@@ -271,6 +271,7 @@ public class ArticleJdbc {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			throw new DALException(e.getMessage());
 		}
 	}
 

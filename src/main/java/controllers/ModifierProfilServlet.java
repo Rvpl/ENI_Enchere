@@ -57,8 +57,6 @@ public class ModifierProfilServlet extends HttpServlet {
 		String rue = null;
 		String ville = null;
 		String motDePasse = null;
-		String administrateur = null;
-		String confimationMDP = null;
 		String codePostalStr = null;
 		String idStr = null;
 		int tel = 0;
@@ -96,10 +94,12 @@ public class ModifierProfilServlet extends HttpServlet {
 						&& request.getParameter("confimationMDP") != null) {
 					motDePasse = request.getParameter("nouveauMDP").trim();
 				}else {
-					response.sendRedirect(request.getContextPath()+"/modificationProfil");
+					request.setAttribute("error", "Veuillez entrer le même mot de passe");
+					doGet(request, response);
 					throw new BLLException("Veuillez entrer le même mot de passe");
 				}
 			}else {
+				request.setAttribute("error", "Le mot de passe actuel n'est pas le bon");
 				response.sendRedirect(request.getContextPath()+"/modificationProfil");
 				throw new BLLException("Le mot de passe actuel n'est pas le bon");
 			}
@@ -121,7 +121,7 @@ public class ModifierProfilServlet extends HttpServlet {
 			// SI l'utilisateur existe déjà en BDD on renvoie le message d'erreur
 			if (exist == 2) {
 				doGet(request, response);
-				request.getRequestDispatcher("/WEB-INF/JSP/ModifierProfil.jsp");
+				response.sendRedirect(request.getContextPath()+"/modificationProfil");
 				throw new BLLException("Pseudo déjà utilisé veuillez en choisir un autre");		
 			} else {
 				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/JSP/MonProfil.jsp");
@@ -131,7 +131,8 @@ public class ModifierProfilServlet extends HttpServlet {
 			}
 		} catch (BLLException e) {
 			request.setAttribute("error", e.getMessage());
-			request.getRequestDispatcher("/WEB-INF/JSP/ModifierProfil.jsp");
+			
+			response.sendRedirect(request.getContextPath()+"/modificationProfil");
 			e.printStackTrace();
 		}
 

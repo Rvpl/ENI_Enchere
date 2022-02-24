@@ -47,7 +47,12 @@ public class articleBLL {
 		int montantInit = recupMontant(idArticle);
 		
 		if(montantInit < montant) {
-			articleMng.addEnchere(montant,noEncherisseur, idArticle);
+			try {
+				articleMng.addEnchere(montant,noEncherisseur, idArticle);
+			} catch (DALException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			ok = true;
 		}else {
 			ok = false;

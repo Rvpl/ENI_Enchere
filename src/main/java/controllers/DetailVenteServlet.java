@@ -77,8 +77,9 @@ public class DetailVenteServlet extends HttpServlet {
 		try {
 				montantStr= request.getParameter("enchere");
 				montant=Integer.parseInt(montantStr);
-				if(detailVenteMng.addEnchere(montant,((Utilisateur) session.getAttribute("utilisateur")).getNoUtil(),idArticle) == false) {
-					request.setAttribute("message", "Veuillez entrer une valeur supérieure à la dernière offre");
+				
+				Utilisateur user = (Utilisateur) request.getSession().getAttribute("utilisateur");
+				if(detailVenteMng.addEnchere(montant,((Utilisateur) session.getAttribute("utilisateur")).getNoUtil(),idArticle, user.getCredit()) == false) {
 						Article article = detailVenteMng.selectAll(idArticle);
 						request.setAttribute("nomArticle", article.getNomArticle());
 						request.setAttribute("description", article.getDescription());
@@ -90,13 +91,15 @@ public class DetailVenteServlet extends HttpServlet {
 						request.setAttribute("codePostal", article.getRetrait().getCodePostal());
 						request.setAttribute("ville", article.getRetrait().getVille());
 						request.setAttribute("pseudo", article.getUtilisateur().getPseudo());
-						response.sendRedirect(request.getContextPath() + "/detailVente");
+						
 				}else {
 					response.sendRedirect(request.getContextPath() + "/home");
 				}
 			
 		} catch (BLLException e) {
-		// TODO Auto-generated catch block
+		request.setAttribute("error", e.getMessage());
+		request.setAttribute("test", "bonjour");
+		response.sendRedirect(request.getContextPath()+"/detailVente?noArticle="+idArticle);
 		e.printStackTrace();
 		}
 
