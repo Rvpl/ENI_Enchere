@@ -27,7 +27,7 @@ public class InscritpionServlet extends HttpServlet {
 	public InscritpionServlet() {
 		super();
 		userMng = new utilisateurBLL();
-		// TODO Auto-generated constructor stub
+// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -46,7 +46,8 @@ public class InscritpionServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		String prenom = null;
 		String nom = null;
 		String pseudo = null;
@@ -61,21 +62,21 @@ public class InscritpionServlet extends HttpServlet {
 		String motDePasse = null;
 		String administrateur = null;
 		String confirmationMDP = null;
-		int exist = 0;;
-		
-		
+		int exist = 0;
+		;
+
 		try {
 			pseudo = request.getParameter("pseudo").trim();
-			
+
 			prenom = request.getParameter("Prenom").trim();
 
 			telephoneStr = request.getParameter("telephone").trim();
 			tel = Integer.parseInt(telephoneStr);
-			
+
 			codePostalStr = request.getParameter("codePostal").trim();
 			cp = Integer.parseInt(codePostalStr);
 
-			if(request.getParameter("confirmationMDP").trim().equals(request.getParameter("motdePasse"))){
+			if (request.getParameter("confirmationMDP").trim().equals(request.getParameter("motDePasse").trim())) {
 				motDePasse = request.getParameter("motDePasse").trim();
 			}
 
@@ -88,9 +89,9 @@ public class InscritpionServlet extends HttpServlet {
 			ville = request.getParameter("ville").trim();
 
 			Utilisateur user = new Utilisateur(pseudo, nom, prenom, email, tel, rue, cp, ville, motDePasse);
-			
+
 			exist = userMng.insert(user);
-			
+
 			if (exist != 0) {
 				request.setAttribute("exist", exist);
 				request.setAttribute("pseudo", pseudo);
@@ -103,8 +104,8 @@ public class InscritpionServlet extends HttpServlet {
 				request.setAttribute("ville", ville);
 				doGet(request, response);
 			}
-			response.sendRedirect(request.getContextPath()+"/home");
-			
+			response.sendRedirect(request.getContextPath() + "/home");
+
 		} catch (BLLException e) {
 			request.setAttribute("exist", exist);
 			request.setAttribute("pseudo", pseudo);
@@ -118,7 +119,7 @@ public class InscritpionServlet extends HttpServlet {
 			request.setAttribute("error", e.getMessage());
 			request.getRequestDispatcher("/WEB-INF/JSP/Inscription.jsp").forward(request, response);
 			e.printStackTrace();
-		}catch(NumberFormatException e) {
+		} catch (NumberFormatException e) {
 			request.setAttribute("exist", exist);
 			request.setAttribute("pseudo", pseudo);
 			request.setAttribute("nom", nom);
@@ -131,6 +132,21 @@ public class InscritpionServlet extends HttpServlet {
 			request.setAttribute("error", "Veuillez saisir des chiffresdans la/les colonnes Téléphone/Code postal");
 			request.getRequestDispatcher("/WEB-INF/JSP/Inscription.jsp").forward(request, response);
 			e.printStackTrace();
+		} catch (NullPointerException e) {
+			request.setAttribute("exist", exist);
+			request.setAttribute("pseudo", pseudo);
+			request.setAttribute("nom", nom);
+			request.setAttribute("prenom", prenom);
+			request.setAttribute("email", email);
+			request.setAttribute("tel", tel);
+			request.setAttribute("rue", rue);
+			request.setAttribute("cp", cp);
+			request.setAttribute("ville", ville);
+			request.setAttribute("motDePasse", motDePasse);
+			request.setAttribute("error", "Le mot de passe et la confirmation sont différents");
+			request.getRequestDispatcher("/WEB-INF/JSP/Inscription.jsp").forward(request, response);
+			e.printStackTrace();
+
 		}
 	}
 

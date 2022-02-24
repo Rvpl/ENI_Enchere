@@ -23,8 +23,8 @@ public class DetailVenteManager {
 		}
 		return unArticle;
 	}
-	
-	public int recupMontant(int idArticle) throws BLLException{
+
+	public int recupMontant(int idArticle) throws BLLException {
 		int montant = 0;
 		try {
 			montant = articleMng.recupMontant(idArticle);
@@ -33,9 +33,9 @@ public class DetailVenteManager {
 			e.printStackTrace();
 			throw new BLLException(e.getMessage());
 		}
-		return montant;	
+		return montant;
 	}
-	
+
 	public boolean addEnchere(int montant, int noEncherisseur, int idArticle, int credit) throws BLLException{
 		boolean ok = false;
 		
@@ -51,14 +51,14 @@ public class DetailVenteManager {
 					throw new BLLException("Veuillez entrer une valeur supérieur à la dernière enchère");
 				}
 			}else {
-				ok = false;
-				throw new BLLException("Votre crédit est insuffisant");
+				throw new BLLException("Vous n'avez pas assez de crédits");
 			}
-			
-		} catch (DALException e) {
-			e.printStackTrace();
-		}
+			}catch(BLLException | DALException e) {
+				e.printStackTrace();
+			}
 		return ok;
+
+		
 		
 		}
 

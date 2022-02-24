@@ -41,20 +41,20 @@ public class DetailVenteServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
-				Article article = detailVenteMng.selectAll(Integer.parseInt(request.getParameter("noArticle")));
-				request.setAttribute("nomArticle", article.getNomArticle());
-				request.setAttribute("description", article.getDescription());
-				request.setAttribute("categorie", article.getNoCategorie().getLibelle());
-				request.setAttribute("prixVente", article.getPrixVente());
-				request.setAttribute("miseAPrixStr", article.getMiseAPrix());
-				request.setAttribute("dateFinEncheresStr", article.getDateFinEncheres());
-				request.setAttribute("rue", article.getRetrait().getRue());
-				request.setAttribute("codePostal", article.getRetrait().getCodePostal());
-				request.setAttribute("ville", article.getRetrait().getVille());
-				request.setAttribute("pseudo", article.getUtilisateur().getPseudo());
-				HttpSession session = request.getSession();
-				session.setAttribute("idArticle", Integer.parseInt(request.getParameter("noArticle")));
-			
+			Article article = detailVenteMng.selectAll(Integer.parseInt(request.getParameter("noArticle")));
+			request.setAttribute("nomArticle", article.getNomArticle());
+			request.setAttribute("description", article.getDescription());
+			request.setAttribute("categorie", article.getNoCategorie().getLibelle());
+			request.setAttribute("prixVente", article.getPrixVente());
+			request.setAttribute("miseAPrixStr", article.getMiseAPrix());
+			request.setAttribute("dateFinEncheresStr", article.getDateFinEncheres());
+			request.setAttribute("rue", article.getRetrait().getRue());
+			request.setAttribute("codePostal", article.getRetrait().getCodePostal());
+			request.setAttribute("ville", article.getRetrait().getVille());
+			request.setAttribute("pseudo", article.getUtilisateur().getPseudo());
+			HttpSession session = request.getSession();
+			session.setAttribute("idArticle", Integer.parseInt(request.getParameter("noArticle")));
+			request.setAttribute("noArticle", request.getParameter("noArticle"));
 		} catch (BLLException e) {
 // TODO Auto-generated catch block
 			e.printStackTrace();
@@ -68,39 +68,40 @@ public class DetailVenteServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String montantStr= null;
-		int montant=0;
+		String montantStr = null;
+		int montant = 0;
+
 		HttpSession session = request.getSession();
-		
-		
-		int idArticle  = (Integer)session.getAttribute("idArticle");
+
+		int idArticle = (Integer) session.getAttribute("idArticle");
 		try {
-				montantStr= request.getParameter("enchere");
-				montant=Integer.parseInt(montantStr);
-				
-				Utilisateur user = (Utilisateur) request.getSession().getAttribute("utilisateur");
-				if(detailVenteMng.addEnchere(montant,((Utilisateur) session.getAttribute("utilisateur")).getNoUtil(),idArticle, user.getCredit()) == false) {
-						Article article = detailVenteMng.selectAll(idArticle);
-						request.setAttribute("nomArticle", article.getNomArticle());
-						request.setAttribute("description", article.getDescription());
-						request.setAttribute("categorie", article.getNoCategorie().getLibelle());
-						request.setAttribute("prixVente", article.getPrixVente());
-						request.setAttribute("miseAPrixStr", article.getMiseAPrix());
-						request.setAttribute("dateFinEncheresStr", article.getDateFinEncheres());
-						request.setAttribute("rue", article.getRetrait().getRue());
-						request.setAttribute("codePostal", article.getRetrait().getCodePostal());
-						request.setAttribute("ville", article.getRetrait().getVille());
-						request.setAttribute("pseudo", article.getUtilisateur().getPseudo());
-						
-				}else {
-					response.sendRedirect(request.getContextPath() + "/home");
-				}
-			
+			montantStr = request.getParameter("enchere");
+			montant = Integer.parseInt(montantStr);
+
+			Utilisateur user = (Utilisateur) request.getSession().getAttribute("utilisateur");
+			if (detailVenteMng.addEnchere(montant, ((Utilisateur) session.getAttribute("utilisateur")).getNoUtil(),
+					idArticle, user.getCredit()) == false) {
+				request.setAttribute("message", "Veuillez entrer une valeur supérieure à la dernière offre");
+				Article article = detailVenteMng.selectAll(idArticle);
+				request.setAttribute("nomArticle", article.getNomArticle());
+				request.setAttribute("description", article.getDescription());
+				request.setAttribute("categorie", article.getNoCategorie().getLibelle());
+				request.setAttribute("prixVente", article.getPrixVente());
+				request.setAttribute("miseAPrixStr", article.getMiseAPrix());
+				request.setAttribute("dateFinEncheresStr", article.getDateFinEncheres());
+				request.setAttribute("rue", article.getRetrait().getRue());
+				request.setAttribute("codePostal", article.getRetrait().getCodePostal());
+				request.setAttribute("ville", article.getRetrait().getVille());
+				request.setAttribute("pseudo", article.getUtilisateur().getPseudo());
+
+			} else {
+				response.sendRedirect(request.getContextPath() + "/home");
+			}
 		} catch (BLLException e) {
-		request.setAttribute("error", e.getMessage());
-		request.setAttribute("test", "bonjour");
-		response.sendRedirect(request.getContextPath()+"/detailVente?noArticle="+idArticle);
-		e.printStackTrace();
+			request.setAttribute("error", e.getMessage());
+			e.printStackTrace();
+		} catch (NumberFormatException n) {
+			n.printStackTrace();
 		}
 
 	}
