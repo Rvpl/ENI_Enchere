@@ -40,7 +40,7 @@ public class InscritpionServlet extends HttpServlet {
 		if (rd != null) {
 			rd.forward(request, response);
 		}
-	}
+	} 
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
