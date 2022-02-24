@@ -18,10 +18,16 @@
 			passe : </label> <input type="password" name="password">
 		<button class="btn btn-warning">Connexion</button>
 	</form>
-	<c:if test="${requestScope.introuvable == null}">
+	<c:if test="${requestScope.introuvable == 0}">
 		<p>Login ou Mot de passe incorrect</p>
 	</c:if>
-	<button class="btn btn-warning">Créer un compte</button>
+	<c:if test="${requestScope.error != null}">
+		<p>${requestScope.error}</p>
+	</c:if>
+	<form action="${pageContext.request.contextPath }/inscription" method="get">
+		<button class="btn btn-warning">Créer un compte</button>
+	</form>
+	
 <body>
 
 </body>

@@ -25,7 +25,7 @@ public class ArticleJdbc {
 	//Affiche tout les articles peu importe la catégorie
 	//   OU
 	//Affiche les articles en fonction des catégories	
-	public List<Article> select(String nomArticle, int categorie) {
+	public List<Article> select(String nomArticle, int categorie) throws DALException{
 
 		List<Article> articlesBN = new ArrayList<>();
 		// usersBN = new ArrayList<>();
@@ -100,7 +100,7 @@ public class ArticleJdbc {
 			+ "prix_initial,prix_vente,ARTICLES_VENDUS.no_utilisateur,no_categorie, nom,prenom,pseudo FROM ARTICLES_VENDUS,UTILISATEURS "
 			+ "WHERE ARTICLES_VENDUS.no_utilisateur = UTILISATEURS.no_utilisateur AND nom_article  LIKE '%'+?+'%';";
 	//Affiche tout les articles par nom
-	public List<Article> getArticles(String nomArticle) {
+	public List<Article> getArticles(String nomArticle) throws DALException {
 
 		List<Article> articles = new ArrayList<>();
 		try (Connection cnx = ConnectionProvider.getConnection()) {
@@ -148,7 +148,7 @@ public class ArticleJdbc {
 	
 	private static final String SQL_INSERT_RETRAIT = "INSERT INTO RETRAITS (no_article,rue,code_postal,ville) VALUES (?,?,?,?)";
 	//Insertion de retrait / article / encheres
-	public int addArticle(Article nouvelArticle) {
+	public int addArticle(Article nouvelArticle) throws DALException{
 
 		int verif = 0;
 
@@ -227,7 +227,7 @@ public class ArticleJdbc {
 			+ "AND CATEGORIES.no_categorie = ARTICLES_VENDUS.no_categorie"
 			+ " AND ARTICLES_VENDUS.no_utilisateur = UTILISATEURS.no_utilisateur AND ARTICLES_VENDUS.no_article = ?";
 	//Selection des éléments d'articles, utilisateur,retrait et catégorie par numéro d'article
-	public Article detailVente(int detailArticle) throws SQLException {
+	public Article detailVente(int detailArticle) throws DALException {
 		Article nouvelArticle = null;
 		try (Connection cnx = ConnectionProvider.getConnection()) {
 			PreparedStatement rqt = cnx.prepareStatement(SQL_SELECT_ARTICLE);
@@ -276,7 +276,7 @@ public class ArticleJdbc {
 
 	//Récupération du prix de vente
 	private static final String SQL_SELECT_MONTANT = "SELECT prix_vente FROM ARTICLES_VENDUS WHERE no_article=? ";
-	public int recupMontant(int idArticle) {
+	public int recupMontant(int idArticle) throws DALException {
 		int montant = 0;
 
 		try (Connection cnx = ConnectionProvider.getConnection()) {

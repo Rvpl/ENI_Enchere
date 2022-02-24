@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import bll.BLLException;
 import bll.utilisateurBLL;
 import bo.Utilisateur;
 
@@ -45,8 +46,7 @@ public class InscritpionServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String prenom = null;
 		String nom = null;
 		String pseudo = null;
@@ -61,53 +61,52 @@ public class InscritpionServlet extends HttpServlet {
 		String motDePasse = null;
 		String administrateur = null;
 		String confirmationMDP = null;
-
-		if (request.getParameter("pseudo") != null) {
+		int exist = 0;;
+		
+		
+		try {
 			pseudo = request.getParameter("pseudo").trim();
-		}
-		if (request.getParameter("Prenom") != null) {
+			
 			prenom = request.getParameter("Prenom").trim();
-		}
-		if (request.getParameter("telephone") != null) {
+
 			telephoneStr = request.getParameter("telephone").trim();
 			tel = Integer.parseInt(telephoneStr);
-		}
-		if (request.getParameter("codePostal") != null) {
+			
 			codePostalStr = request.getParameter("codePostal").trim();
 			cp = Integer.parseInt(codePostalStr);
-		}
-		if (request.getParameter("motDePasse") != null) {
-			motDePasse = request.getParameter("motDePasse").trim();
-		}
 
-		if (request.getParameter("nom") != null) {
-			nom = request.getParameter("nom").trim();
-		}
-
-		if (request.getParameter("email") != null) {
-			email = request.getParameter("email").trim();
-		}
-
-		if (request.getParameter("rue") != null) {
-			rue = request.getParameter("rue").trim();
-		}
-
-		if (request.getParameter("ville") != null) {
-			ville = request.getParameter("ville").trim();
-		}
-
-		if (request.getParameter("confirmationMDP") != null) {
-			if (request.getParameter("confirmation") == motDePasse) {
-				motDePasse = request.getParameter("confirmationMDP").trim();
+			if(request.getParameter("confirmationMDP").trim() == request.getParameter("motDePasse").trim()){
+				motDePasse = request.getParameter("motDePasse").trim();
 			}
-		}
 
-		Utilisateur user = new Utilisateur(pseudo, nom, prenom, email, tel, rue, cp, ville, motDePasse);
+			nom = request.getParameter("nom").trim();
 
-		// SI l'utilisateur existe déjà en BDD on renvoie l'identifiant de l'user
-		// existant
-		int exist = userMng.insert(user);
-		if (exist != 0) {
+			email = request.getParameter("email").trim();
+
+			rue = request.getParameter("rue").trim();
+
+			ville = request.getParameter("ville").trim();
+
+			motDePasse = request.getParameter("confirmationMDP").trim();
+			Utilisateur user = new Utilisateur(pseudo, nom, prenom, email, tel, rue, cp, ville, motDePasse);
+			
+			exist = userMng.insert(user);
+			
+			if (exist != 0) {
+				request.setAttribute("exist", exist);
+				request.setAttribute("pseudo", pseudo);
+				request.setAttribute("nom", nom);
+				request.setAttribute("prenom", prenom);
+				request.setAttribute("email", email);
+				request.setAttribute("tel", tel);
+				request.setAttribute("rue", rue);
+				request.setAttribute("cp", cp);
+				request.setAttribute("ville", ville);
+				doGet(request, response);
+			}
+			response.sendRedirect(request.getContextPath()+"/home");
+			
+		} catch (BLLException e) {
 			request.setAttribute("exist", exist);
 			request.setAttribute("pseudo", pseudo);
 			request.setAttribute("nom", nom);
@@ -117,9 +116,23 @@ public class InscritpionServlet extends HttpServlet {
 			request.setAttribute("rue", rue);
 			request.setAttribute("cp", cp);
 			request.setAttribute("ville", ville);
-			doGet(request, response);
+			request.setAttribute("error", e.getMessage());
+			request.getRequestDispatcher("/WEB-INF/JSP/Inscription.jsp").forward(request, response);
+			e.printStackTrace();
+		}catch(NumberFormatException e) {
+			request.setAttribute("exist", exist);
+			request.setAttribute("pseudo", pseudo);
+			request.setAttribute("nom", nom);
+			request.setAttribute("prenom", prenom);
+			request.setAttribute("email", email);
+			request.setAttribute("tel", tel);
+			request.setAttribute("rue", rue);
+			request.setAttribute("cp", cp);
+			request.setAttribute("ville", ville);
+			request.setAttribute("error", "Veuillez saisir des chiffresdans la/les colonnes Téléphone/Code postal");
+			request.getRequestDispatcher("/WEB-INF/JSP/Inscription.jsp").forward(request, response);
+			e.printStackTrace();
 		}
-
 	}
 
 }

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import bll.BLLException;
 import bll.utilisateurBLL;
 import bo.Utilisateur;
 
@@ -50,31 +51,29 @@ public class Connexion extends HttpServlet {
 			throws ServletException, IOException {
 		String login = null;
 		String mdp = null;
+		
+		login = request.getParameter("login").trim();
+		mdp = request.getParameter("password").trim();
+		
 
-		if (request.getParameter("login") != null) {
-			login = request.getParameter("login").trim();
+		Utilisateur identifiant = null;
+		try {
+			identifiant = userMng.selectUtilisateur(login, mdp);
+			if (identifiant != null) {
+				HttpSession session = request.getSession();
+				session.setAttribute("utilisateur", identifiant);
+				response.sendRedirect(request.getContextPath() + "/home");	
+			} else {
+				request.setAttribute("introuvable", 0);
+				request.getRequestDispatcher("/WEB-INF/JSP/Connexion.jsp").forward(request, response);
+
+			}		
+		} catch (BLLException e) {
+			request.setAttribute("error", e.getMessage());
+			request.getRequestDispatcher("/WEB-INF/JSP/Connexion.jsp").forward(request, response);
+			e.printStackTrace();
 		}
-
-		if (request.getParameter("password") != null) {
-			mdp = request.getParameter("password").trim();
-		}
-
-		Utilisateur identifiant = userMng.selectUtilisateur(login, mdp);
-		if (identifiant != null) {
-			HttpSession session = request.getSession();
-			session.setAttribute("utilisateur", identifiant);
-
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/JSP/Accueil.jsp");
-			if (rd != null) {
-				response.sendRedirect(request.getContextPath() + "/home");
-			}
-		} else {
-			request.setAttribute("introuvable", identifiant);
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/JSP/Connexion.jsp");
-			if (rd != null) {
-				rd.forward(request, response);
-			}
-		}
+		
 	}
 
 }

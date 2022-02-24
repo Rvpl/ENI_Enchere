@@ -10,8 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import bll.BLLException;
 import bll.articleBLL;
 import bo.Article;
+import bo.Retrait;
 
 /**
  * Servlet implementation class NouvelArticleServlet
@@ -68,15 +70,14 @@ public class NouvelArticleServlet extends HttpServlet {
 		int cp = 0;
 		String rue = null;
 
-		if (request.getParameter("nomArticle") != null) {
+		
+		try {
 			nomArticle = request.getParameter("nomArticle").trim();
-		}
-		if (request.getParameter("description") != null) {
-			description = request.getParameter("description").trim();
-		}
 
-		if (request.getParameter("choixCategorie") != null) {
+			description = request.getParameter("description").trim();
+
 			categorieStr = request.getParameter("choixCategorie").trim();
+
 			if (categorieStr.equals("informatique")) {
 				categorie = 1;
 			}
@@ -89,54 +90,50 @@ public class NouvelArticleServlet extends HttpServlet {
 			if (categorieStr.equals("Sport/Loisirs")) {
 				categorie = 4;
 			}
-		}
 
-		if (request.getParameter("prix") != null) {
 			miseAPrixStr = request.getParameter("prix").trim();
 			miseAPrix = Integer.parseInt(miseAPrixStr);
-		}
-		if (request.getParameter("date_debut") != null) {
+
 			dateDebutEncheresStr = request.getParameter("date_debut").trim();
 			dateDebutEncheres = LocalDate.parse(dateDebutEncheresStr);
 
-		}
-		if (request.getParameter("date_fin") != null) {
 			dateFinEncheresStr = request.getParameter("date_fin").trim();
 			dateFinEncheres = LocalDate.parse(dateFinEncheresStr);
-		}
 
-		if (request.getParameter("util") != null) {
 			idUtilStr = request.getParameter("util").trim();
 			idUtil = Integer.parseInt(idUtilStr);
-		}
 
-		if (request.getParameter("rue") != null) {
 			rue = request.getParameter("rue");
-		}
 
-		if (request.getParameter("codePostal") != null) {
 			cp = Integer.parseInt(request.getParameter("codePostal"));
-		}
 
-		if (request.getParameter("ville") != null) {
 			ville = request.getParameter("ville");
-		}
 
-		Article article = new Article(nomArticle, description, dateDebutEncheres, dateFinEncheres, miseAPrix, idUtil,
-				categorie);
-		article.getRetrait().setRue(rue);
-		article.getRetrait().setVille(ville);
-		article.getRetrait().setCodePostal(cp);
-		article.getRetrait().setNo_article(article.getNoArticle());
+			Article article = new Article(nomArticle, description, dateDebutEncheres, dateFinEncheres, miseAPrix,
+					idUtil, categorie);
+			Retrait retrait = new Retrait();
+			retrait.setRue(rue);
+			retrait.setVille(ville);
+			retrait.setCodePostal(cp);
+			retrait.setNo_article(article.getNoArticle());
+			article.setRetrait(retrait);
 
-		int exist = articleMng.addArticle(article);
-		if (exist != 0) {
+			int exist = 0;
+			exist = articleMng.addArticle(article);
+			
+			if (exist != 0) {
 
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/JSP/Accueil.jsp");
-			if (rd != null) {
-				rd.forward(request, response);
+				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/JSP/Accueil.jsp");
+				if (rd != null) {
+					rd.forward(request, response);
+				}
 			}
+		} catch (BLLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		
+		
 
 	}
 

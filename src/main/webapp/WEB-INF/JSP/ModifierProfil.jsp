@@ -14,6 +14,10 @@
 		<form action="${pageContext.request.contextPath}/modificationProfil"
 			method="post">
 			<div class="row">
+				<div class="col-12">
+					<p>${requestScope.error}</p>
+					</div>
+				</div>
 				<div class="col-6">
 					<label>Pseudo:</label> <input type="text" name="pseudo"
 						value="${sessionScope.utilisateur.pseudo}">
@@ -86,6 +90,9 @@
 				</div>
 				<input name="id" value="${sessionScope.utilisateur.noUtil}"
 					type="hidden">
+				<input type="password"
+					name="motDePasseActuel" value="${sessionScope.utilisateur.mdp}"
+					type="hidden" style="visibility:hidden">
 		</form>
 
 		<form action="${pageContext.request.contextPath}/supprimer"
@@ -106,12 +113,6 @@
 
 			</div>
 		</form>
-
-
-
-		<c:if test="${requestScope.exist == 2 }">
-			<p>${requestScope.error}</p>
-		</c:if>
 	</div>
 </body>
 <%@ include file="/WEB-INF/JSP/Fragments/Footer.jspf"%>

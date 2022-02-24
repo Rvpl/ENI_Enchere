@@ -15,6 +15,9 @@
 		<form action="${pageContext.request.contextPath}/inscription"
 			method="post">
 			<div class="row">
+				<div class="col-12" style="text-align:center; color:red;">
+					<p>${requestScope.error}</p>
+				</div>
 				<div class="col-6">
 					<label>Pseudo :</label> <input type="text" name="pseudo"
 						value="${requestScope.pseudo}" class="form-control">
@@ -30,7 +33,7 @@
 						value="${requestScope.prenom}" class="form-control">
 				</div>
 				<div class="col-6">
-					<label>Email :</label> <input type="text" name="email"
+					<label>Email :</label> <input type="email" name="email"
 						value="${requestScope.email}" class="form-control">
 				</div>
 			</div>

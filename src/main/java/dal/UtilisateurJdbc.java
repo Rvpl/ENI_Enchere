@@ -186,7 +186,7 @@ public class UtilisateurJdbc {
 
 	// TODO Exécuter les requêtes afin de compléter la suppression de profil
 
-	public void delete(Integer utilisateurASupprimer) throws Exception {
+	public void delete(Integer utilisateurASupprimer) throws DALException {
 
 		try (Connection cnx = ConnectionProvider.getConnection()) {
 
@@ -202,11 +202,11 @@ public class UtilisateurJdbc {
 			int nbLigneAffectees = ordre.executeUpdate();
 
 			if (nbLigneAffectees == 0) {
-				throw new Exception("Aucune ligne n'a été supprimée de la BDD");
+				throw new DALException("Aucune ligne n'a été supprimée de la BDD");
 			}
 
 		} catch (SQLException e) {
-			throw new Exception("Impossible de supprimer l'utilisateur");
+			throw new DALException("Impossible de supprimer l'utilisateur");
 
 		}
 

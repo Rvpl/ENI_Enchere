@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import bll.BLLException;
 import bll.utilisateurBLL;
 
 /**
@@ -37,21 +38,27 @@ public class SupprimerServlet extends HttpServlet {
 			throws ServletException, IOException {
 		String idStr = null;
 		int id = 0;
-		request.getSession();
-		HttpSession session = request.getSession();
-		session.getAttribute("utilisateur");
+			
+		try {
+			request.getSession();
+			HttpSession session = request.getSession();
+			session.getAttribute("utilisateur");
 
-		if (request.getParameter("id") != null) {
-			idStr = request.getParameter("id");
-			id = Integer.parseInt(idStr);
-		}
-		userMng.delete(id);
-		session.invalidate();
+				idStr = request.getParameter("id");
+				id = Integer.parseInt(idStr);
+			userMng.delete(id);
+			
+			session.invalidate();
 
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/JSP/Accueil.jsp");
-		if (rd != null) {
-			rd.forward(request, response);
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/JSP/Accueil.jsp");
+			if (rd != null) {
+				rd.forward(request, response);
+			}
+		} catch (BLLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		
 	}
 
 }

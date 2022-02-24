@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import bll.BLLException;
 import bll.DetailVenteManager;
 import bo.Article;
 import bo.Utilisateur;
@@ -40,7 +41,6 @@ public class DetailVenteServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
-			if (detailVenteMng.selectAll(Integer.parseInt(request.getParameter("noArticle"))) != null) {
 				Article article = detailVenteMng.selectAll(Integer.parseInt(request.getParameter("noArticle")));
 				request.setAttribute("nomArticle", article.getNomArticle());
 				request.setAttribute("description", article.getDescription());
@@ -54,16 +54,12 @@ public class DetailVenteServlet extends HttpServlet {
 				request.setAttribute("pseudo", article.getUtilisateur().getPseudo());
 				HttpSession session = request.getSession();
 				session.setAttribute("idArticle", Integer.parseInt(request.getParameter("noArticle")));
-			}
-		} catch (NumberFormatException e) {
-// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
+			
+		} catch (BLLException e) {
 // TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		request.getRequestDispatcher("/WEB-INF/JSP/DetailVente.jsp").forward(request, response);
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/JSP/DetailVente.jsp");
 	}
 
 	/**
@@ -79,7 +75,6 @@ public class DetailVenteServlet extends HttpServlet {
 		
 		int idArticle  = (Integer)session.getAttribute("idArticle");
 		try {
-			if(request.getParameter("enchere")!= null) {
 				montantStr= request.getParameter("enchere");
 				montant=Integer.parseInt(montantStr);
 				if(detailVenteMng.addEnchere(montant,((Utilisateur) session.getAttribute("utilisateur")).getNoUtil(),idArticle) == false) {
@@ -95,12 +90,12 @@ public class DetailVenteServlet extends HttpServlet {
 						request.setAttribute("codePostal", article.getRetrait().getCodePostal());
 						request.setAttribute("ville", article.getRetrait().getVille());
 						request.setAttribute("pseudo", article.getUtilisateur().getPseudo());
-						request.getRequestDispatcher("/WEB-INF/JSP/DetailVente.jsp").forward(request, response);
+						response.sendRedirect(request.getContextPath() + "/detailVente");
 				}else {
 					response.sendRedirect(request.getContextPath() + "/home");
 				}
-			}
-		} catch (NumberFormatException | SQLException e) {
+			
+		} catch (BLLException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 		}

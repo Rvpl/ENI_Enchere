@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import bll.BLLException;
 import bll.utilisateurBLL;
 import bo.Utilisateur;
 
@@ -64,82 +65,77 @@ public class ModifierProfilServlet extends HttpServlet {
 		int cp = 0;
 		int id = 0;
 
-		if (request.getParameter("pseudo") != null) {
+		int exist;
+		try {
 			pseudo = request.getParameter("pseudo").trim();
-		}
-		if (request.getParameter("Prenom") != null) {
+
 			prenom = request.getParameter("Prenom").trim();
-		}
-		if (request.getParameter("telephone") != null) {
+
 			telephoneStr = request.getParameter("telephone").trim();
 			tel = Integer.parseInt(telephoneStr);
-		}
-		if (request.getParameter("codePostal") != null) {
+
 			codePostalStr = request.getParameter("codePostal").trim();
 			cp = Integer.parseInt(codePostalStr);
-		}
 
-		if (request.getParameter("nom") != null) {
 			nom = request.getParameter("nom").trim();
-		}
 
-		if (request.getParameter("nouveauMDP") != null) {
 			motDePasse = request.getParameter("nouveauMDP").trim();
-		}
 
-		if (request.getParameter("email") != null) {
 			email = request.getParameter("email").trim();
-		}
 
-		if (request.getParameter("rue") != null) {
 			rue = request.getParameter("rue").trim();
-		}
 
-		if (request.getParameter("ville") != null) {
 			ville = request.getParameter("ville").trim();
-		}
 
-		if (request.getParameter("id") != null) {
 			idStr = request.getParameter("id").trim();
 			id = Integer.parseInt(idStr);
 
-		}
-
-		if (request.getParameter("motDePasseActuel") == request.getParameter("verifMdp")) {
-			if (request.getParameter("nouveauMDP") != null
-					&& request.getParameter("confirmationMDP") == request.getParameter("nouveauMDP")
-					&& request.getParameter("confimationMDP") != null) {
-				motDePasse = request.getParameter("nouveauMDP").trim();
+			if (request.getParameter("motDePasseActuel").equals(request.getParameter("verifMdp"))) {
+				if (request.getParameter("nouveauMDP") != null
+						&& request.getParameter("confirmationMDP").equals(request.getParameter("nouveauMDP")) 
+						&& request.getParameter("confimationMDP") != null) {
+					motDePasse = request.getParameter("nouveauMDP").trim();
+				}else {
+					response.sendRedirect(request.getContextPath()+"/modificationProfil");
+					throw new BLLException("Veuillez entrer le même mot de passe");
+				}
+			}else {
+				response.sendRedirect(request.getContextPath()+"/modificationProfil");
+				throw new BLLException("Le mot de passe actuel n'est pas le bon");
 			}
-		}
+			
+			Utilisateur user = new Utilisateur();
+			user.setNoUtil(id);
+			user.setPseudo(pseudo);
+			user.setNom(nom);
+			user.setPrenom(prenom);
+			user.setEmail(email);
+			user.setCodePostal(cp);
+			user.setMdp(motDePasse);
+			user.setNumero(tel);
+			user.setRue(rue);
+			user.setVille(ville);
 
-		Utilisateur user = new Utilisateur();
-		user.setNoUtil(id);
-		user.setPseudo(pseudo);
-		user.setNom(nom);
-		user.setPrenom(prenom);
-		user.setEmail(email);
-		user.setCodePostal(cp);
-		user.setMdp(motDePasse);
-		user.setNumero(tel);
-		user.setRue(rue);
-		user.setVille(ville);
-
-		int exist = userMng.update(user);
-
-		// SI l'utilisateur existe déjà en BDD on renvoie le message d'erreur
-		exist = userMng.update(user);
-		if (exist == 2) {
-			String error = "Pseudo déjà utilisé veuillez en choisir un autre";
-			request.setAttribute("error", error);
-			doGet(request, response);
-		} else {
-
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/JSP/MonProfil.jsp");
-			if (rd != null) {
-				rd.forward(request, response);
+			exist = userMng.update(user);
+			
+			// SI l'utilisateur existe déjà en BDD on renvoie le message d'erreur
+			if (exist == 2) {
+				doGet(request, response);
+				request.getRequestDispatcher("/WEB-INF/JSP/ModifierProfil.jsp");
+				throw new BLLException("Pseudo déjà utilisé veuillez en choisir un autre");		
+			} else {
+				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/JSP/MonProfil.jsp");
+				if (rd != null) {
+					rd.forward(request, response);
+				}
 			}
+		} catch (BLLException e) {
+			request.setAttribute("error", e.getMessage());
+			request.getRequestDispatcher("/WEB-INF/JSP/ModifierProfil.jsp");
+			e.printStackTrace();
 		}
+
+		
 
 	}
 
