@@ -75,7 +75,7 @@ public class InscritpionServlet extends HttpServlet {
 			codePostalStr = request.getParameter("codePostal").trim();
 			cp = Integer.parseInt(codePostalStr);
 
-			if(request.getParameter("confirmationMDP").trim() == request.getParameter("motDePasse").trim()){
+			if(request.getParameter("confirmationMDP").trim().equals(request.getParameter("motDePasse").trim())){
 				motDePasse = request.getParameter("motDePasse").trim();
 			}
 
@@ -87,7 +87,7 @@ public class InscritpionServlet extends HttpServlet {
 
 			ville = request.getParameter("ville").trim();
 
-			motDePasse = request.getParameter("confirmationMDP").trim();
+			
 			Utilisateur user = new Utilisateur(pseudo, nom, prenom, email, tel, rue, cp, ville, motDePasse);
 			
 			exist = userMng.insert(user);
@@ -132,6 +132,21 @@ public class InscritpionServlet extends HttpServlet {
 			request.setAttribute("error", "Veuillez saisir des chiffresdans la/les colonnes Téléphone/Code postal");
 			request.getRequestDispatcher("/WEB-INF/JSP/Inscription.jsp").forward(request, response);
 			e.printStackTrace();
+		}catch(NullPointerException e) {
+			request.setAttribute("exist", exist);
+			request.setAttribute("pseudo", pseudo);
+			request.setAttribute("nom", nom);
+			request.setAttribute("prenom", prenom);
+			request.setAttribute("email", email);
+			request.setAttribute("tel", tel);
+			request.setAttribute("rue", rue);
+			request.setAttribute("cp", cp);
+			request.setAttribute("ville", ville);
+			request.setAttribute("motDePasse",motDePasse);
+			request.setAttribute("error", "Le mot de passe et la confirmation sont différents");
+			request.getRequestDispatcher("/WEB-INF/JSP/Inscription.jsp").forward(request, response);
+			e.printStackTrace();
+			
 		}
 	}
 

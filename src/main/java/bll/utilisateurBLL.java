@@ -46,7 +46,7 @@ public class utilisateurBLL {
 		if(nouvelUtilisateur.getVille().isEmpty() || nouvelUtilisateur.getVille().isBlank()) {
 			throw new BLLException("Ville obligatoire");
 		}
-		if(nouvelUtilisateur.getMdp().isEmpty() || nouvelUtilisateur.getMdp().isBlank()) {
+		if(nouvelUtilisateur.getMdp().isEmpty() || nouvelUtilisateur.getMdp().isBlank()|| nouvelUtilisateur.getMdp() == null) {
 			throw new BLLException("Mot de passe obligatoire");
 		}
 		return userMng.insert(nouvelUtilisateur);
