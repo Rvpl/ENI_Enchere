@@ -32,9 +32,11 @@
 			<p>Ma proposition :</p>
 			<input type="number" name="enchere"> 
 			<input type="submit" value="Encherir">
-			<p>${requestScope.message}</p>
-		</form>
-
+			<p>${requestScope.message}</p>	
+			<p>${requestScope.error}</p>
+			<input type="hidden" value="${requestScope.noArticle}"	name="noArticle">	
+	</form>
+	
 
 </body>
 <%@ include file="/WEB-INF/JSP/Fragments/Footer.jspf"%>

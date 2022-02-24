@@ -37,18 +37,23 @@ public class DetailVenteManager {
 		return montant;	
 	}
 	
-	public boolean addEnchere(int montant, int noEncherisseur, int idArticle) throws BLLException{
+	public boolean addEnchere(int montant, int noEncherisseur, int idArticle, int credit) throws BLLException{
 		boolean ok = false;
 		
 		int montantInit = 0;
 		try {
 			montantInit = recupMontant(idArticle);
+		if (credit > montant) {
 			if(montantInit < montant) {
 				articleMng.addEnchere(montant,noEncherisseur, idArticle);
 				ok = true;
 			}else {
 				ok = false;
 			}
+		}else {			
+			throw new BLLException("Vous n'avez pas assez de crédit!"); 
+		}
+			
 		} catch (BLLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
