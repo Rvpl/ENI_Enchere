@@ -125,7 +125,7 @@ public class NouvelArticleServlet extends HttpServlet {
 			
 			if (exist != 0) {
 
-				response.sendRedirect("/home");
+				response.sendRedirect(request.getContextPath()+"/home");
 			}
 		} catch (BLLException e) {
 			request.setAttribute("error", e.getMessage());
