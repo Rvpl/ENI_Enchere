@@ -10,7 +10,7 @@
 <%@ include file="/WEB-INF/JSP/Fragments/headerCo.jspf"%>
 <body>
 	<!-- Utilisation de la session pour récupérer les informations de l'utilisateur -->
-	<div class="container">
+	<div class="container" style="text-align:center; margin-top:50px">
 		<p>Pseudo : ${sessionScope.utilisateur.pseudo}</p>
 		<p>Nom : ${sessionScope.utilisateur.nom}</p>
 		<p>Prenom : ${sessionScope.utilisateur.prenom}</p>

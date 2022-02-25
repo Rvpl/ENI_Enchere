@@ -125,10 +125,7 @@ public class NouvelArticleServlet extends HttpServlet {
 			
 			if (exist != 0) {
 
-				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/JSP/Accueil.jsp");
-				if (rd != null) {
-					rd.forward(request, response);
-				}
+				response.sendRedirect("/home");
 			}
 		} catch (BLLException e) {
 			request.setAttribute("error", e.getMessage());

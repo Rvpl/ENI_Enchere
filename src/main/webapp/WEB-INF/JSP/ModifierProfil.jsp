@@ -8,7 +8,7 @@
 <%@ include file="/WEB-INF/JSP/Fragments/headerCo.jspf"%>
 <title>Modifier profil</title>
 </head>
-<body>
+<body style="text-align:center">
 	<h1>Mon profil</h1>
 	<div class=container>
 		<div>
@@ -78,7 +78,7 @@
 						<label>Confirmation:</label> <input type="password"
 							name="confirmationMDP">
 					</div>
-
+				<br>
 					<div class="col-6">
 
 

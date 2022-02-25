@@ -1,27 +1,23 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+
 <html>
-<head>
 <%@ include file="/WEB-INF/JSP/Fragments/headerCo.jspf"%>
-<title>EnchÃ¨re</title>
-</head>
-<meta charset="UTF-8">
+<title>Enchère</title>
+
 
 
 
 <%@ include file="/WEB-INF/JSP/Fragments/Head.jspf"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<body>
-	<h1>DÃ©tail vente</h1>
+<body style="text-align:center">
+	<h1>Détail vente</h1>
 
-	<div class="col-3">
+	<div>
 		<p>${requestScope.nomArticle}</p>
 		<p>Description : ${requestScope.description }</p>
-		<p>CatÃ©gorie : ${requestScope.categorie}</p>
+		<p>Catégorie : ${requestScope.categorie}</p>
 		<p>meilleure offre : ${requestScope.prixVente} par ${requestScope.numEnchere}</p>
 		<p>mise a prix :${requestScope.miseAPrixStr}</p>
-		<p>fin de l'enchÃ¨re : ${requestScope.dateFinEncheresStr}</p>
+		<p>fin de l'enchère : ${requestScope.dateFinEncheresStr}</p>
 		<p>
 			retrait : ${requestScope.rue} ${requestScope.codePostal}
 			${requestScope.ville}

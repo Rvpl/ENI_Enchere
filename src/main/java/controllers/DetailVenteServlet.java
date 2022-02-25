@@ -47,7 +47,7 @@ public class DetailVenteServlet extends HttpServlet {
 			Article article = detailVenteMng.selectAll(Integer.parseInt(request.getParameter("noArticle")));			
 			Utilisateur numEnchere = userMng.selectEnchere(article.getNoEnchere());
 			System.out.println(article.getNoEnchere());
-			request.setAttribute("numEnchere", numEnchere.getNom());
+			request.setAttribute("numEnchere", numEnchere.getPseudo());
 			
 			request.setAttribute("nomArticle", article.getNomArticle());
 			request.setAttribute("description", article.getDescription());

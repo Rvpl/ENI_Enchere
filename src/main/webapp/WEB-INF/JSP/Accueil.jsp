@@ -9,12 +9,12 @@
 	<c:if test="${sessionScope.utilisateur == null }">
 		<%@ include file="/WEB-INF/JSP/Fragments/headerDeco.jspf"%>
 		<div class="container">
-			<h2 class="title">Liste des enchères</h2>
+			<h2 id="title">Liste des enchères</h2>
 			<form action="${pageContext.request.contextPath}/home"
 				class="filters" method="post">
 				<label for="name">Filtres : </label>
 				<fieldset>
-					<input type="text" name="filtre" id="filtre">
+					<input type="text" name="filtre" id="filtre" placeholder=" Le nom de l'article contient">
 				</fieldset>
 				<select name="choixCategorie">
 					<option value="Toutes">Toutes</option>
@@ -44,11 +44,11 @@
 			<c:if test="${requestScope.articlesBN != null}">
 				<div class="row">
 					<c:forEach var="articleBN" items="${requestScope.articlesBN}">
-						<div class="col-3">
+						<div class="col-3" id="pageDecoRow">
 							<p>${articleBN.nomArticle }</p>
 							<p>prix : ${articleBN.miseAPrix }</p>
 							<p>Fin de l'enchère : ${articleBN.dateFinEncheres }</p>
-							<p>Vendeur : ${article.utilisateur.pseudo}</p>
+							<p>Vendeur : ${articleBN.utilisateur.pseudo}</p>
 						</div>
 					</c:forEach>
 				</div>
@@ -66,7 +66,7 @@
 				class="filters" method="post">
 				<label for="name">Filtres : </label>
 				<fieldset>
-					<input type="text" name="filtre" id="filtre" >
+					<input type="text" name="filtre" id="filtre" placeholder=" Le nom de l'article contient" >
 				</fieldset>
 				<select name="choixCategorie">
 					<option value="Toutes">Toutes</option>
@@ -113,7 +113,7 @@
 					<div class="container" style="padding-top: 40px">
 						<div class="row">
 							<c:forEach var="article" items="${requestScope.articles}">
-								<div class="col-3">
+								<div class="col-3" id="pageCoRow">
 									<form action="${pageContext.request.contextPath}/detailVente"
 										method="get">
 										<input type="hidden" name="noArticle" type="submit"
@@ -135,7 +135,7 @@
 			<c:if test="${requestScope.articlesBN != null}">
 				<div class="row" style="padding-top: 40px">
 					<c:forEach var="articleBN" items="${requestScope.articlesBN}">
-						<div class="col-3">
+						<div class="col-3" id="pageCoRow">
 							<form action="${pageContext.request.contextPath}/detailVente"
 										method="get">
 										<input type="hidden" name="noArticle" type="submit"
@@ -163,6 +163,24 @@
 	border: 1px solid;
 	border-color: black;
 	margin: 5px;
+	margin-top:15px;
+}
+
+#pageCoRow{
+	border: 1px solid;
+	border-color: black;
+	margin: 5px;
+	margin-top:15px;
+}
+
+#title{
+margin-top:20px;
+text-align:center;
+}
+
+#filtre{
+	width: 300px;
+	border-radius: 20px;
 }
 </style>
 </html>
